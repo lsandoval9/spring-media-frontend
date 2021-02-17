@@ -1,0 +1,15 @@
+<app-header (toggleSideNavEmitter)="drawer.toggle()" class="fixed-top"></app-header>
+<div class="py-5"></div>
+<mat-drawer-container class="h-100 overflow-hidden">
+
+    <mat-drawer #drawer="matDrawer" class="drawer">
+        drawable content
+    </mat-drawer>
+
+    <mat-drawer-content>
+        drawer content
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+
+
+</mat-drawer-container>
