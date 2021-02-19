@@ -1,5 +1,7 @@
-<app-header (toggleSideNavEmitter)="drawer.toggle()" class="fixed-top"></app-header>
+
+<app-header (toggleSideNavEmitter)="drawer.toggle()" [isMenuBarOpen]="drawer.opened"  class="fixed-top"></app-header>
 <div class="py-5"></div>
+<app-loader [@toggleLoader]="isLoaderOn ? 'loading': 'complete'"  class="fixed-top loader h-100 w-100"></app-loader>
 <mat-drawer-container class="h-100 overflow-hidden">
 
     <mat-drawer #drawer="matDrawer" class="drawer">

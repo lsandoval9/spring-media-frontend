@@ -1,9 +1,11 @@
 {
+
   "extends": "tslint:recommended",
   "rulesDirectory": [
     "codelyzer"
   ],
   "rules": {
+      "import-name": [true, { "react": "React" }],
     "align": {
       "options": [
         "parameters",

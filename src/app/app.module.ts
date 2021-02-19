@@ -9,6 +9,7 @@ import { HeaderComponent } from "./shared/header/header.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CoreModule } from "./core/core.module";
 import { MainModule } from "./modules/main.module";
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
     declarations: [AppComponent, HeaderComponent],
@@ -20,6 +21,7 @@ import { MainModule } from "./modules/main.module";
         MainModule,
         FontAwesomeModule,
         CoreModule,
+        SharedModule
     ],
     exports: [],
     providers: [],

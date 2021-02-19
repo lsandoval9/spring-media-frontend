@@ -18,7 +18,7 @@ const routes: Routes = [
         path: "ascii", component: AsciiFilterComponent
     },
     {
-        path: "more", component: MoreComponent
+        path: "about", component: MoreComponent
     },
     {
         path: "",
