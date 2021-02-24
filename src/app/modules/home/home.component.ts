@@ -1,10 +1,4 @@
-import {
-    Component,
-    OnInit,
-    AfterViewInit,
-    AfterContentInit,
-    ChangeDetectorRef,
-} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 import {
     trigger,
@@ -22,19 +16,10 @@ import { testAnimation } from "./animations/test";
     styleUrls: ["./home.component.scss"],
     animations: testAnimation,
 })
-export class HomeComponent implements OnInit{
-    public state = "inactive";
-
+export class HomeComponent implements OnInit {
     isOpen = true;
 
-    constructor() {
-    }
+    constructor() {}
 
     ngOnInit(): void {}
-      
-
-    toggle = (): void  => {
-        this.isOpen = !this.isOpen;
-    }
-    
 }

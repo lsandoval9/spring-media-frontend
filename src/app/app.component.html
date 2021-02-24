@@ -1,17 +1,15 @@
+<app-loader [@toggleLoader]="isLoaderOn ? 'loading': 'complete'" class="loader h-100 w-100"></app-loader>
 
-<app-header (toggleSideNavEmitter)="drawer.toggle()" [isMenuBarOpen]="drawer.opened"  class="fixed-top"></app-header>
-<div class="py-5"></div>
-<app-loader [@toggleLoader]="isLoaderOn ? 'loading': 'complete'"  class="fixed-top loader h-100 w-100"></app-loader>
-<mat-drawer-container class="h-100 overflow-hidden">
+<app-header (toggleSideNavEmitter)="drawer.toggle()" [isMenuBarOpen]="drawer.opened" class="sticky-header"></app-header>
 
-    <mat-drawer #drawer="matDrawer" class="drawer">
-        drawable content
+<mat-drawer-container class="overflow-hidden drawer-container" style="flex: 1 1 auto;">
+
+    <mat-drawer [autoFocus]="false" #drawer="matDrawer" class="drawer">
+        <app-drawer></app-drawer>
     </mat-drawer>
 
-    <mat-drawer-content>
-        drawer content
+    <mat-drawer-content class="overflow-hidden h-auto d-flex flex-column" style="min-height: 0; min-width: none;">
         <router-outlet></router-outlet>
     </mat-drawer-content>
-
 
 </mat-drawer-container>

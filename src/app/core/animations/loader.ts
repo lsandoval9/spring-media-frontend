@@ -27,7 +27,7 @@ export const loaderAnimation = [
 
         transition("loading <=> complete", [
             animate(
-                100,
+                0,
                 keyframes([
                     style({
                         backgroundColor: "#DC143C",

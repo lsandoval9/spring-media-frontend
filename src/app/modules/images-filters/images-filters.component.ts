@@ -1,11 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { API_ROUTES } from "src/app/utils/constants/requestRoutes";
+import { Component, OnInit, EventEmitter } from "@angular/core";
+import { API_ROUTES } from "src/app/utils/constants/requestImageRoutes";
 
 import {
     ReplaceTexts,
     AngularFileUploaderConfig,
     UploadInfo,
 } from "angular-file-uploader/lib/angular-file-uploader.types";
+import { MatRadioChange } from "@angular/material/radio";
 
 @Component({
     selector: "app-images-filters",
@@ -15,38 +16,15 @@ import {
 export class ImagesFiltersComponent implements OnInit {
     imageFilterRoute = API_ROUTES.HOST + API_ROUTES.IMAGE_FILTER;
 
-    afuConfig: AngularFileUploaderConfig = {
-        multiple: false,
-        formatsAllowed: ".jpg,.png,.jpeg",
-        maxSize: 10,
-        uploadAPI: {
-            url: this.imageFilterRoute,
-            method: "POST",
-            headers: {
-                "Content-Type": "text/plain;charset=UTF-8",
-                Authorization: `Bearer 2`,
-            },
-            params: {
-                page: "1",
-            },
-            responseType: "blob",
-        },
-        theme: "attachPin",
-        hideProgressBar: false,
-        hideResetBtn: true,
-        hideSelectBtn: true,
-        fileNameIndex: true,
-        replaceTexts: {
-            selectFileBtn: "Select Files",
-            resetBtn: "Reset",
-            uploadBtn: "Upload",
-            dragNDropBox: "Drag N Drop",
-            attachPinBtn: "Attach Files...",
-            afterUploadMsg_success: "Successfully Uploaded !",
-            afterUploadMsg_error: "Upload Failed !",
-            sizeLimit: "Size Limit",
-        },
-    };
+    selectedValue = "";
+
+    message = "";
+
+    imagePath = "";
+
+    imageAsSrc: string | ArrayBuffer | null = "";
+
+    url: string | ArrayBuffer | null = "";
 
     constructor() {}
 
@@ -54,7 +32,42 @@ export class ImagesFiltersComponent implements OnInit {
         this.imageFilterRoute = API_ROUTES.HOST + API_ROUTES.IMAGE_FILTER;
     }
 
-    DocUpload = ($event: any): void => {
+    DocUpload = ($event: unknown): void => {
         console.log($event);
+    };
+
+    public addFile(event: any): void {
+        if (event.target.files && event.target.files[0] && event !== null) {
+            const reader = new FileReader();
+
+            reader.onload = (event: Event) => {
+                this.url = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
+    public setSrc(src: any): void {
+        this.url = src;
+    }
+
+    public addImage(event: any): void {
+        
+        if (event?.target.files && event?.target.files[0] && event !== null) {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                this.imageAsSrc = reader.result;
+                console.log(this.imageAsSrc)
+            };
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
+    changeRadioValue = (event: MatRadioChange): void => {
+        this.selectedValue = event.value;
+
+        console.log(this.selectedValue);
     };
 }

@@ -1,0 +1,17 @@
+<form matFormFieldControl (ngSubmit)="onSubmit(imageForm.value)" [formGroup]="imageForm"
+    class="d-flex flex-column col-6 m-2 overflow-hidden w-auto">
+
+    <div *ngIf="selectedValue" class="w-100">
+        <mat-form-field class="mb-5 w-100">
+            <mat-label>Select filter</mat-label>
+            <mat-select>
+                <mat-option value="one">First option</mat-option>
+                <mat-option value="two">Second option</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <h5></h5>
+    <input type="submit" [disabled]="imageForm.invalid" class="btn btn-success">
+
+</form>

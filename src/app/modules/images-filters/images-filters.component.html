@@ -1,27 +1,66 @@
-<div class="container-fluid">
+<div class="container-fluid overflow-hidden h-auto d-flex flex-row mb-2 mt-3">
 
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-column overflow-auto col-6 secondary-theme">
 
-        <form action="{{imageFilterRoute}}" method="POST" matFormFieldControl class="d-flex flex-column col-6 m-2">
+        <!-- LOAD IMAGE TO APPLY A FILTER-->
 
-            <angular-file-uploader [config]="afuConfig"
-            (ApiResponse)="DocUpload($event)">
-            </angular-file-uploader>
+        <label class="btn btn-danger my-5">
+            Load image <input type="file" name="file" (change)="addImage($event)" hidden>
+        </label>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Leave a comment</mat-label>
-                <input matInput type="text" placeholder="Ex. It makes me feel...">
-            </mat-form-field>
+        <!-- SELECT FILTER TYPE -->
 
-        </form>
+        <span class="secondary-theme">
+            <mat-radio-group color="warn" (change)="changeRadioValue($event)" aria-label="Select an option"
+                class="d-flex flex-row mb-5">
 
-        <div class="col-6">
+                <mat-radio-button value="basic" class="mx-2">Basic filters</mat-radio-button>
+                <mat-radio-button value="common" class="mx-2">Common filters</mat-radio-button>
+            </mat-radio-group>
+        </span>
 
-            <p>HELLO</p>
+        <!-- RENDER CORRECT FORM -->
 
+        <span *ngIf="selectedValue; else selectOne">
+            <span [ngSwitch]="selectedValue">
+                <div *ngSwitchCase="'basic'">
+                    <app-basic-form (imageAsSrc)="setSrc($event)"></app-basic-form>
+                </div>
+                <div *ngSwitchCase="'common'">
+                    <app-common-form></app-common-form>
+                </div>
+                <div *ngSwitchDefault>
+
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Unknown Error</strong>
+                    </div>
+
+                </div>
+            </span>
+        </span>
+
+        <ng-template #selectOne>
+            <div class="alert alert-warning" role="alert">
+                <strong>Please select an option</strong>
+            </div>
+        </ng-template>
+
+
+        <!-- PREVIEW OF THE UPLOAD IMAGE -->
+
+        <div *ngIf="imageAsSrc">
+            <h6>Preview</h6>
+            <img [src]="imageAsSrc" alt="404"
+                class="col-6 img-fluid hover-shadow rounded-2 preview-image shadow-5-strong border-5">
         </div>
-
     </div>
 
+    <mat-divider class="mx-2" [vertical]="true"></mat-divider>
+
+    <div class="col-6 bg-primary">
+
+        hello world
+
+    </div>
 
 </div>
