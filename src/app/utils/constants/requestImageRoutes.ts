@@ -1,6 +1,6 @@
 export const API_ROUTES = {
-    HOST: "https://spring-media.herokuapp.com/",
-    IMAGE_FILTER: "fi/",
+    HOST: "http://localhost:8080/" /* "https://spring-media.herokuapp.com/" */,
+    IMAGE_FILTER: "im/",
     ASCII_FILTER: "ascii/",
     DETECT: "detect/",
 };

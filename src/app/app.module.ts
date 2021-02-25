@@ -11,6 +11,7 @@ import { CoreModule } from "./core/core.module";
 import { MainModule } from "./modules/main.module";
 import { SharedModule } from "./shared/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SafeUrlPipe } from "./shared/pipes/safe-url.pipe";
 
 @NgModule({
     declarations: [AppComponent, HeaderComponent],
@@ -27,7 +28,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         ReactiveFormsModule,
     ],
     exports: [],
-    providers: [],
+    providers: [SafeUrlPipe],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

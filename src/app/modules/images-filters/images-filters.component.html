@@ -5,7 +5,8 @@
         <!-- LOAD IMAGE TO APPLY A FILTER-->
 
         <label class="btn btn-danger my-5">
-            Load image <input type="file" name="file" (change)="addImage($event)" hidden>
+            Load image <input type="file" name="file" (change)="addImage($event)"
+             hidden>
         </label>
 
         <!-- SELECT FILTER TYPE -->
@@ -24,17 +25,10 @@
         <span *ngIf="selectedValue; else selectOne">
             <span [ngSwitch]="selectedValue">
                 <div *ngSwitchCase="'basic'">
-                    <app-basic-form (imageAsSrc)="setSrc($event)"></app-basic-form>
+                    <app-basic-form [file]="file" (resultImage)="showResultImage($event)"></app-basic-form>
                 </div>
                 <div *ngSwitchCase="'common'">
-                    <app-common-form></app-common-form>
-                </div>
-                <div *ngSwitchDefault>
-
-                    <div class="alert alert-danger" role="alert">
-                        <strong>Unknown Error</strong>
-                    </div>
-
+                    <app-common-form [file]="file"></app-common-form>
                 </div>
             </span>
         </span>
@@ -49,7 +43,7 @@
         <!-- PREVIEW OF THE UPLOAD IMAGE -->
 
         <div *ngIf="imageAsSrc">
-            <h6>Preview</h6>
+            <h5>Preview</h5>
             <img [src]="imageAsSrc" alt="404"
                 class="col-6 img-fluid hover-shadow rounded-2 preview-image shadow-5-strong border-5">
         </div>
@@ -57,9 +51,26 @@
 
     <mat-divider class="mx-2" [vertical]="true"></mat-divider>
 
-    <div class="col-6 bg-primary">
+    <div *ngIf="resultImage" class="col-6 bg-primary align-self-center">
 
-        hello world
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>preview</mat-card-title>
+                <mat-card-subtitle>subtitle</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <img [src]="resultImage | safeUrl" alt="" srcset="" 
+        class="img-fluid hover-shadow rounded preview-image shadow-5-strong border-5">
+            </mat-card-content>
+            <mat-card-actions>
+                <a class="btn btn-primary" [download]="randomFileName()" [href]="resultImage | safeUrl">
+                    Save this image
+                </a>
+                <button class="btn btn-success">Send via email</button>
+            </mat-card-actions>
+        </mat-card>
+
+        
 
     </div>
 

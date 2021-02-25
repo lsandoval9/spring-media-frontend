@@ -14,23 +14,22 @@ import { MatRadioChange } from "@angular/material/radio";
     styleUrls: ["./images-filters.component.scss"],
 })
 export class ImagesFiltersComponent implements OnInit {
-    imageFilterRoute = API_ROUTES.HOST + API_ROUTES.IMAGE_FILTER;
 
     selectedValue = "";
 
-    message = "";
-
-    imagePath = "";
-
     imageAsSrc: string | ArrayBuffer | null = "";
+
+    resultImage: string | undefined;
+
+    resultImageAsBlob : Blob | undefined
+
+    file: File | undefined;
 
     url: string | ArrayBuffer | null = "";
 
     constructor() {}
 
-    ngOnInit(): void {
-        this.imageFilterRoute = API_ROUTES.HOST + API_ROUTES.IMAGE_FILTER;
-    }
+    ngOnInit(): void {}
 
     DocUpload = ($event: unknown): void => {
         console.log($event);
@@ -52,16 +51,22 @@ export class ImagesFiltersComponent implements OnInit {
     }
 
     public addImage(event: any): void {
-        
-        if (event?.target.files && event?.target.files[0] && event !== null) {
+        if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
-            reader.onload = () => {
-                this.imageAsSrc = reader.result;
-                console.log(this.imageAsSrc)
-            };
+            this.file = event.target.files[0];
 
-            reader.readAsDataURL(event.target.files[0]);
+            reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+            reader.onload = (event) => {
+                // called once readAsDataURL is completed
+
+                if (event?.target === null) {
+                    throw new Error("bad image");
+                }
+
+                this.imageAsSrc = event?.target.result;
+            };
         }
     }
 
@@ -70,4 +75,19 @@ export class ImagesFiltersComponent implements OnInit {
 
         console.log(this.selectedValue);
     };
+
+    showResultImage(event: Blob): void {
+        this.resultImageAsBlob = event;
+        const imageUrl = URL.createObjectURL(event);
+        this.resultImage = imageUrl;
+    }
+
+    randomFileName(): string {
+        
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          })+ ".png";
+
+    }
 }

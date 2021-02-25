@@ -9,6 +9,8 @@ import { MoreComponent } from "./more/more.component";
 import { BasicFormComponent } from "./images-filters/basic-form/basic-form.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonFormComponent } from './images-filters/common-form/common-form.component';
+import { SharedModule } from "../shared/shared.module";
+import { SafeUrlPipe } from "../shared/pipes/safe-url.pipe";
 
 @NgModule({
     declarations: [
@@ -20,6 +22,6 @@ import { CommonFormComponent } from './images-filters/common-form/common-form.co
         BasicFormComponent,
         CommonFormComponent,
     ],
-    imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+    imports: [CommonModule, MaterialModule, ReactiveFormsModule, SharedModule],
 })
 export class MainModule {}
