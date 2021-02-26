@@ -1,11 +1,5 @@
-import { Component, OnInit, EventEmitter } from "@angular/core";
-import { API_ROUTES } from "src/app/utils/constants/requestImageRoutes";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 
-import {
-    ReplaceTexts,
-    AngularFileUploaderConfig,
-    UploadInfo,
-} from "angular-file-uploader/lib/angular-file-uploader.types";
 import { MatRadioChange } from "@angular/material/radio";
 
 @Component({
@@ -14,26 +8,25 @@ import { MatRadioChange } from "@angular/material/radio";
     styleUrls: ["./images-filters.component.scss"],
 })
 export class ImagesFiltersComponent implements OnInit {
-
     selectedValue = "";
+
+    selectedFilterValue = "";
+
+    downloadSrc = "";
 
     imageAsSrc: string | ArrayBuffer | null = "";
 
     resultImage: string | undefined;
 
-    resultImageAsBlob : Blob | undefined
+    resultImageAsBlob: Blob | undefined;
 
     file: File | undefined;
 
     url: string | ArrayBuffer | null = "";
 
-    constructor() {}
+    constructor(private detector: ChangeDetectorRef) {}
 
     ngOnInit(): void {}
-
-    DocUpload = ($event: unknown): void => {
-        console.log($event);
-    };
 
     public addFile(event: any): void {
         if (event.target.files && event.target.files[0] && event !== null) {
@@ -46,11 +39,10 @@ export class ImagesFiltersComponent implements OnInit {
         }
     }
 
-    public setSrc(src: any): void {
-        this.url = src;
-    }
-
     public addImage(event: any): void {
+
+        this.resultImage= "";
+
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
@@ -72,22 +64,33 @@ export class ImagesFiltersComponent implements OnInit {
 
     changeRadioValue = (event: MatRadioChange): void => {
         this.selectedValue = event.value;
-
-        console.log(this.selectedValue);
     };
 
     showResultImage(event: Blob): void {
         this.resultImageAsBlob = event;
         const imageUrl = URL.createObjectURL(event);
         this.resultImage = imageUrl;
+        this.randomFileName();
     }
 
-    randomFileName(): string {
-        
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-          })+ ".png";
+    randomFileName(): void {
+        this.downloadSrc =
+            "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+                /[xy]/g,
+                function (c) {
+                    const r = (Math.random() * 16) | 0,
+                        v = c == "x" ? r : (r & 0x3) | 0x8;
+                    return v.toString(16);
+                }
+            ) + ".png";
 
+        this.detector.detectChanges();
+    }
+
+    changeSelectedFilterValue(event: string): void {
+
+        console.log(event);
+
+        this.selectedFilterValue = event;
     }
 }

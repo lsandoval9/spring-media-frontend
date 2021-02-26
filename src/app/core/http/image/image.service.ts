@@ -10,10 +10,9 @@ import { ImageI } from "src/app/utils/interfaces/image.interface";
 export class imageService {
     constructor(private http: HttpClient) {}
 
-    fetchBasicFilterformData(formData: ImageI): Observable<unknown> {
-        const form: FormData = new FormData();
+    fetchBasicFilterformData(formData: ImageI): Observable<Blob> {
 
-        console.log(formData.filter)
+        const form: FormData = new FormData();
 
         form.append("file", formData.file, "file");
 
@@ -22,15 +21,17 @@ export class imageService {
         headers.append("Content-Type", "multipart/form-data");
         headers.append("Accept", "application/json");
 
-        if (formData.filter === "ascii-text") {
-            
+        if (formData.filter === "ascii") {
+
+            form.append("negative", formData.negative)
+
             const observable = this.http.post(
-                API_ROUTES.IMAGE_FILTER + formData.filter,
+                API_ROUTES.FILTERS + formData.filter,
                 form,
                 {
                     headers: {
                         "Access-Control-Allow-Origin": "*",
-                        "Accept": ["image/png", "image/jpg", "image/webp"],
+                        "Accept": "*/*",
                         "Access-Control-Allow-Methods":
                             "GET, POST, PATCH, PUT, DELETE, OPTIONS",
                         "Access-Control-Allow-Headers":

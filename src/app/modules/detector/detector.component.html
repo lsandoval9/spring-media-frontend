@@ -1,1 +1,35 @@
-<p>detector works!</p>
+<div class="container-fluid h-auto d-flex flex-row mb-2 mt-5">
+
+    <form matFormFieldControl [formGroup]="detectorForm" class="d-flex col-6 flex-column justify-content-center"
+        (ngSubmit)="submitFile()">
+
+        <label class="btn btn-danger w-75">
+            Load file <input formControlName="file" type="file" name="file" (change)="onLoadFile($event)" hidden>
+        </label>
+
+        <pre class="my-5 border-5">
+
+        {{filename}}
+            {{fileDate}}
+            {{fileSize}}
+            {{fileType}}
+
+
+        </pre>
+
+        <input type="submit" value="Check mimetype" class="btn btn-success w-75" [disabled]="detectorForm.invalid">
+
+    </form>
+
+    <mat-divider [vertical]="true" class="mx-3"></mat-divider>
+
+    <div *ngIf="result" class="d-flex flex-column justify-content-center">
+
+        <h1>Results:</h1>
+        <mat-divider></mat-divider>
+        <h2>Mimetype: <span class="text-muted">{{result.mimetype}}</span></h2>
+        <h2>Mimetype: <span class="text-muted">{{result.extension}}</span></h2>
+
+    </div>
+
+</div>

@@ -24,10 +24,11 @@
 
         <span *ngIf="selectedValue; else selectOne">
             <span [ngSwitch]="selectedValue">
-                <div *ngSwitchCase="'basic'">
-                    <app-basic-form [file]="file" (resultImage)="showResultImage($event)"></app-basic-form>
-                </div>
                 <div *ngSwitchCase="'common'">
+                    <app-basic-form [file]="file" (outputSelectedValue)="changeSelectedFilterValue($event)" 
+                    (resultImage)="showResultImage($event)"></app-basic-form>
+                </div>
+                <div *ngSwitchCase="'basic'">
                     <app-common-form [file]="file"></app-common-form>
                 </div>
             </span>
@@ -53,20 +54,19 @@
 
     <div *ngIf="resultImage" class="col-6 bg-primary align-self-center">
 
-        <mat-card>
+        <mat-card class="rounded">
             <mat-card-header>
-                <mat-card-title>preview</mat-card-title>
-                <mat-card-subtitle>subtitle</mat-card-subtitle>
+                <mat-card-title>{{selectedFilterValue}}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
                 <img [src]="resultImage | safeUrl" alt="" srcset="" 
         class="img-fluid hover-shadow rounded preview-image shadow-5-strong border-5">
             </mat-card-content>
-            <mat-card-actions>
-                <a class="btn btn-primary" [download]="randomFileName()" [href]="resultImage | safeUrl">
+            <mat-card-actions class="d-flex justify-content-between">
+                <a class="btn btn-primary mx-2" [download]="downloadSrc" [href]="resultImage | safeUrl">
                     Save this image
                 </a>
-                <button class="btn btn-success">Send via email</button>
+                <button mailto class="btn btn-success">Send via email</button>
             </mat-card-actions>
         </mat-card>
 

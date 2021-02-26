@@ -4,7 +4,7 @@
     <div *ngIf="file; else selectFile" class="w-100">
         <mat-form-field class="mb-5 w-100">
             <mat-label>Select filter</mat-label>
-            <mat-select formControlName="filter" [required]="true" #radio>
+            <mat-select formControlName="filter" (selectionChange)="changeRadioValue()" [required]="true" #radio>
                 <mat-option value="grayscale">Grayscale</mat-option>
                 <mat-option value="reflect">reflect</mat-option>
                 <mat-option value="blur">blur</mat-option>
@@ -12,6 +12,21 @@
                 <mat-option value="ascii">ascii</mat-option>
             </mat-select>
         </mat-form-field>
+    </div>
+
+    <div *ngIf="selectedValue === 'ascii'" class="w-100">
+        <mat-form-field>
+            <mat-label>Negative</mat-label>
+            <mat-select formControlName="negative" name="item" [required]="false">
+                <mat-option value="true">
+                    true
+                </mat-option>
+                <mat-option value="false">
+                    false
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
     </div>
 
     <ng-template #selectFile>
