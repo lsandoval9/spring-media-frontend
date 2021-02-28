@@ -1,34 +1,49 @@
-<div class="container-fluid h-auto d-flex flex-row mb-2 mt-5">
+<div class="container-fluid h-auto d-flex flex-row mb-2 mt-5 flex-nowrap flex-md-wrap row">
 
-    <form matFormFieldControl [formGroup]="detectorForm" class="d-flex col-6 flex-column justify-content-center"
+    <form matFormFieldControl [formGroup]="detectorForm" class="d-flex col-sm-10 mb-5 col-md-6 flex-column justify-content-center"
         (ngSubmit)="submitFile()">
 
         <label class="btn btn-danger w-75">
             Load file <input formControlName="file" type="file" name="file" (change)="onLoadFile($event)" hidden>
         </label>
 
-        <pre class="my-5 border-5">
+        <div class="my-5 border-5">
 
-        {{filename}}
-            {{fileDate}}
-            {{fileSize}}
-            {{fileType}}
+            <h4>Filename: <span>{{filename}}</span></h4>
+            <h4>Created at: <span>{{fileDate}}</span></h4>
+            <h4>Type: <span>{{fileType}}</span></h4>
+            <h4>Size:
+                <span class="mb-3" *ngIf="fileSize !== 0">
+                    {{fileSize}} Bytes ({{getSizeInMB() | number: '1.0-2'}} MB)
+                </span>
 
+            </h4>
 
-        </pre>
+        </div>
 
-        <input type="submit" value="Check mimetype" class="btn btn-success w-75" [disabled]="detectorForm.invalid">
+        <input type="submit" value="Check mimetype" class="btn btn-success w-75" 
+        [disabled]="detectorForm.invalid">
 
     </form>
 
-    <mat-divider [vertical]="true" class="mx-3"></mat-divider>
+    <mat-divider [vertical]="true" class="d-sm-none p-0 d-md-flex col-md-1"></mat-divider>
 
-    <div *ngIf="result" class="d-flex flex-column justify-content-center">
+    <mat-divider class=" d-block col-sm-1 p-0 d-md-none "></mat-divider>
+
+    <div *ngIf="result" class="d-flex col-sm-10 col-md-6  flex-column justify-content-center">
 
         <h1>Results:</h1>
         <mat-divider></mat-divider>
         <h2>Mimetype: <span class="text-muted">{{result.mimetype}}</span></h2>
-        <h2>Mimetype: <span class="text-muted">{{result.extension}}</span></h2>
+        <h2>extension: <span class="text-muted">{{result.extension}}</span></h2>
+
+
+        <div *ngIf="isValidImage(result?.extension) && file" class="alert alert-success d-flex flex-column"
+         role="alert">
+            <strong class="h4 mb-2">This file is a valid image</strong>
+            <a (click)="navigateToFilters()" class="btn btn-success"
+            routerLinkActive="router-link-active">Apply filter to this image</a>
+        </div>
 
     </div>
 

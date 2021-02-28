@@ -1,4 +1,4 @@
-<app-loader [@toggleLoader]="isLoaderOn ? 'loading': 'complete'" class="loader h-100 w-100"></app-loader>
+<app-loader [hidden]="true" class="loader h-100 w-100"></app-loader>
 
 <app-header (toggleSideNavEmitter)="drawer.toggle()" [isMenuBarOpen]="drawer.opened" class="sticky-header"></app-header>
 

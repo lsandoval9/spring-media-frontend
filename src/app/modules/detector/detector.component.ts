@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { Observer } from "rxjs";
 import { DetectorService } from "src/app/core/http/detector/detector.service";
+import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
 import { detectorResultI } from "src/app/utils/interfaces/detectorResult.inteface";
 
 @Component({
@@ -10,11 +12,13 @@ import { detectorResultI } from "src/app/utils/interfaces/detectorResult.intefac
     styleUrls: ["./detector.component.scss"],
 })
 export class DetectorComponent implements OnInit {
-    fileSize: string | number = "";
+    fileSize = 0;
+
+    fileSizeFormated: string | number = 0;
 
     file: File | undefined;
 
-    result: detectorResultI | undefined = undefined;
+    result: detectorResultI| undefined;
 
     fileType = "";
 
@@ -32,11 +36,11 @@ export class DetectorComponent implements OnInit {
             console.log(err);
         },
         complete: () => {
-            console.log("completed");
         },
     };
 
-    constructor(private detectorService: DetectorService) {}
+    constructor(private detectorService: DetectorService, private shareService: ShareImageService,
+        private router: Router) {}
 
     ngOnInit(): void {
         this.detectorForm = new FormGroup({
@@ -45,10 +49,10 @@ export class DetectorComponent implements OnInit {
     }
 
     onLoadFile(event: any): void {
-        if (event.target.files && event.target.files[0]) {
-            console.log(event.target.files);
 
-            console.log(event.target.files[0].name);
+        this.result = undefined
+
+        if (event.target.files && event.target.files[0] && event.target.files[0] !== undefined) {
 
             this.filename = event.target.files[0].name
                 ? event.target.files[0].name
@@ -67,6 +71,8 @@ export class DetectorComponent implements OnInit {
                 : "";
 
             this.file = event.target.files[0];
+
+            this.shareService.pushImage(event.target.files[0])
         }
     }
 
@@ -76,7 +82,43 @@ export class DetectorComponent implements OnInit {
                 .getFileMimetype(this.file)
                 .subscribe(this.observer);
         }
+    }
 
-        console.log(this.file)
+
+    getSizeInMB(): number {
+
+        return this.fileSize / 1_048_576;
+    }
+
+
+    navigateToFilters():void {
+
+        
+
+        if (this.file !== undefined && this.isValidImage(this.result?.extension)) {
+
+            this.router.navigateByUrl("/filters")
+
+        } else {
+            throw new Error("error processing image");
+            
+        }
+        
+
+    }
+
+
+    isValidImage(extension: string | undefined): boolean {
+
+        const validExtensions = [".png", ".jpg", ".webp"];
+
+        if (extension !== undefined) {
+            if (validExtensions.some(str => extension === str)) {
+                return true;
+             }
+        }
+        
+
+        return false;
     }
 }

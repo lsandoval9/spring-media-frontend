@@ -1,13 +1,15 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 
 import { MatRadioChange } from "@angular/material/radio";
+import { Observer, ReplaySubject } from "rxjs";
+import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
 
 @Component({
     selector: "app-images-filters",
     templateUrl: "./images-filters.component.html",
     styleUrls: ["./images-filters.component.scss"],
 })
-export class ImagesFiltersComponent implements OnInit {
+export class ImagesFiltersComponent implements OnInit, OnInit {
     selectedValue = "";
 
     selectedFilterValue = "";
@@ -24,7 +26,29 @@ export class ImagesFiltersComponent implements OnInit {
 
     url: string | ArrayBuffer | null = "";
 
-    constructor(private detector: ChangeDetectorRef) {}
+    imageSubject!: ReplaySubject<File>;
+
+    private imageObserver: Observer<File> = {
+        next: (file: File) => {
+            this.addImage(file);
+            console.log(file);
+        },
+        error: (err: any) => {
+            console.log("errors");
+        },
+        complete: () => {
+            console.log("complete");
+        },
+    };
+
+    constructor(
+        private detector: ChangeDetectorRef,
+        private imageService: ShareImageService
+    ) {
+        this.imageSubject = this.imageService.getImage();
+
+        this.imageSubject.subscribe(this.imageObserver);
+    }
 
     ngOnInit(): void {}
 
@@ -39,11 +63,29 @@ export class ImagesFiltersComponent implements OnInit {
         }
     }
 
-    public addImage(event: any): void {
+    public addImage = (event: any): void => {
+        this.resultImage = "";
 
-        this.resultImage= "";
+        console.log("addimage")
+        console.log(event)
 
-        if (event.target.files && event.target.files[0]) {
+        if (event instanceof File) {
+            const reader = new FileReader();
+
+            this.file = event;
+
+            reader.readAsDataURL(event); // read file as data url
+
+            reader.onload = (event) => {
+                // called once readAsDataURL is completed
+
+                if (event?.target === null) {
+                    throw new Error("bad image");
+                }
+
+                this.imageAsSrc = event?.target.result;
+            };
+        } else if (event.target?.files && event.target?.files[0]) {
             const reader = new FileReader();
 
             this.file = event.target.files[0];
@@ -88,7 +130,6 @@ export class ImagesFiltersComponent implements OnInit {
     }
 
     changeSelectedFilterValue(event: string): void {
-
         console.log(event);
 
         this.selectedFilterValue = event;
