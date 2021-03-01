@@ -28,16 +28,19 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
 
     imageSubject!: ReplaySubject<File>;
 
+    errors = false;
+
     private imageObserver: Observer<File> = {
         next: (file: File) => {
             this.addImage(file);
-            console.log(file);
+            this.errors = false;
         },
         error: (err: any) => {
-            console.log("errors");
+            this.errors = true;
         },
         complete: () => {
             console.log("complete");
+            this.errors = false;
         },
     };
 
@@ -130,7 +133,6 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     }
 
     changeSelectedFilterValue(event: string): void {
-        console.log(event);
 
         this.selectedFilterValue = event;
     }
