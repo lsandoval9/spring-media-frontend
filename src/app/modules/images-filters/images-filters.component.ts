@@ -22,7 +22,7 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
 
     resultImageAsBlob: Blob | undefined;
 
-    file!: File;
+    file: File | undefined;
 
     url: string | ArrayBuffer | null = "";
 
@@ -133,5 +133,9 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     changeSelectedFilterValue(event: string): void {
         this.selectedFilterValue = event;
     }
-    
+
+    /* changeExtension(file: File, extension: string): string {
+        const basename = path.basename(file, path.extname(file))
+        return path.join(path.dirname(file), basename + extension)
+      } */
 }
