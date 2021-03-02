@@ -26,8 +26,6 @@ export class CommonFormComponent implements OnInit {
 
     @Output() resultImage: EventEmitter<Blob> = new EventEmitter<Blob>();
 
-    
-
     image: Blob | any;
 
     selectedValue: string | undefined;
@@ -47,12 +45,10 @@ export class CommonFormComponent implements OnInit {
             this.resultImage.emit(value);
         },
         error: (err: any) => {
-            this.errors = true
-
-            this.toggleLoadBarService.setNextValue(false)
+            this.errors = true;
         },
         complete: () => {
-            this.toggleLoadBarService.setNextValue(false)
+
             this.errors = false;
         },
     };

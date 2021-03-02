@@ -20,10 +20,7 @@ export class DetectorComponent implements OnInit {
 
     file!: File;
 
-    result: detectorResultI = {
-        extension: "",
-        mimetype: ""
-    }
+    result: detectorResultI | undefined;
 
     fileType = "";
 
@@ -76,7 +73,7 @@ export class DetectorComponent implements OnInit {
 
     onLoadFile(event: any): void {
 
-        this.result = {extension: "", mimetype: ""};
+        this.result = undefined;
 
         if (
             event.target.files &&
@@ -118,22 +115,25 @@ export class DetectorComponent implements OnInit {
         return this.fileSize / 1_000_000;
     }
 
-    setImageMimetype(): File {
+    setImageExtension(): File {
         const validExtensions = [
             ".jpg",
             ".png",
-            ".webp"
+            ".webp",
+            "image/png",
+            "image/jpg",
+            "image/webp",
         ];
 
         console.log(this.result?.extension)
 
-        if (!this.file?.type && this.result?.extension) {
+        if (this.result?.extension) {
             if (
-                validExtensions.some((str: string) => this.result?.extension === str)
+                validExtensions.some((str) => this.result?.extension === str) &&
+                this.file !== undefined
             ) {
-
-                return new File([this.file], this.file.name + this.result.extension, {
-                    type: this.result.mimetype,
+                return new File([this.file], this.file.name + ".png", {
+                    type: "image/png",
                 });
             }
         }
@@ -144,15 +144,10 @@ export class DetectorComponent implements OnInit {
     }
 
     navigateToFilters(): void {
-        if (this.file !== undefined && this.isValidImageMimetype(this.file.type)) {
-
-            this.shareService.pushImage(this.file)
-
+        if (this.file !== undefined && this.isValidImage(this.file.type)) {
             this.router.navigateByUrl("/filters");
         } else {
-            this.file = this.setImageMimetype();
-
-            console.log(this.file)
+            this.file = this.setImageExtension();
 
             this.shareService.pushImage(this.file)
 
@@ -160,17 +155,19 @@ export class DetectorComponent implements OnInit {
         }
     }
 
-    isValidImageMimetype(extension: string): boolean {
+    isValidImage(extension: string | undefined): boolean {
         
-        const validMimetypes = [
-           "image/png",
+        const validExtensions = [
+            ".jpg",
+            ".png",
+            ".webp",
+            "image/png",
             "image/jpg",
-            "image/jpeg",
             "image/webp",
         ];
 
-        if (extension) {
-            if (validMimetypes.some((str) => extension === str)) {
+        if (this.file.type !== undefined) {
+            if (validExtensions.some((str) => extension === str)) {
                 return true;
             }
         }
