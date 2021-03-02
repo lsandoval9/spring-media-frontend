@@ -177,7 +177,7 @@ export class DetectorComponent implements OnInit {
 
     showWebpError(): boolean {
 
-        if (this.file?.type === "image/webp") {
+        if (this.file?.type === "image/webp" || this.result?.extension === ".webp") {
             return true;
         }
 

@@ -25,11 +25,11 @@
         <span *ngIf="selectedValue; else selectOne">
             <span [ngSwitch]="selectedValue">
                 <div *ngSwitchCase="'common'">
-                    <app-basic-form [file]="file" (outputSelectedValue)="changeSelectedFilterValue($event)" 
-                    (resultImage)="showResultImage($event)"></app-basic-form>
+                    <app-common-form [file]="file" (outputSelectedValue)="changeSelectedFilterValue($event)" 
+                    (resultImage)="showResultImage($event)"></app-common-form>
                 </div>
                 <div *ngSwitchCase="'basic'">
-                    <app-common-form [file]="file"></app-common-form>
+                    <app-basic-form [file]="file"></app-basic-form>
                 </div>
             </span>
         </span>
