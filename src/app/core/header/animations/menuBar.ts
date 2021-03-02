@@ -21,7 +21,7 @@ export const menuBarAnimation: AnimationTriggerMetadata[] = [
         ),
 
         transition("open <=> closed", [
-            animate("3s")
+            animate("0.7s")
         ])
 
 

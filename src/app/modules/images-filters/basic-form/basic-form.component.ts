@@ -9,6 +9,7 @@ import {
 import { Validators, FormGroup, FormControl } from "@angular/forms";
 import { Observer } from "rxjs";
 import { imageService } from "src/app/core/http/image/image.service";
+import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
 import { ImageI } from "src/app/utils/interfaces/image.interface";
 
 @Component({
@@ -35,9 +36,11 @@ export class BasicFormComponent implements OnInit {
 
     errors = false;
 
-    observer: Observer<any> = {
+    imageObserver: Observer<any> = {
         next: (value: any) => {
             this.errors = false;
+
+            this.toggleLoadBarService.setNextValue(false)
 
             this.resultImage.emit(value);
         },
@@ -45,13 +48,15 @@ export class BasicFormComponent implements OnInit {
             this.errors = true;
         },
         complete: () => {
+
             this.errors = false;
         },
     };
 
     constructor(
         private imageService: imageService,
-        private detector: ChangeDetectorRef
+        private detector: ChangeDetectorRef,
+        private toggleLoadBarService: ToggleLoadingBarService
     ) {}
 
     ngOnInit(): void {
@@ -82,9 +87,11 @@ export class BasicFormComponent implements OnInit {
                 ...this.imageForm.value,
             };
 
+            this.toggleLoadBarService.setNextValue(true)
+
             this.imageService
                 .fetchBasicFilterformData(result)
-                .subscribe(this.observer);
+                .subscribe(this.imageObserver);
         }
     };
 }

@@ -14,6 +14,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSelectModule } from "@angular/material/select";
 import { MatRadioModule } from "@angular/material/radio";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 // ?FileUpload module
 
@@ -32,6 +33,7 @@ const COMPONENTS = [
     MatToolbarModule,
     MatSelectModule,
     MatRadioModule,
+    MatProgressBarModule,
 ];
 
 @NgModule({

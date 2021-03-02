@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Observer } from "rxjs";
 import { DetectorService } from "src/app/core/http/detector/detector.service";
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
+import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
 import { detectorResultI } from "src/app/utils/interfaces/detectorResult.inteface";
 
 @Component({
@@ -12,13 +13,14 @@ import { detectorResultI } from "src/app/utils/interfaces/detectorResult.intefac
     styleUrls: ["./detector.component.scss"],
 })
 export class DetectorComponent implements OnInit {
+
     fileSize = 0;
 
     fileSizeFormated: string | number = 0;
 
-    file: File | undefined;
+    file!: File;
 
-    result: detectorResultI| undefined;
+    result: detectorResultI | undefined;
 
     fileType = "";
 
@@ -28,19 +30,40 @@ export class DetectorComponent implements OnInit {
 
     detectorForm!: FormGroup;
 
-    private observer: Observer<detectorResultI> = {
+    errors = 0;
+
+    private resultObserver: Observer<detectorResultI> = {
+
         next: (result: detectorResultI) => {
+            this.loadingService.setNextValue(false)
+
             this.result = result;
         },
         error: (err: any) => {
-            console.log(err);
+            console.error(err);
         },
-        complete: () => {
-        },
+        complete: () => {this.loadingService.setNextValue(false)},
+
     };
 
-    constructor(private detectorService: DetectorService, private shareService: ShareImageService,
-        private router: Router) {}
+    private fileObserver: Observer<any> = {
+
+        next: (result: detectorResultI) => {
+            console.log(result);
+        },
+        error: (err: any) => {
+            console.error(err);
+        },
+        complete: () => {},
+        
+    };
+
+    constructor(
+        private detectorService: DetectorService,
+        private shareService: ShareImageService,
+        private router: Router,
+        private loadingService: ToggleLoadingBarService
+    ) {}
 
     ngOnInit(): void {
         this.detectorForm = new FormGroup({
@@ -50,10 +73,13 @@ export class DetectorComponent implements OnInit {
 
     onLoadFile(event: any): void {
 
-        this.result = undefined
+        this.result = undefined;
 
-        if (event.target.files && event.target.files[0] && event.target.files[0] !== undefined) {
-
+        if (
+            event.target.files &&
+            event.target.files[0] &&
+            event.target.files[0] !== undefined
+        ) {
             this.filename = event.target.files[0].name
                 ? event.target.files[0].name
                 : "";
@@ -71,54 +97,95 @@ export class DetectorComponent implements OnInit {
                 : "";
 
             this.file = event.target.files[0];
-
-            this.shareService.pushImage(event.target.files[0])
         }
     }
 
     submitFile(): void {
+
+        this.loadingService.setNextValue(true);
+
         if (this.file !== undefined && this.file !== null) {
             this.detectorService
                 .getFileMimetype(this.file)
-                .subscribe(this.observer);
+                .subscribe(this.resultObserver);
         }
     }
-
 
     getSizeInMB(): number {
-
-        return this.fileSize / 1_048_576;
+        return this.fileSize / 1_000_000;
     }
 
+    setImageExtension(): File {
+        const validExtensions = [
+            ".jpg",
+            ".png",
+            ".webp",
+            "image/png",
+            "image/jpg",
+            "image/webp",
+        ];
 
-    navigateToFilters():void {
+        console.log(this.result?.extension)
 
-        
-
-        if (this.file !== undefined && this.isValidImage(this.result?.extension)) {
-
-            this.router.navigateByUrl("/filters")
-
-        } else {
-            throw new Error("error processing image");
-            
+        if (this.result?.extension) {
+            if (
+                validExtensions.some((str) => this.result?.extension === str) &&
+                this.file !== undefined
+            ) {
+                return new File([this.file], this.file.name + ".png", {
+                    type: "image/png",
+                });
+            }
         }
-        
 
+        return new File([this.file], this.file.name, {
+            type: "image/png",
+        });
     }
 
+    navigateToFilters(): void {
+        if (this.file !== undefined && this.isValidImage(this.file.type)) {
+            this.router.navigateByUrl("/filters");
+        } else {
+            this.file = this.setImageExtension();
+
+            this.shareService.pushImage(this.file)
+
+            this.router.navigateByUrl("/filters");
+        }
+    }
 
     isValidImage(extension: string | undefined): boolean {
-
-        const validExtensions = [".png", ".jpg", ".webp"];
-
-        if (extension !== undefined) {
-            if (validExtensions.some(str => extension === str)) {
-                return true;
-             }
-        }
         
+        const validExtensions = [
+            ".jpg",
+            ".png",
+            ".webp",
+            "image/png",
+            "image/jpg",
+            "image/webp",
+        ];
+
+        if (this.file.type !== undefined) {
+            if (validExtensions.some((str) => extension === str)) {
+                return true;
+            }
+        }
 
         return false;
     }
+
+    showWebpError(): boolean {
+
+        if (this.file?.type === "image/webp") {
+            return true;
+        }
+
+        return false;
+    }
+
+    /* changeExtension(file: File, extension: string): string {
+        const basename = path.basename(file, path.extname(file))
+        return path.join(path.dirname(file), basename + extension)
+      } */
 }

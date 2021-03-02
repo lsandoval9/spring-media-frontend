@@ -1,6 +1,7 @@
-<div class="container-fluid h-auto d-flex flex-row mb-2 mt-5 flex-nowrap flex-md-wrap row">
+<div class="container-fluid h-auto d-flex mb-2 mt-5 flex-wrap row justify-content-between">
 
-    <form matFormFieldControl [formGroup]="detectorForm" class="d-flex col-sm-10 mb-5 col-md-6 flex-column justify-content-center"
+    <form matFormFieldControl [formGroup]="detectorForm"
+        class="d-flex col-12 col-md-5 mb-5 flex-column align-items-center justify-content-center"
         (ngSubmit)="submitFile()">
 
         <label class="btn btn-danger w-75">
@@ -14,23 +15,22 @@
             <h4>Type: <span>{{fileType}}</span></h4>
             <h4>Size:
                 <span class="mb-3" *ngIf="fileSize !== 0">
-                    {{fileSize}} Bytes ({{getSizeInMB() | number: '1.0-2'}} MB)
+                    {{fileSize}} Bytes ({{(fileSize/1000) | number: '1.0-2'}} MB)
                 </span>
 
             </h4>
 
         </div>
 
-        <input type="submit" value="Check mimetype" class="btn btn-success w-75" 
-        [disabled]="detectorForm.invalid">
+        <input type="submit" value="Check mimetype" class="btn btn-success w-75" [disabled]="detectorForm.invalid">
 
     </form>
 
-    <mat-divider [vertical]="true" class="d-sm-none p-0 d-md-flex col-md-1"></mat-divider>
+    <mat-divider [vertical]="true" *ngIf="result" class="d-sm-none p-0 d-md-flex col-md-1 flex-shrink-1"></mat-divider>
 
-    <mat-divider class=" d-block col-sm-1 p-0 d-md-none "></mat-divider>
+    <mat-divider *ngIf="result" class=" d-block col p-0 d-md-none "></mat-divider>
 
-    <div *ngIf="result" class="d-flex col-sm-10 col-md-6  flex-column justify-content-center">
+    <div *ngIf="result" class="d-flex col-12 col-md-5 flex-column justify-content-center align-items-center">
 
         <h1>Results:</h1>
         <mat-divider></mat-divider>
@@ -38,11 +38,15 @@
         <h2>extension: <span class="text-muted">{{result.extension}}</span></h2>
 
 
-        <div *ngIf="isValidImage(result?.extension) && file" class="alert alert-success d-flex flex-column"
-         role="alert">
+        <div *ngIf="isValidImage(result?.extension) && file" class="alert mt-4 alert-success 
+        d-flex flex-column col-sm-8 col-md-12" role="alert">
             <strong class="h4 mb-2">This file is a valid image</strong>
-            <a (click)="navigateToFilters()" class="btn btn-success"
-            routerLinkActive="router-link-active">Apply filter to this image</a>
+            <a (click)="navigateToFilters()" class="btn btn-success" routerLinkActive="router-link-active">Apply filter
+                to this image</a>
+        </div>
+
+        <div *ngIf="showWebpError()" class="alert alert-danger" role="alert">
+            <strong>Some WEBP files may not be supported</strong>
         </div>
 
     </div>

@@ -37,6 +37,7 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
         },
         error: (err: any) => {
             this.errors = true;
+            console.error(err);
         },
         complete: () => {
             console.log("complete");
@@ -69,9 +70,6 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     public addImage = (event: any): void => {
         this.resultImage = "";
 
-        console.log("addimage")
-        console.log(event)
-
         if (event instanceof File) {
             const reader = new FileReader();
 
@@ -95,6 +93,7 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
 
             reader.readAsDataURL(event.target.files[0]); // read file as data url
 
+            // tslint:disable-next-line:no-shadowed-variable
             reader.onload = (event) => {
                 // called once readAsDataURL is completed
 
@@ -105,7 +104,7 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
                 this.imageAsSrc = event?.target.result;
             };
         }
-    }
+    };
 
     changeRadioValue = (event: MatRadioChange): void => {
         this.selectedValue = event.value;
@@ -119,21 +118,24 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     }
 
     randomFileName(): void {
+        let r, v;
+
         this.downloadSrc =
-            "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-                /[xy]/g,
-                function (c) {
-                    const r = (Math.random() * 16) | 0,
-                        v = c == "x" ? r : (r & 0x3) | 0x8;
-                    return v.toString(16);
-                }
-            ) + ".png";
+            "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+                (r = (Math.random() * 16) | 0),
+                    (v = c == "x" ? r : (r & 0x3) | 0x8);
+                return v.toString(16);
+            }) + ".png";
 
         this.detector.detectChanges();
     }
 
     changeSelectedFilterValue(event: string): void {
-
         this.selectedFilterValue = event;
     }
+
+    /* changeExtension(file: File, extension: string): string {
+        const basename = path.basename(file, path.extname(file))
+        return path.join(path.dirname(file), basename + extension)
+      } */
 }
