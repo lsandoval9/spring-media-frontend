@@ -38,12 +38,14 @@
         <h2>extension: <span class="text-muted">{{result.extension}}</span></h2>
 
 
-        <div *ngIf="isValidImage(result?.extension) && file" class="alert mt-4 alert-success 
+        <div >
+        <div *ngIf="isValidImageMimetype(result.mimetype) && file" class="alert mt-4 alert-success 
         d-flex flex-column col-sm-8 col-md-12" role="alert">
             <strong class="h4 mb-2">This file is a valid image</strong>
             <a (click)="navigateToFilters()" class="btn btn-success" routerLinkActive="router-link-active">Apply filter
                 to this image</a>
         </div>
+    </div>
 
         <div *ngIf="showWebpError()" class="alert alert-danger" role="alert">
             <strong>Some WEBP files may not be supported</strong>

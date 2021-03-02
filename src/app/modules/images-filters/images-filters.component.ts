@@ -3,6 +3,7 @@ import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { MatRadioChange } from "@angular/material/radio";
 import { Observer, ReplaySubject } from "rxjs";
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
+import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
 
 @Component({
     selector: "app-images-filters",
@@ -37,7 +38,7 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
         },
         error: (err: any) => {
             this.errors = true;
-            console.error(err);
+            this.toggleLoadingService.setNextValue(false);
         },
         complete: () => {
             console.log("complete");
@@ -47,7 +48,8 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
 
     constructor(
         private detector: ChangeDetectorRef,
-        private imageService: ShareImageService
+        private imageService: ShareImageService,
+        private toggleLoadingService: ToggleLoadingBarService
     ) {
         this.imageSubject = this.imageService.getImage();
 
@@ -68,30 +70,17 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     }
 
     public addImage = (event: any): void => {
+
         this.resultImage = "";
 
-        if (event instanceof File) {
-            const reader = new FileReader();
-
-            this.file = event;
-
-            reader.readAsDataURL(event); // read file as data url
-
-            reader.onload = (event) => {
-                // called once readAsDataURL is completed
-
-                if (event?.target === null) {
-                    throw new Error("bad image");
-                }
-
-                this.imageAsSrc = event?.target.result;
-            };
-        } else if (event.target?.files && event.target?.files[0]) {
+       if (event.target?.files && event.target?.files[0]) {
             const reader = new FileReader();
 
             this.file = event.target.files[0];
 
             reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+            this.imageService.pushImage(event.target?.files[0])
 
             // tslint:disable-next-line:no-shadowed-variable
             reader.onload = (event) => {
@@ -103,6 +92,25 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
 
                 this.imageAsSrc = event?.target.result;
             };
+        } else if (event instanceof File) {
+
+            const reader = new FileReader();
+
+            this.file = event;
+
+            reader.readAsDataURL(event); // read file as data url
+
+            // tslint:disable-next-line:no-shadowed-variable
+            reader.onload = (event) => {
+                // called once readAsDataURL is completed
+
+                if (event?.target === null) {
+                    throw new Error("bad image");
+                }
+
+                this.imageAsSrc = event?.target.result;
+            };
+
         }
     };
 
