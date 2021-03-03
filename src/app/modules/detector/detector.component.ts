@@ -40,22 +40,11 @@ export class DetectorComponent implements OnInit {
             this.result = result;
         },
         error: (err: any) => {
+            this.loadingService.setNextValue(false)
             console.error(err);
         },
         complete: () => {this.loadingService.setNextValue(false)},
 
-    };
-
-    private fileObserver: Observer<any> = {
-
-        next: (result: detectorResultI) => {
-            console.log(result);
-        },
-        error: (err: any) => {
-            console.error(err);
-        },
-        complete: () => {},
-        
     };
 
     constructor(

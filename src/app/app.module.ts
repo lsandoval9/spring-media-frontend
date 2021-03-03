@@ -11,6 +11,7 @@ import { MainModule } from "./modules/main.module";
 import { SharedModule } from "./shared/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SafeUrlPipe } from "./shared/pipes/safe-url.pipe";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
     declarations: [AppComponent ],
@@ -25,6 +26,7 @@ import { SafeUrlPipe } from "./shared/pipes/safe-url.pipe";
         SharedModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpClientModule
     ],
     exports: [MaterialModule],
     providers: [SafeUrlPipe],

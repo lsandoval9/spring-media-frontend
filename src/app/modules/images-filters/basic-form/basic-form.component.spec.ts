@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BasicFormComponent } from './basic-form.component';
 
-describe('FormComponent', () => {
+describe('CommonFormComponent', () => {
   let component: BasicFormComponent;
   let fixture: ComponentFixture<BasicFormComponent>;
 
