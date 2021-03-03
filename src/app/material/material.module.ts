@@ -15,10 +15,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSelectModule } from "@angular/material/select";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-
-// ?FileUpload module
-
-import { AngularFileUploaderModule } from "angular-file-uploader";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 const COMPONENTS = [
     MatSidenavModule,
@@ -27,8 +24,8 @@ const COMPONENTS = [
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    AngularFileUploaderModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
     MatDividerModule,
     MatToolbarModule,
     MatSelectModule,
