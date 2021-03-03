@@ -1,20 +1,58 @@
-<div class="container-fluid mt-5 about-container">
+<div class="container-fluid my-5 about-container">
 
     <h1 class="display-1 fw-light">Intro</h1>
 
-    <p class="fs-6">Hello, my name is Luis Augusto and this is my first full stack app. The app consist in  
+    <p class="fs-6">Hello, my name is Luis Augusto and this is my first full stack app. The app consist in
         tools to apply filters to images and for detecting file's mimetype.
     </p>
 
-    <mat-divider></mat-divider>
+    <mat-divider class="mb-5"></mat-divider>
 
     <h1 class="display-1 fw-light">What I used to build it?</h1>
 
-    <h2 class="display-1 fw-light">Front-end</h2>
+    <div class="stack-list">
 
-    <ul>
-        <li>Angular</li>
-    </ul>
+        <div class="angular-list-container  mb-5">
+
+            <img src="../../../assets/images/angular.png" class="stack-image">
+
+            <div class="angular-text-container">
+
+                <span class="angular-text">
+                    <h2 class="display-1 fw-light fs-4 angular-text-title">Front-end</h2>
+
+                    <ul class="fs-5 angular-list">
+                        <li matTooltip="Angular 11" [matTooltipPosition]="'left'">Angular</li>
+                        <li matTooltip="material design for bootstrap" [matTooltipPosition]="'left'">MDBootstrap</li>
+                        <li matTooltip="Material styled components for angular" [matTooltipPosition]="'left'">Angular
+                            Material</li>
+                        <li matTooltip="Icons and SVGs" [matTooltipPosition]="'left'">Font Awesome</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+
+        <mat-divider class="my-5"></mat-divider>
+
+        <div class="spring-list-container">
+
+            <img src="../../../assets/images/spring.jpg" class="stack-image">
+
+            <div class="spring-text-container"></div>
+
+            <span class="spring-text">
+
+                <h2 class="display-1 fw-light fs-4 spring-text-title">Back-end</h2>
+
+                <ul class="fs-5 fw-lighter p-0">
+                    <li matTooltip="Spring 2.3.7" [matTooltipPosition]="'left'">Spring boot</li>
+                    <li matTooltip="Apache Tika 0" [matTooltipPosition]="'left'">Apache Tika</li>
+                </ul>
+            </span>
+        </div>
+
+    </div>
+
 
 
 </div>

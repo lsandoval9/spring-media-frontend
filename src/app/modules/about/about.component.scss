@@ -1,7 +1,103 @@
-
+li {
+    list-style: none;
+}
 
 .about-container {
-
     font-family: sans-serif;
+}
 
+.stack-image {
+
+    max-width: 100%;
+    max-height: 100%;
+    z-index: -1;
+
+}
+
+// ANGULAR ZONE
+
+.angular-list-container {
+
+    position: relative;
+    color: black;
+
+}
+
+.angular-text-container {
+    position: absolute;
+    background: linear-gradient(230deg, #00000038 40%, #ffffff44 100%);
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: right;
+}
+
+.angular-text{
+
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    list-style: none;
+    color: white;
+
+    &>.angular-text-title {
+        font-weight: bolder;
+        text-decoration: underline;
+    }
+
+    & > ul > * {
+
+        margin-top: 20px;
+        text-decoration: none;
+
+    }
+
+}
+
+
+// SPRING ZONE
+
+.spring-list-container {
+
+    position: relative;
+
+}
+
+
+.spring-text-container {
+
+    position: absolute;
+    background: linear-gradient(0deg,#00000038 30%, #ffffff44 100%,  );
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+
+}
+
+.spring-text{
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+    list-style: none;
+    color: white;
+
+    &>.spring-text-title {
+        font-weight: bolder;
+        text-decoration: underline;
+    }
+
+    & > ul > * {
+
+        margin-top: 20px;
+        text-decoration: none;
+
+    }
+
+}
+
+.tooltip {
+    font-size: 100px;
 }
