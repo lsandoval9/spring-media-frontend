@@ -3,13 +3,13 @@ import { CommonModule } from "@angular/common";
 import { HomeComponent } from "./home/home.component";
 import { ImagesFiltersComponent } from "./images-filters/images-filters.component";
 import { DetectorComponent } from "./detector/detector.component";
-import { MaterialModule } from "../material/material.module";
 import { ReactiveFormsModule } from "@angular/forms";
-import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { AboutComponent } from "./about/about.component";
 import { BasicFormComponent } from "./images-filters/basic-form/basic-form.component";
 import { CommonFormComponent } from "./images-filters/common-form/common-form.component";
+import { MaterialModule } from "src/app/material/material.module";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
     declarations: [

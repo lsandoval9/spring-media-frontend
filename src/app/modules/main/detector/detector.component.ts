@@ -110,7 +110,7 @@ export class DetectorComponent implements OnInit {
             ".png",
             ".webp",
             "image/png",
-            "image/jpg",
+            "image/jpeg",
             "image/webp",
         ];
 
@@ -151,7 +151,7 @@ export class DetectorComponent implements OnInit {
             ".png",
             ".webp",
             "image/png",
-            "image/jpg",
+            "image/jpeg",
             "image/webp",
         ];
 

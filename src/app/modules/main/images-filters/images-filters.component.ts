@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 
 import { MatRadioChange } from "@angular/material/radio";
 import { Observer, ReplaySubject } from "rxjs";
+import { DetectorService } from "src/app/core/http/detector/detector.service";
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
 
 @Component({
@@ -12,17 +13,19 @@ import { ShareImageService } from "src/app/core/services/share-image/share-image
 export class ImagesFiltersComponent implements OnInit, OnInit {
     selectedValue = "";
 
+    isValidFiletype = false;
+
     selectedFilterValue = "";
 
     downloadSrc = "";
 
-    imageAsSrc: string | ArrayBuffer | null = "";
+    imageAsSrc = "";
 
     resultImage: string | undefined;
 
     resultImageAsBlob: Blob | undefined;
 
-    file: File | undefined;
+    file!: File;
 
     url: string | ArrayBuffer | null = "";
 
@@ -46,8 +49,9 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     };
 
     constructor(
-        private detector: ChangeDetectorRef,
-        private imageService: ShareImageService
+        private changeDetector: ChangeDetectorRef,
+        private imageService: ShareImageService,
+        private detectorService: DetectorService
     ) {
         this.imageSubject = this.imageService.getImage();
 
@@ -55,19 +59,10 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     }
 
     ngOnInit(): void {}
-
-    public addFile(event: any): void {
-        if (event.target.files && event.target.files[0] && event !== null) {
-            const reader = new FileReader();
-
-            reader.onload = (event: Event) => {
-                this.url = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    }
+    
 
     public addImage = (event: any): void => {
+
         this.resultImage = "";
 
         if (event instanceof File) {
@@ -84,7 +79,9 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
                     throw new Error("bad image");
                 }
 
-                this.imageAsSrc = event?.target.result;
+                if (typeof event?.target.result === "string") {
+                    this.imageAsSrc = event?.target.result;
+                }
             };
         } else if (event.target?.files && event.target?.files[0]) {
             const reader = new FileReader();
@@ -101,9 +98,13 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
                     throw new Error("bad image");
                 }
 
-                this.imageAsSrc = event?.target.result;
+                if (typeof event?.target.result === "string") {
+                    this.imageAsSrc = event?.target.result;
+                }
             };
         }
+
+        this.isValidFiletype = this.isValidImage(this.file.type)
     };
 
     changeRadioValue = (event: MatRadioChange): void => {
@@ -127,15 +128,30 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
                 return v.toString(16);
             }) + ".png";
 
-        this.detector.detectChanges();
+        this.changeDetector.detectChanges();
     }
 
     changeSelectedFilterValue(event: string): void {
         this.selectedFilterValue = event;
     }
 
-    /* changeExtension(file: File, extension: string): string {
-        const basename = path.basename(file, path.extname(file))
-        return path.join(path.dirname(file), basename + extension)
-      } */
+    isValidImage(extension: string | undefined): boolean {
+        
+        const validExtensions = [
+            "image/png",
+            "image/jpeg",
+            "image/webp",
+        ];
+
+        if (this.file.type !== undefined) {
+            if (validExtensions.some((str) => extension === str)) {
+
+                console.log("VALID")
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

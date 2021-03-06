@@ -27,13 +27,12 @@ export class HeaderComponent implements OnInit {
     loadingObserver: Observer<boolean> = {
         next: (value: boolean) => {
             this.isLoading = value;
-            console.log("loading: " + value)
         },
         error: (err) => {
             console.log(err);
         },
         complete: () => {
-            console.log("complete loading");
+            console.log("exiting loading bar");
         },
     };
 

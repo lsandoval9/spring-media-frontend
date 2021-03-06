@@ -67,7 +67,6 @@ export class CommonFormComponent implements OnInit {
     }
 
     changeRadioValue = (): void => {
-        console.log("changed")
         this.selectedValue = this.imageForm.value["filter"];
         this.outputSelectedValue.emit(this.imageForm.value["filter"]);
         this.detector.detectChanges();
