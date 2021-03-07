@@ -1,4 +1,5 @@
-import {  Component, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { MatDrawer } from "@angular/material/sidenav";
 
 @Component({
     selector: "app-root",
@@ -7,15 +8,16 @@ import {  Component, OnInit } from "@angular/core";
     animations: [],
 })
 export class AppComponent implements OnInit {
-
     title = "spring-media-front";
 
-    ngOnInit(): void {
+    ngOnInit(): void {}
 
-           
+    toggleLoader = (): void => {};
+
+    //logger
+    toggleDrawer(drawer: MatDrawer, isOpened: boolean): void {
+        if (isOpened) {
+            drawer.toggle();
+        }
     }
-
-    toggleLoader = (): void => {
-        
-    };
 }

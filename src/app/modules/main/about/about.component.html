@@ -10,9 +10,9 @@
 
     <h1 class="display-1 fw-light">What I used to build it?</h1>
 
-    <div class="stack-list">
+    <div class="stack-list row justify-content-around">
 
-        <div class="angular-list-container  mb-5">
+        <div class="angular-list-container col-12 col-xl-6 mb-5">
 
             <img src="../../../assets/images/angular.png" class="stack-image">
 
@@ -21,7 +21,7 @@
                 <span class="angular-text">
                     <h2 class="display-1 fw-light fs-4 angular-text-title">Front-end</h2>
 
-                    <ul class="fs-5 angular-list">
+                    <ul class="fs-6 angular-list">
                         <li matTooltip="Angular 11" [matTooltipPosition]="'left'">Angular</li>
                         <li matTooltip="material design for bootstrap" [matTooltipPosition]="'left'">MDBootstrap</li>
                         <li matTooltip="Material styled components for angular" [matTooltipPosition]="'left'">Angular
@@ -32,9 +32,11 @@
             </div>
         </div>
 
-        <mat-divider class="my-5"></mat-divider>
+        <mat-divider class="my-5 w-75 col-1 d-xl-none"></mat-divider>
 
-        <div class="spring-list-container">
+        <mat-divider [vertical]="true" class="my-5 h-75 d-none col-1 d-xl-flex"></mat-divider>
+
+        <div class="spring-list-container col-12 col-xl-6">
 
             <img src="../../../assets/images/spring.jpg" class="stack-image">
 
@@ -44,7 +46,7 @@
 
                 <h2 class="display-1 fw-light fs-4 spring-text-title">Back-end</h2>
 
-                <ul class="fs-5 fw-lighter p-0">
+                <ul class="fs-6 fw-lighter p-0">
                     <li matTooltip="Spring 2.3.7" [matTooltipPosition]="'left'">Spring boot</li>
                     <li matTooltip="Apache Tika 0" [matTooltipPosition]="'left'">Apache Tika</li>
                 </ul>
@@ -56,4 +58,3 @@
 
 
 </div>
->>>>>>> show

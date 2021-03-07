@@ -2,13 +2,13 @@
 
 <app-header (toggleSideNavEmitter)="drawer.toggle()" [isMenuBarOpen]="drawer.opened" class="sticky-header"></app-header>
 
-<mat-drawer-container class="overflow-hidden drawer-container" style="flex: 1 1 auto;">
+<mat-drawer-container [hasBackdrop]="false" class="overflow-hidden drawer-container min-vh-100" style="flex: 1 1 auto;">
 
-    <mat-drawer [autoFocus]="false" #drawer="matDrawer" class="drawer">
+    <mat-drawer [disableClose]="false" [autoFocus]="false" [mode]="'push'" #drawer="matDrawer" class="drawer">
         <app-drawer></app-drawer>
     </mat-drawer>
 
-    <mat-drawer-content class="overflow-hidden h-auto d-flex flex-column" style="min-height: 0; min-width: none;">
+    <mat-drawer-content (click)="toggleDrawer(drawer, drawer.opened)" class="overflow-scroll h-100 d-flex flex-column" style="min-height: 0; min-width: none;">
         <router-outlet></router-outlet>
     </mat-drawer-content>
 
