@@ -1,0 +1,30 @@
+.hidde {
+
+    visibility: hidden;
+}
+
+.drawer-icon {
+    &:hover {
+        color: #dc143c;
+    }
+}
+
+.drawer-list {
+    & > li {
+        display: flex;
+        justify-content: center;
+    }
+
+    & > li > a {
+
+
+
+        &:hover {
+            text-shadow: 2px 2px 4px #000000;
+        }
+    }
+}
+
+fa-icon {
+    margin-left: 5px;
+}

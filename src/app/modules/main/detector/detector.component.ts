@@ -100,8 +100,8 @@ export class DetectorComponent implements OnInit {
         }
     }
 
-    getSizeInMB(): number {
-        return this.fileSize / 1_000_000;
+    getSizeInMB(size: number): number {
+        return this.fileSize / 1000000;
     }
 
     setImageExtension(): File {

@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from './components/loader/loader.component';
 import { MaterialModule } from '../material/material.module';
-import { DrawerComponent } from './drawer/drawer.component';
-import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from '../app-routing.module';
+import { ReadableSizePipe } from './pipes/readable-size/readable-size.pipe';
+import { SafeUrlPipe } from './pipes/safe-url/safe-url.pipe';
 
 
 
 @NgModule({
-  declarations: [LoaderComponent, DrawerComponent, SafeUrlPipe],
+  declarations: [LoaderComponent, SafeUrlPipe, ReadableSizePipe],
   imports: [
     CommonModule,
     MaterialModule,
     FontAwesomeModule,
     AppRoutingModule
   ],
-  exports: [LoaderComponent, DrawerComponent, SafeUrlPipe]
+  exports: [LoaderComponent, SafeUrlPipe, ReadableSizePipe]
 })
 export class SharedModule { }

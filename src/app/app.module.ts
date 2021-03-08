@@ -9,9 +9,9 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { SafeUrlPipe } from "./shared/pipes/safe-url.pipe";
 import { HttpClientModule } from "@angular/common/http";
 import { MainModule } from "./modules/main/main.module";
+import { SafeUrlPipe } from "./shared/pipes/safe-url/safe-url.pipe";
 
 @NgModule({
     declarations: [AppComponent ],

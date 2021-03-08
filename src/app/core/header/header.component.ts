@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
     @Output()
     toggleSideNavEmitter: EventEmitter<void> = new EventEmitter<void>();
 
-    @Input() isMenuBarOpen: boolean | undefined;
+    @Input() isMenuBarOpen = false;
 
     faBars: IconDefinition = faBars;
 
@@ -31,17 +31,13 @@ export class HeaderComponent implements OnInit {
         error: (err) => {
             console.log(err);
         },
-        complete: () => {
-            console.log("exiting loading bar");
-        },
+        complete: () => {},
     };
 
     constructor(private isLoadingService: ToggleLoadingBarService) {}
 
     ngOnInit(): void {
-        this.isLoadingService
-        .getSubject()
-        .subscribe(this.loadingObserver);
+        this.isLoadingService.getSubject().subscribe(this.loadingObserver);
     }
 
     toggleSideNav = (): void => {

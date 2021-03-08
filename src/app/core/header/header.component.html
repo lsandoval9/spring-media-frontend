@@ -8,20 +8,20 @@
                 <button mat-icon-button (click)="toggleSideNav()" [@toggleMenuBar]="isMenuBarOpen ? 'open': 'closed'"
                     class="rounded-circle text-white me-1" id="menu-button">
 
-                    <fa-icon [icon]="faBars" size="lg">
+                    <fa-icon [icon]="faBars" size="2x">
 
                     </fa-icon>
                 </button>
                 <a class="navbar-brand ms-auto fs-2 brand-name" [routerLink]="['/']"
                     routerLinkActive="active-brand-name" [routerLinkActiveOptions]="{ exact: true }">
-                    Image filters
+                    Spring Media
                 </a>
             </div>
 
             <div class="widescreen-navbar d-none d-md-flex container-fluid">
                 <a class="navbar-brand fs-2 brand-name" [routerLink]="['/']" routerLinkActive="active-brand-name"
                     [routerLinkActiveOptions]="{ exact: true }">
-                    Image filters
+                    Spring Media
                 </a>
 
                 <div class="ms-auto">
