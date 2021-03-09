@@ -4,6 +4,7 @@ import { MatRadioChange } from "@angular/material/radio";
 import { Observer, ReplaySubject } from "rxjs";
 import { DetectorService } from "src/app/core/http/detector/detector.service";
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
+import { ShowErrorDialogService } from "src/app/core/services/show-error-dialog/show-error-dialog.service";
 
 @Component({
     selector: "app-images-filters",
@@ -40,7 +41,7 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
         },
         error: (err: any) => {
             this.errors = true;
-            console.error(err);
+            this.errorDialogService.openDialog(err.error)
         },
         complete: () => {
             console.log("complete");
@@ -51,7 +52,8 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     constructor(
         private changeDetector: ChangeDetectorRef,
         private imageService: ShareImageService,
-        private detectorService: DetectorService
+        private detectorService: DetectorService,
+        private errorDialogService: ShowErrorDialogService
     ) {
         this.imageSubject = this.imageService.getImage();
 

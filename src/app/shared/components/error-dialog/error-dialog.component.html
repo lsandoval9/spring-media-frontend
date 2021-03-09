@@ -1,0 +1,11 @@
+<div class="alert alert-danger m-0 rounded" role="alert">
+    <strong class="fs-5">Error: {{data.error}}</strong>
+    <mat-divider class="my-1"></mat-divider>
+    <p class="fs-6">Date: {{data.timestamp}}</p>
+    <p class="fs-6">Http status: {{data.status}}</p>
+
+    <button class="btn btn-danger" (click)="closeDialog()">
+         Close <fa-icon [icon]="closeIcon" size="lg"></fa-icon>
+    </button>
+
+</div>

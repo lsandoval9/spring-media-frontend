@@ -15,7 +15,8 @@
             <h4>Type: <span>{{fileType}}</span></h4>
             <h4>Size:
                 <span class="mb-3" *ngIf="fileSize !== 0">
-                    {{fileSize}} Bytes ({{fileSize | readableSize}})
+                    {{fileSize}} Bytes 
+                    <span *ngIf="fileSize / 1000 >= 1"> ({{fileSize | readableSize}}) </span>
                 </span>
 
             </h4>

@@ -16,6 +16,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatDialogModule } from "@angular/material/dialog";
 
 const COMPONENTS = [
     MatSidenavModule,
@@ -31,6 +32,7 @@ const COMPONENTS = [
     MatSelectModule,
     MatRadioModule,
     MatProgressBarModule,
+    MatDialogModule,
 ];
 
 @NgModule({

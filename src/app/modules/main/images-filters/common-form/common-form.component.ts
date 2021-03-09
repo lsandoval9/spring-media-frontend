@@ -9,6 +9,7 @@ import {
 import { Validators, FormGroup, FormControl } from "@angular/forms";
 import { Observer } from "rxjs";
 import { imageService } from "src/app/core/http/image/image.service";
+import { ShowErrorDialogService } from "src/app/core/services/show-error-dialog/show-error-dialog.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
 import { ImageI } from "src/app/utils/interfaces/image.interface";
 
@@ -20,9 +21,8 @@ import { ImageI } from "src/app/utils/interfaces/image.interface";
 export class CommonFormComponent implements OnInit {
     @Input() file: any = null;
 
-    @Output() outputSelectedValue: EventEmitter<
-        string
-    > = new EventEmitter<string>();
+    @Output()
+    outputSelectedValue: EventEmitter<string> = new EventEmitter<string>();
 
     @Output() resultImage: EventEmitter<Blob> = new EventEmitter<Blob>();
 
@@ -40,15 +40,18 @@ export class CommonFormComponent implements OnInit {
         next: (value: any) => {
             this.errors = false;
 
-            this.toggleLoadBarService.setNextValue(false)
+            this.toggleLoadBarService.setNextValue(false);
 
             this.resultImage.emit(value);
         },
         error: (err: any) => {
             this.errors = true;
+            this.toggleLoadBarService.setNextValue(false);
+            console.log(err)
+            this.errorDialogService.openDialog(err.error);
         },
         complete: () => {
-
+            this.toggleLoadBarService.setNextValue(false);
             this.errors = false;
         },
     };
@@ -56,7 +59,8 @@ export class CommonFormComponent implements OnInit {
     constructor(
         private imageService: imageService,
         private detector: ChangeDetectorRef,
-        private toggleLoadBarService: ToggleLoadingBarService
+        private toggleLoadBarService: ToggleLoadingBarService,
+        private errorDialogService: ShowErrorDialogService
     ) {}
 
     ngOnInit(): void {
@@ -86,7 +90,7 @@ export class CommonFormComponent implements OnInit {
                 ...this.imageForm.value,
             };
 
-            this.toggleLoadBarService.setNextValue(true)
+            this.toggleLoadBarService.setNextValue(true);
 
             this.imageService
                 .fetchBasicFilterformData(result)

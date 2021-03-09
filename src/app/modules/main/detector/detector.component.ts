@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observer } from "rxjs";
 import { DetectorService } from "src/app/core/http/detector/detector.service";
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
+import { ShowErrorDialogService } from "src/app/core/services/show-error-dialog/show-error-dialog.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
 import { detectorResultI } from "src/app/utils/interfaces/detectorResult.inteface";
 
@@ -39,9 +41,9 @@ export class DetectorComponent implements OnInit {
 
             this.result = result;
         },
-        error: (err: any) => {
+        error: (err: HttpErrorResponse) => {
             this.loadingService.setNextValue(false)
-            console.error(err);
+            this.errorDialogService.openDialog(err.error)
         },
         complete: () => {this.loadingService.setNextValue(false)},
 
@@ -51,7 +53,8 @@ export class DetectorComponent implements OnInit {
         private detectorService: DetectorService,
         private shareService: ShareImageService,
         private router: Router,
-        private loadingService: ToggleLoadingBarService
+        private loadingService: ToggleLoadingBarService,
+        private errorDialogService: ShowErrorDialogService
     ) {}
 
     ngOnInit(): void {
@@ -98,10 +101,6 @@ export class DetectorComponent implements OnInit {
                 .getFileMimetype(this.file)
                 .subscribe(this.resultObserver);
         }
-    }
-
-    getSizeInMB(size: number): number {
-        return this.fileSize / 1000000;
     }
 
     setImageExtension(): File {
@@ -173,8 +172,4 @@ export class DetectorComponent implements OnInit {
         return false;
     }
 
-    /* changeExtension(file: File, extension: string): string {
-        const basename = path.basename(file, path.extname(file))
-        return path.join(path.dirname(file), basename + extension)
-      } */
 }
