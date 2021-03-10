@@ -14,9 +14,12 @@ export class ErrorDialogComponent implements OnInit {
     
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: HttpErrorResponse, 
+
     public dialogRef: MatDialogRef<ErrorDialogComponent>) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        console.log(this.data)
+    }
 
     closeDialog() {
 

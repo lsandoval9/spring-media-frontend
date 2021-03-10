@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Data } from "@angular/router";
-import { ERRORS_ENUM } from "src/app/utils/constants/errors";
 
 @Component({
     selector: "app-home",

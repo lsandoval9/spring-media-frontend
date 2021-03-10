@@ -8,7 +8,6 @@ import { detectorResultI } from "src/app/utils/interfaces/detectorResult.intefac
     providedIn: "root",
 })
 export class DetectorService {
-
     route = API_ROUTES.HOST + API_ROUTES.FILTERS + API_ROUTES.DETECT;
 
     constructor(private http: HttpClient) {}
@@ -28,5 +27,55 @@ export class DetectorService {
                     "Origin, Content-Type, X-Auth-Token",
             },
         });
+    }
+
+    setImageExtension(result: detectorResultI | undefined, file: File): File {
+        const validExtensions = [
+            ".jpg",
+            ".png",
+            ".webp",
+            "image/png",
+            "image/jpeg",
+            "image/webp",
+        ];
+
+        if (result?.extension) {
+            if (
+                validExtensions.some((str) => result?.extension === str) &&
+                file !== undefined
+            ) {
+                return new File([file], file.name + ".png", {
+                    type: "image/png",
+                });
+            }
+        }
+
+        return new File([file], file.name, {
+            type: "image/png",
+        });
+    }
+
+    isValidTypeOrMimetype(extension?: string, file?: File, ): boolean {
+
+        if (file && !extension) {
+            extension = file.type;
+        }
+
+        const validExtensions = [
+            ".jpg",
+            ".png",
+            ".webp",
+            "image/png",
+            "image/jpeg",
+            "image/webp",
+        ];
+
+        if (extension) {
+            if (validExtensions.some((str) => extension === str)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

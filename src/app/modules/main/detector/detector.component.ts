@@ -8,6 +8,7 @@ import { ShareImageService } from "src/app/core/services/share-image/share-image
 import { ShowErrorDialogService } from "src/app/core/services/show-error-dialog/show-error-dialog.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
 import { detectorResultI } from "src/app/utils/interfaces/detectorResult.inteface";
+import { errorDialogData } from "src/app/utils/interfaces/errorDialogData.interface";
 
 @Component({
     selector: "app-detector",
@@ -15,7 +16,6 @@ import { detectorResultI } from "src/app/utils/interfaces/detectorResult.intefac
     styleUrls: ["./detector.component.scss"],
 })
 export class DetectorComponent implements OnInit {
-
     fileSize = 0;
 
     fileSizeFormated: string | number = 0;
@@ -35,22 +35,23 @@ export class DetectorComponent implements OnInit {
     errors = 0;
 
     private resultObserver: Observer<detectorResultI> = {
-
         next: (result: detectorResultI) => {
-            this.loadingService.setNextValue(false)
+            this.loadingService.setNextValue(false);
 
             this.result = result;
         },
-        error: (err: HttpErrorResponse) => {
-            this.loadingService.setNextValue(false)
-            this.errorDialogService.openDialog(err.error)
+        error: (err: errorDialogData) => {
+            this.loadingService.setNextValue(false);
+            console.error(err);
+            this.errorDialogService.openDialog(err);
         },
-        complete: () => {this.loadingService.setNextValue(false)},
-
+        complete: () => {
+            this.loadingService.setNextValue(false);
+        },
     };
 
     constructor(
-        private detectorService: DetectorService,
+        public detectorService: DetectorService,
         private shareService: ShareImageService,
         private router: Router,
         private loadingService: ToggleLoadingBarService,
@@ -64,7 +65,6 @@ export class DetectorComponent implements OnInit {
     }
 
     onLoadFile(event: any): void {
-
         this.result = undefined;
 
         if (
@@ -93,7 +93,6 @@ export class DetectorComponent implements OnInit {
     }
 
     submitFile(): void {
-
         this.loadingService.setNextValue(true);
 
         if (this.file !== undefined && this.file !== null) {
@@ -103,73 +102,29 @@ export class DetectorComponent implements OnInit {
         }
     }
 
-    setImageExtension(): File {
-        const validExtensions = [
-            ".jpg",
-            ".png",
-            ".webp",
-            "image/png",
-            "image/jpeg",
-            "image/webp",
-        ];
-
-        console.log(this.result?.extension)
-
-        if (this.result?.extension) {
-            if (
-                validExtensions.some((str) => this.result?.extension === str) &&
-                this.file !== undefined
-            ) {
-                return new File([this.file], this.file.name + ".png", {
-                    type: "image/png",
-                });
-            }
-        }
-
-        return new File([this.file], this.file.name, {
-            type: "image/png",
-        });
-    }
-
     navigateToFilters(): void {
-        if (this.file !== undefined && this.isValidImage(this.file.type)) {
+        if (
+            this.file !== undefined &&
+            this.detectorService.isValidTypeOrMimetype(this.file.type, this.file)
+        ) {
             this.router.navigateByUrl("/filters");
         } else {
-            this.file = this.setImageExtension();
+            this.file = this.detectorService.setImageExtension(
+                this.result,
+                this.file
+            );
 
-            this.shareService.pushImage(this.file)
+            this.shareService.pushImage(this.file);
 
             this.router.navigateByUrl("/filters");
         }
-    }
-
-    isValidImage(extension: string | undefined): boolean {
-        
-        const validExtensions = [
-            ".jpg",
-            ".png",
-            ".webp",
-            "image/png",
-            "image/jpeg",
-            "image/webp",
-        ];
-
-        if (this.file.type !== undefined) {
-            if (validExtensions.some((str) => extension === str)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     showWebpError(): boolean {
-
         if (this.file?.type === "image/webp") {
             return true;
         }
 
         return false;
     }
-
 }

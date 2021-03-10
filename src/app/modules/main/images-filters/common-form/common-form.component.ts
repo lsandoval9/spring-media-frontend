@@ -37,7 +37,7 @@ export class CommonFormComponent implements OnInit {
     errors = false;
 
     imageObserver: Observer<any> = {
-        next: (value: any) => {
+        next: (value: Blob) => {
             this.errors = false;
 
             this.toggleLoadBarService.setNextValue(false);

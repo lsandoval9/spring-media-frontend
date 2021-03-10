@@ -1,12 +1,17 @@
-<div class="container-fluid overflow-hidden h-auto d-flex row mb-2 mt-3">
+<div class="container-fluid overflow-hidden h-auto d-flex row pb-5 mt-3 justify-content-between">
 
-    <div class="d-flex flex-column overflow-auto col-12 col-md-6 secondary-theme">
+    <div class="d-flex row col-12 col-md-5 secondary-theme">
 
         <!-- LOAD IMAGE TO APPLY A FILTER-->
 
         <label class="btn btn-danger my-5">
             Load image <input type="file" name="file" (change)="addImage($event)" hidden>
         </label>
+
+        <div *ngIf="showWebpError()" class="alert alert-danger" role="alert">
+            <strong>Some WEBP files may not be supported</strong>
+        </div>
+
 
         <!-- SELECT FILTER TYPE -->
 
@@ -54,22 +59,23 @@
         </div>
 
         <!-- PREVIEW OF THE UPLOAD IMAGE -->
-
-        <div *ngIf="imageAsSrc && isValidFiletype">
+        <div *ngIf="imageAsSrc">
             <h5>Preview</h5>
             <img [src]="imageAsSrc | safeUrl" alt="404"
                 class="col-6 img-fluid hover-shadow rounded-2 preview-image shadow-5-strong border-5">
         </div>
 
+        
+
 
     </div>
 
-    <mat-divider class="mx-2 col d-none d-md-flex" [vertical]="true"></mat-divider>
-    <mat-divider class="my-5 col d-flex d-md-none" [vertical]="false"></mat-divider>
+    <mat-divider class="mx-2 d-none d-md-flex col-md-1" [vertical]="true"></mat-divider>
+    <mat-divider class="my-5 col d-flex col-12 d-md-none" [vertical]="false"></mat-divider>
 
-    <div *ngIf="resultImage" class="col-12 col-md-5 bg-primary align-self-center">
+    <div *ngIf="resultImage" class="col-12 col-md-5 p-2 align-self-center shadow-5-strong my-5">
 
-
+        
 
         <mat-card class="rounded">
             <mat-card-header>
@@ -86,8 +92,6 @@
                 <button mailto class="btn btn-success">Send via email</button>
             </mat-card-actions>
         </mat-card>
-
-
 
     </div>
 

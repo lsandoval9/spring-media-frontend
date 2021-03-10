@@ -1,9 +1,19 @@
+import { errorDialogData } from "../interfaces/errorDialogData.interface";
 
 
-export enum ERRORS_ENUM {
 
-    NOT_FOUND_VIEW = 404,
-    
+const FILE_TOO_BIG_ERROR: errorDialogData = {
 
+    status: "File too big",
+
+    message: "Please provide an image smaller than 10 MB",
+
+    date: new Date()
+
+} 
+
+export const ERRORS = {
+
+    FILE_TOO_BIG_ERROR
 
 }

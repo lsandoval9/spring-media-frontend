@@ -5,6 +5,8 @@ import { Observer, ReplaySubject } from "rxjs";
 import { DetectorService } from "src/app/core/http/detector/detector.service";
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
 import { ShowErrorDialogService } from "src/app/core/services/show-error-dialog/show-error-dialog.service";
+import { detectorResultI } from "src/app/utils/interfaces/detectorResult.inteface";
+import { errorDialogData } from "src/app/utils/interfaces/errorDialogData.interface";
 
 @Component({
     selector: "app-images-filters",
@@ -13,6 +15,8 @@ import { ShowErrorDialogService } from "src/app/core/services/show-error-dialog/
 })
 export class ImagesFiltersComponent implements OnInit, OnInit {
     selectedValue = "";
+
+    filetype = "";
 
     isValidFiletype = false;
 
@@ -32,20 +36,36 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
 
     imageSubject!: ReplaySubject<File>;
 
-    errors = false;
+    errors: errorDialogData | undefined;
+
+    private detectorObserver: Observer<detectorResultI> = {
+        next: (result: detectorResultI) => {
+            this.filetype = result.mimetype;
+            this.isValidFiletype = this.detectorService.isValidTypeOrMimetype(
+                this.filetype
+            );
+
+            console.log(this.isValidFiletype);
+        },
+        error: (err: any) => console.error(err),
+        complete: () => console.log("completed"),
+    };
 
     private imageObserver: Observer<File> = {
         next: (file: File) => {
             this.addImage(file);
-            this.errors = false;
+            this.errors = undefined;
         },
         error: (err: any) => {
-            this.errors = true;
-            this.errorDialogService.openDialog(err.error)
+            this.errors = {
+                message: err.error.message,
+                date: err.error.date,
+            };
+            this.errorDialogService.openDialog(this.errors);
         },
         complete: () => {
             console.log("complete");
-            this.errors = false;
+            this.errors = undefined;
         },
     };
 
@@ -61,11 +81,11 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     }
 
     ngOnInit(): void {}
-    
 
     public addImage = (event: any): void => {
-
         this.resultImage = "";
+
+        this.errors = undefined;
 
         if (event instanceof File) {
             const reader = new FileReader();
@@ -106,7 +126,13 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
             };
         }
 
-        this.isValidFiletype = this.isValidImage(this.file.type)
+        if (this.file.size >= 10000) {
+            this.errors;
+        }
+
+        this.detectorService
+            .getFileMimetype(this.file)
+            .subscribe(this.detectorObserver);
     };
 
     changeRadioValue = (event: MatRadioChange): void => {
@@ -137,21 +163,17 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
         this.selectedFilterValue = event;
     }
 
-    isValidImage(extension: string | undefined): boolean {
-        
-        const validExtensions = [
-            "image/png",
-            "image/jpeg",
-            "image/webp",
-        ];
+    checkFiletype(): boolean {
+        if (this.detectorService.isValidTypeOrMimetype(this.filetype)) {
+            return true;
+        }
 
-        if (this.file.type !== undefined) {
-            if (validExtensions.some((str) => extension === str)) {
+        return false;
+    }
 
-                console.log("VALID")
-
-                return true;
-            }
+    showWebpError(): boolean {
+        if (this.file?.type === "image/webp") {
+            return true;
         }
 
         return false;

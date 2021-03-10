@@ -4,7 +4,6 @@ import { AboutComponent } from "./modules/main/about/about.component";
 import { DetectorComponent } from "./modules/main/detector/detector.component";
 import { HomeComponent } from "./modules/main/home/home.component";
 import { ImagesFiltersComponent } from "./modules/main/images-filters/images-filters.component";
-import { ERRORS_ENUM } from "./utils/constants/errors";
 
 const routes: Routes = [
     {
@@ -27,7 +26,6 @@ const routes: Routes = [
     {
         path: "**",
         redirectTo: "",
-        data: {errors: ERRORS_ENUM.NOT_FOUND_VIEW},
     },
 ];
 
