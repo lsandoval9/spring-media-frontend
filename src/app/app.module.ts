@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { MainModule } from "./modules/main/main.module";
 import { SafeUrlPipe } from "./shared/pipes/safe-url/safe-url.pipe";
+import { IvyCarouselModule } from "angular-responsive-carousel";
 
 @NgModule({
     declarations: [AppComponent ],
@@ -26,9 +27,10 @@ import { SafeUrlPipe } from "./shared/pipes/safe-url/safe-url.pipe";
         SharedModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        IvyCarouselModule
     ],
-    exports: [MaterialModule],
+    exports: [MaterialModule, IvyCarouselModule],
     providers: [SafeUrlPipe],
     bootstrap: [AppComponent],
 })

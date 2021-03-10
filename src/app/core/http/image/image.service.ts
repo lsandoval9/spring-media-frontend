@@ -10,57 +10,38 @@ import { ImageI } from "src/app/utils/interfaces/image.interface";
 export class imageService {
     constructor(private http: HttpClient) {}
 
-    fetchBasicFilterformData(formData: ImageI): Observable<Blob> {
-
+    fetchCommonFilterImage(formData: ImageI): Observable<Blob> {
         const form: FormData = new FormData();
 
         form.append("file", formData.file, "file");
+
+        if (formData.negative) {
+            
+            form.append("negative", formData.negative);
+
+        }
 
         const headers = new Headers();
         /** In Angular 5, including the header Content-Type can invalidate your request */
         headers.append("Content-Type", "multipart/form-data");
         headers.append("Accept", "application/json");
 
-        if (formData.filter === "ascii") {
+        const observable = this.http.post(
+            API_ROUTES.IMAGE_FILTER + formData.filter,
+            form,
+            {
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Accept: ["image/png", "image/jpg", "image/webp", "image/jpeg"],
+                    "Access-Control-Allow-Methods":
+                        "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                    "Access-Control-Allow-Headers":
+                        "Origin, Content-Type, X-Auth-Token",
+                },
+                responseType: "blob",
+            }
+        );
 
-            form.append("negative", formData.negative)
-
-            const observable = this.http.post(
-                API_ROUTES.FILTERS + formData.filter,
-                form,
-                {
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Accept": "*/*",
-                        "Access-Control-Allow-Methods":
-                            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-                        "Access-Control-Allow-Headers":
-                            "Origin, Content-Type, X-Auth-Token",
-                    },
-                    responseType: 'blob'
-                }
-            );
-
-            return observable;
-
-        } else {
-            const observable = this.http.post(
-                API_ROUTES.IMAGE_FILTER + formData.filter,
-                form,
-                {
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Accept": ["image/png", "image/jpg", "image/webp"],
-                        "Access-Control-Allow-Methods":
-                            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-                        "Access-Control-Allow-Headers":
-                            "Origin, Content-Type, X-Auth-Token",
-                    },
-                    responseType: 'blob'
-                }
-            );
-
-            return observable;
-        }
+        return observable;
     }
 }

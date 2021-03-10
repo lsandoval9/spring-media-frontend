@@ -1,5 +1,15 @@
 <div class="container-fluid pt-5">
 
-    hello world
+    
+    <h3>Spring media</h3>
+
+    <mat-divider></mat-divider>
+    <carousel [loop]="true">
+
+        <div *ngFor="let image of images" class="carousel-cell" dots="false" matTooltip="original">
+            <img  class="carousel-image" (dblclick)="showImage(image.name)" [src]="image.path">
+        </div>
+        
+    </carousel>
 
 </div>

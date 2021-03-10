@@ -10,6 +10,7 @@ import { BasicFormComponent } from "./images-filters/basic-form/basic-form.compo
 import { CommonFormComponent } from "./images-filters/common-form/common-form.component";
 import { MaterialModule } from "src/app/material/material.module";
 import { SharedModule } from "src/app/shared/shared.module";
+import { IvyCarouselModule } from "angular-responsive-carousel";
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import { SharedModule } from "src/app/shared/shared.module";
         ReactiveFormsModule,
         SharedModule,
         RouterModule,
+        IvyCarouselModule
     ],
     providers: [],
 })

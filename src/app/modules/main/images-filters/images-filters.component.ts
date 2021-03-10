@@ -112,7 +112,7 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
 
             reader.readAsDataURL(event.target.files[0]); // read file as data url
 
-            // tslint:disable-next-line:no-shadowed-variable
+            // eslint-disable-next-line no-shadow
             reader.onload = (event) => {
                 // called once readAsDataURL is completed
 
@@ -172,7 +172,7 @@ export class ImagesFiltersComponent implements OnInit, OnInit {
     }
 
     showWebpError(): boolean {
-        if (this.file?.type === "image/webp") {
+        if (this.filetype === "image/webp") {
             return true;
         }
 

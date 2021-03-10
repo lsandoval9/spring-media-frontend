@@ -47,7 +47,6 @@ export class CommonFormComponent implements OnInit {
         error: (err: any) => {
             this.errors = true;
             this.toggleLoadBarService.setNextValue(false);
-            console.log(err)
             this.errorDialogService.openDialog(err.error);
         },
         complete: () => {
@@ -77,6 +76,11 @@ export class CommonFormComponent implements OnInit {
     };
 
     onSubmit = (): void => {
+
+        let custom = {
+            form: this.imageForm.value,
+        }
+
         if (this.imageForm.valid) {
             const reader = new FileReader();
 
@@ -89,11 +93,10 @@ export class CommonFormComponent implements OnInit {
                 file: this.image,
                 ...this.imageForm.value,
             };
-
             this.toggleLoadBarService.setNextValue(true);
 
             this.imageService
-                .fetchBasicFilterformData(result)
+                .fetchCommonFilterImage(result)
                 .subscribe(this.imageObserver);
         }
     };

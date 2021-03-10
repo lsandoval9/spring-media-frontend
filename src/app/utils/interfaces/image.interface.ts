@@ -1,5 +1,5 @@
 export interface ImageI {
     file: string | Blob;
-    filter: string,
-    negative: string
+    filter?: string,
+    negative?: string
 }
