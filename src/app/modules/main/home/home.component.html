@@ -1,15 +1,61 @@
-<div class="container-fluid pt-5">
+<div class="container-fluid row pt-5 pb-5">
+
+    <div class="col-10 position-relative z1 container-text">
+
+        <h1 class="fw-light" #intro inViewport (inViewportAction)="testing($event)">Intro</h1>
+
+        <mat-divider class="mb-2"></mat-divider>
+
+        <p class="fs-6">
+            Hello, my name is Luis Augusto and this is my first full stack application.
+            The application consists of tools to apply filters to images and
+            to detect the mimetype of a file.
+        </p>
+
+
+        <h1 class="mt-5 mb-0 fw-light" #mimetypes>MIME types section</h1>
+        <a class="text-muted" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types"
+            target="_blank">
+            <h4>Here is the definition of MIME type from the MDN foundation</h4>
+        </a>
+
+        <mat-divider class="mb-2"></mat-divider>
+
+        <p class="fs-6">
+            In the Detect section you can detect the MIME type of a provided file, this is
+            useful when you have a file without a valid extension as ".jpg", ".pdf", etc. and you
+            want to know which type of file it is.
+        </p>
+
+        <carousel [loop]="true" class="mb-5" #carousel *inView>
+
+            <div *ngFor="let image of images" class="carousel-cell" dots="false" matTooltip="{{image.name}}">
+                <div>
+                    <img (click)="showImage(image)" class="carousel-image" [src]="image.path">
+                    <button class=" my-5">CLICK me</button>
+                </div>
+            </div>
+
+        </carousel>
+
+        <mat-vertical-stepper class="col-2 side-stepper" (selectionChange)="navigateTo($event)"  color="warn">
+            <mat-step  label="Intro" name="TTTTTTTTTT" id="TESTING-SEEME-JUST-HERE">
+            </mat-step>
+    
+            <mat-step label="Detect MIME types">
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Filters">
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+        </mat-vertical-stepper>
+
+    </div>
 
     
-    <h3>Spring media</h3>
-
-    <mat-divider></mat-divider>
-    <carousel [loop]="true">
-
-        <div *ngFor="let image of images" class="carousel-cell" dots="false" matTooltip="original">
-            <img  class="carousel-image" (dblclick)="showImage(image.name)" [src]="image.path">
-        </div>
-        
-    </carousel>
 
 </div>

@@ -11,6 +11,7 @@ import { CommonFormComponent } from "./images-filters/common-form/common-form.co
 import { MaterialModule } from "src/app/material/material.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { IvyCarouselModule } from "angular-responsive-carousel";
+import { InViewportModule } from "ng-in-viewport";
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { IvyCarouselModule } from "angular-responsive-carousel";
         BasicFormComponent,
         CommonFormComponent,
         AboutComponent,
+        
     ],
     imports: [
         CommonModule,
@@ -27,7 +29,8 @@ import { IvyCarouselModule } from "angular-responsive-carousel";
         ReactiveFormsModule,
         SharedModule,
         RouterModule,
-        IvyCarouselModule
+        IvyCarouselModule,
+        InViewportModule
     ],
     providers: [],
 })

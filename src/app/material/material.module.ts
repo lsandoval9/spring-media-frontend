@@ -17,6 +17,8 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatStepperModule } from "@angular/material/stepper";
 
 const COMPONENTS = [
     MatSidenavModule,
@@ -33,6 +35,8 @@ const COMPONENTS = [
     MatRadioModule,
     MatProgressBarModule,
     MatDialogModule,
+    MatChipsModule,
+    MatStepperModule
 ];
 
 @NgModule({

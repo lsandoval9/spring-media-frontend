@@ -6,13 +6,12 @@ html,
 body {
     height: 100%;
     width: 100%;
-    overflow: hidden !important;
     touch-action: pan-x pan-y;
 }
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    overflow: auto;
+    overflow: hidden;
 }
 
 mat-dialog-container {
@@ -23,4 +22,6 @@ mat-dialog-container {
 .error-dialog {
     border: 1px solid dimgray;
     box-shadow: 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-width: 100% !important;
+    max-height: 100% !important;
 }

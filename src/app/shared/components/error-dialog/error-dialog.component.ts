@@ -18,7 +18,6 @@ export class ErrorDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ErrorDialogComponent>) {}
 
     ngOnInit(): void {
-        console.log(this.data)
     }
 
     closeDialog() {
