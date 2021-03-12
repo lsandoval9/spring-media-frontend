@@ -1,61 +1,98 @@
-<div class="container-fluid row pt-5 pb-5">
+<div class="container-fluid row mt-5 py-4">
 
     <div class="col-10 position-relative z1 container-text">
 
-        <h1 class="fw-light" #intro inViewport (inViewportAction)="testing($event)">Intro</h1>
+        <!-- inViewport (inViewportAction)="changeOnView($event)" -->
+        <div class="section-divider">
+            <h1 class="fw-light" index="0" #intro inViewport (inViewportAction)="changeOnView($event)" id="intro">
+                Intro
+            </h1>
 
-        <mat-divider class="mb-2"></mat-divider>
+            <mat-divider class="mb-2"></mat-divider>
 
-        <p class="fs-6">
-            Hello, my name is Luis Augusto and this is my first full stack application.
-            The application consists of tools to apply filters to images and
-            to detect the mimetype of a file.
-        </p>
+            <p class="fs-6">
+
+                Hello, my name is Luis Augusto and this is my first full stack application.
+                The application consists of tools to apply filters to images and
+                to detect the mimetype of a file.
+
+                The app is quite simple, it consist in 2 sections:
+            </p>
+
+            <ul>
+                <li><a href="#mimetypes">Mimetypes</a></li>
+                <li><a href="#filters">Filters</a></li>
+            </ul>
+        </div>
+
+        <div class="section-divider">
+            <h1 class="mt-5 mb-0 fw-light" #mimetypes index="1" inViewport (inViewportAction)="changeOnView($event)"
+                id="mimetypes">MIME types</h1>
+            <a class="text-muted" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types"
+                target="_blank">
+                <h4 class="muted-link">
+
+                    <fa-icon [icon]="faLinkIcon" size="sm"></fa-icon>
+                    Here is the definition of MIME type from the MDN foundation
+                </h4>
+            </a>
 
 
-        <h1 class="mt-5 mb-0 fw-light" #mimetypes>MIME types section</h1>
-        <a class="text-muted" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types"
-            target="_blank">
-            <h4>Here is the definition of MIME type from the MDN foundation</h4>
-        </a>
+            <mat-divider class="mb-2"></mat-divider>
 
-        <mat-divider class="mb-2"></mat-divider>
+            <p class="fs-6">
+                In the Detect section you can detect the MIME type of a provided file, this is
+                useful when you have a file without a valid extension as ".jpg", ".pdf", etc. and you
+                want to know which type of file it is.
+            </p>
+        </div>
 
-        <p class="fs-6">
-            In the Detect section you can detect the MIME type of a provided file, this is
-            useful when you have a file without a valid extension as ".jpg", ".pdf", etc. and you
-            want to know which type of file it is.
-        </p>
+        <div class="section-divider">
 
-        <carousel [loop]="true" class="mb-5" #carousel *inView>
+            <h1 class="fw-light" index="2" #filters inViewport (inViewportAction)="changeOnView($event)" id="filters">
+                Filters
+            </h1>
 
-            <div *ngFor="let image of images" class="carousel-cell" dots="false" matTooltip="{{image.name}}">
-                <div>
-                    <img (click)="showImage(image)" class="carousel-image" [src]="image.path">
-                    <button class=" my-5">CLICK me</button>
-                </div>
+            <mat-divider class="mb-2"></mat-divider>
+
+            <p class="fs-6">
+
+                In the filters section you can apply effect to your photos like negative, sepia,
+                ascii, reflect, blur and some basic effects like hue, brightness, etc.
+
+
+            </p>
+
+            <div>
+                <span class="text-muted">here are some examples:</span>
+                <carousel [loop]="true" class="mb-5" #carousel>
+
+                    <div *ngFor="let image of images" class="carousel-cell" dots="false" matTooltip="{{image.name}}">
+                        <div>
+                            <img (click)="showImage(image)" class="carousel-image" [src]="image.path">
+                            <button class=" my-5">CLICK me</button>
+                        </div>
+                    </div>
+
+                </carousel>
             </div>
-
-        </carousel>
-
-        <mat-vertical-stepper class="col-2 side-stepper" (selectionChange)="navigateTo($event)"  color="warn">
-            <mat-step  label="Intro" name="TTTTTTTTTT" id="TESTING-SEEME-JUST-HERE">
-            </mat-step>
-    
-            <mat-step label="Detect MIME types">
-                <div>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </mat-step>
-            <mat-step label="Filters">
-                <div>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </mat-step>
-        </mat-vertical-stepper>
+        </div>
 
     </div>
 
-    
+
+
+    <mat-vertical-stepper #stepper="matVerticalStepper" class="col-2 side-stepper" color="warn">
+
+        <mat-step (optional)="true" #step label="Intro" name="TTTTTTTTTT">
+        </mat-step>
+
+        <mat-step (optional)="true" #step label="Detect MIME types">
+        </mat-step>
+
+        <mat-step (optional)="true" #step label="Filters">
+        </mat-step>
+    </mat-vertical-stepper>
+
 
 </div>

@@ -1,22 +1,29 @@
-.carousel-cell:hover {
+.muted-link:hover {
 
+    color: #494949;
+    font-weight: normal;
+
+}
+
+.section-divider {
+
+    margin-bottom: 5.5em;
+
+}
+
+.carousel-cell:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: rgba($color: #464646, $alpha: 0.15);
-
 }
 
 .container-test {
-
-    position:  relative !important;
+    position: relative !important;
     z-index: 1 !important;
-
 }
 
-.side-stepper{
-
+.side-stepper {
     position: fixed;
     z-index: 3 !important;
     top: 80px;
     right: 15px;
-
 }

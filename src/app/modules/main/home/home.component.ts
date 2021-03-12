@@ -1,19 +1,22 @@
 import {
     AfterViewInit,
     Component,
-    ElementRef,
     OnInit,
-    TemplateRef,
+    QueryList,
     ViewChild,
-    ViewContainerRef,
+    ViewChildren,
 } from "@angular/core";
 import { ActivatedRoute, Data, Router } from "@angular/router";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject, fromEvent, Subject } from "rxjs";
 import { buffer, debounceTime, filter, map } from "rxjs/operators";
 import { ShowImageDialogService } from "src/app/core/services/show-image-dialog/show-image-dialog.service";
 import { images } from "./images";
 import { imageDialogI } from "../../../utils/interfaces/home/imageDialog.interface";
-import { StepperSelectionEvent } from "@angular/cdk/stepper";
+import { MatStep, MatVerticalStepper } from "@angular/material/stepper";
+import { ViewportScroller } from "@angular/common";
+import { sections } from "./sections";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
 
 @Component({
     selector: "app-home",
@@ -25,43 +28,48 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     isOpen = true;
 
-    touchtime = 0;
+    stepperSections!: NodeListOf<HTMLElement>;
 
+    faLinkIcon: IconDefinition = faLink;
+
+    @ViewChild("stepper") verticalStepper!: MatVerticalStepper;
+
+    @ViewChildren("step") steps!: QueryList<MatStep>;
 
     constructor(
         private route: ActivatedRoute,
         private imageDialogService: ShowImageDialogService,
         private router: Router,
+        private scroller: ViewportScroller
     ) {}
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
     ngAfterViewInit(): void {
+        console.log(this.steps);
+
+        this.stepperSections = document.querySelectorAll("mat-step-header");
+        if (this.stepperSections) {
+            this.stepperSections.forEach((section, index) => {
+                fromEvent(section, "click").subscribe((x) => {
+                    this.scroller.scrollToAnchor(sections[index]);
+                });
+            });
+        }
     }
 
     showImage(path: imageDialogI): void {
         this.imageDialogService.openDialog(path);
     }
 
-    navigateTo(value: StepperSelectionEvent): void {
-        console.log(value);
+    changeOnView(value: { target: any; visible: any }): void {
+        let currentIndex = value.target.getAttribute("index");
 
-        switch (value.selectedIndex) {
-            case 0: console.log("Ok");break;
+        this.steps.forEach((step, index) => {
+            step.completed = false;
 
-            case 1:
-                break;
-
-            case 2:
-                break;
-        }
-    }
-
-
-    testing(event: any):void {
-
-        console.log(event)
-
-        console.log("IN VIEW")
-
+            if (currentIndex == index && value.visible) {
+                step.select();
+                step.completed = true;
+            }
+        });
     }
 }

@@ -12,6 +12,7 @@ import { MaterialModule } from "src/app/material/material.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { IvyCarouselModule } from "angular-responsive-carousel";
 import { InViewportModule } from "ng-in-viewport";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule({
     declarations: [
@@ -21,7 +22,6 @@ import { InViewportModule } from "ng-in-viewport";
         BasicFormComponent,
         CommonFormComponent,
         AboutComponent,
-        
     ],
     imports: [
         CommonModule,
@@ -30,7 +30,8 @@ import { InViewportModule } from "ng-in-viewport";
         SharedModule,
         RouterModule,
         IvyCarouselModule,
-        InViewportModule
+        InViewportModule,
+        FontAwesomeModule
     ],
     providers: [],
 })
