@@ -61,13 +61,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
 
     changeOnView(value: { target: any; visible: any }): void {
+        
         let currentIndex = value.target.getAttribute("index");
 
-        console.log(value);
-
         this.steps.forEach((step, index) => {
-
-            console.log(step.state)
 
             if (currentIndex == index && !value.visible) {
                 step.select();

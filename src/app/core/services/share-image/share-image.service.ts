@@ -11,9 +11,6 @@ export class ShareImageService {
     constructor() {}
 
     pushImage(file: File): void {
-        console.log("HERE")
-
-        console.log(file)
 
         this.fileSubject.next(file)
 
