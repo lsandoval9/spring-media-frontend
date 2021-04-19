@@ -26,7 +26,7 @@ export class DetectorComponent implements OnInit {
 
     fileType = "";
 
-    fileDate: Date | undefined;
+    fileDate: Date | undefined | string;
 
     filename = "";
 
@@ -103,12 +103,22 @@ export class DetectorComponent implements OnInit {
     }
 
     navigateToFilters(): void {
+
         if (
             this.file !== undefined &&
-            this.detectorService.isValidTypeOrMimetype(this.file.type, this.file)
+            this.detectorService.isValidTypeOrMimetype(
+                this.file.type,
+                this.file
+            )
         ) {
+
+            this.shareService.pushImage(this.file);
+
             this.router.navigateByUrl("/filters");
+
+
         } else {
+
             this.file = this.detectorService.setImageExtension(
                 this.result,
                 this.file

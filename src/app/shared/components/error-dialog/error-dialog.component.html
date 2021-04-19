@@ -1,11 +1,23 @@
-<div class="alert alert-danger m-0 rounded" role="alert">
+<div *ngIf="!data.message; else httpError" class="alert alert-danger m-0 rounded" role="alert">
     <strong class="fs-5">Error: {{data.error.message}}</strong>
     <mat-divider class="my-1"></mat-divider>
     <p class="fs-6">Message: {{data.error.error}}</p>
     <p class="fs-6">Date: {{data.error.date}}</p>
 
     <button class="btn btn-danger" (click)="closeDialog()">
-         Close <fa-icon [icon]="closeIcon" size="lg"></fa-icon>
+        Close <fa-icon [icon]="closeIcon" size="lg"></fa-icon>
     </button>
 
 </div>
+
+<ng-template #httpError>
+    <div class="alert alert-danger m-0 rounded" role="alert">
+        <strong class="fs-5">Error: {{data.status}} - {{data.statusText}}</strong>
+        <mat-divider class="my-1"></mat-divider>
+        <p class="fs-6">Message: {{data.url}}</p>
+
+        <button class="btn btn-danger" (click)="closeDialog()">
+            Close <fa-icon [icon]="closeIcon" size="lg"></fa-icon>
+        </button>
+    </div>
+</ng-template>

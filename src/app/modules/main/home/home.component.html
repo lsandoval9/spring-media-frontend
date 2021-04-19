@@ -1,4 +1,4 @@
-<div class="container-fluid row mt-5 py-4">
+<div class="container-fluid row">
 
     <div class="col-10 position-relative z1 container-text">
 
@@ -23,6 +23,19 @@
                 <li><a href="#mimetypes">Mimetypes</a></li>
                 <li><a href="#filters">Filters</a></li>
             </ul>
+
+            <p class="fs-6">
+                the filter section was made with the same filters from the CS50X course 
+                and some others that I added like negative, contrast, saturation (hue).
+            </p>
+
+            <p class="fs-6">
+                The detector section was made using 
+                <a href="https://tika.apache.org/">
+                    <fa-icon [icon]="faLinkIcon" size="sm"></fa-icon>
+                    Apache Tika</a>, a tool for manipulate and detect
+                files metadata
+            </p>
         </div>
 
         <div class="section-divider">
@@ -45,6 +58,23 @@
                 useful when you have a file without a valid extension as ".jpg", ".pdf", etc. and you
                 want to know which type of file it is.
             </p>
+
+            <p class="fs-6">
+                The mimetypes generally consists in and type and a subtype divided with a slash (/). The
+                type represent a general category that indicates the file's purpose such a video, text, image, audio.
+                The subtype indicates the exact kind of data used by the file, some examples may be
+                mp4, plaintext, jpg, mp3.
+            </p>
+
+            <div class="border border-dark rounded p-3">
+                <span class="text-muted">Here is a valid mimetype example</span>
+                <mat-divider></mat-divider>
+                <p class="fs-4 mt-3">
+                    <span matTooltip="type">image</span>/<span matTooltip="subtype">jpeg</span>
+                </p>
+            </div>
+
+            
         </div>
 
         <div class="section-divider">

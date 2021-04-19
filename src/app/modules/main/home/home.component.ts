@@ -1,14 +1,14 @@
 import {
     AfterViewInit,
     Component,
+    ElementRef,
     OnInit,
     QueryList,
     ViewChild,
     ViewChildren,
 } from "@angular/core";
-import { ActivatedRoute, Data, Router } from "@angular/router";
-import { BehaviorSubject, fromEvent, Subject } from "rxjs";
-import { buffer, debounceTime, filter, map } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { fromEvent } from "rxjs";
 import { ShowImageDialogService } from "src/app/core/services/show-image-dialog/show-image-dialog.service";
 import { images } from "./images";
 import { imageDialogI } from "../../../utils/interfaces/home/imageDialog.interface";
@@ -36,16 +36,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     @ViewChildren("step") steps!: QueryList<MatStep>;
 
+    @ViewChild("intro") introHeader!: ElementRef<HTMLElement>;
+
     constructor(
-        private route: ActivatedRoute,
+        private elRef: ElementRef,
         private imageDialogService: ShowImageDialogService,
         private router: Router,
         private scroller: ViewportScroller
     ) {}
     ngOnInit(): void {}
     ngAfterViewInit(): void {
-        console.log(this.steps);
-
         this.stepperSections = document.querySelectorAll("mat-step-header");
         if (this.stepperSections) {
             this.stepperSections.forEach((section, index) => {
@@ -63,12 +63,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
     changeOnView(value: { target: any; visible: any }): void {
         let currentIndex = value.target.getAttribute("index");
 
-        this.steps.forEach((step, index) => {
-            step.completed = false;
+        console.log(value);
 
-            if (currentIndex == index && value.visible) {
+        this.steps.forEach((step, index) => {
+
+            console.log(step.state)
+
+            if (currentIndex == index && !value.visible) {
                 step.select();
                 step.completed = true;
+            } else {
+
+                step.completed = false;
+
             }
         });
     }

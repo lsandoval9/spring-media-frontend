@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MatDialog, DialogPosition } from "@angular/material/dialog";
 import { ErrorDialogComponent } from "src/app/shared/components/error-dialog/error-dialog.component";
@@ -13,11 +14,7 @@ export class ShowErrorDialogService {
 
     constructor(public matDialog: MatDialog) {}
 
-    openDialog(data: errorDialogData): void {
-
-    
-
-
+    openDialog(data: errorDialogData|HttpErrorResponse): void {
         const dialogRef = this.matDialog.open(ErrorDialogComponent, {
             width: "75%",
             data,

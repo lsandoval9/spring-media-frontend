@@ -1,4 +1,4 @@
-<div class="container-fluid my-5 about-container">
+<div class="container-fluid my-5 pb-5 about-container">
 
     <h1 class="display-1 fw-light">Intro</h1>
 
@@ -10,35 +10,36 @@
 
     <h1 class="display-1 fw-light">What I used to build it?</h1>
 
-    <div class="stack-list row justify-content-around">
+    <div *ngIf="" class="stack-list px-5 row justify-content-around">
 
-        <div class="angular-list-container col-12 col-xl-6 mb-5">
+        <div class="angular-list-container col-12 col-xl-6 px-0">
 
-            <img src="../../../assets/images/angular.png" class="stack-image">
+            <img src="/assets/images/angular.png" class="stack-image">
 
             <div class="angular-text-container">
 
                 <span class="angular-text">
-                    <h2 class="display-1 fw-light fs-4 angular-text-title">Front-end</h2>
 
-                    <ul class="fs-6 angular-list">
+                    <h2 class="display-1 col-6 fw-light fs-4 spring-text-title">Front-End</h2>
+
+                    <ul class="fw-lighter stack-list p-0 col-6">
                         <li matTooltip="Angular 11" [matTooltipPosition]="'left'">Angular</li>
-                        <li matTooltip="material design for bootstrap" [matTooltipPosition]="'left'">MDBootstrap</li>
-                        <li matTooltip="Material styled components for angular" [matTooltipPosition]="'left'">Angular
-                            Material</li>
-                        <li matTooltip="Icons and SVGs" [matTooltipPosition]="'left'">Font Awesome</li>
+                        <li matTooltip="Apache Tika 0" [matTooltipPosition]="'left'">MDBootstrap</li>
+
                     </ul>
                 </span>
             </div>
         </div>
 
+
+ 
         <mat-divider class="my-5 w-75 col-1 d-xl-none"></mat-divider>
 
         <mat-divider [vertical]="true" class="my-5 h-75 d-none col-1 d-xl-flex"></mat-divider>
 
         <div class="spring-list-container col-12 col-xl-6">
 
-            <img src="../../../assets/images/spring.jpg" class="stack-image">
+            <img src="/assets/images/spring.jpg" class="stack-image">
 
             <div class="spring-text-container"></div>
 
@@ -46,7 +47,7 @@
 
                 <h2 class="display-1 fw-light fs-4 spring-text-title">Back-end</h2>
 
-                <ul class="fs-6 fw-lighter p-0">
+                <ul class="fw-lighter stack-list p-0">
                     <li matTooltip="Spring 2.3.7" [matTooltipPosition]="'left'">Spring boot</li>
                     <li matTooltip="Apache Tika 0" [matTooltipPosition]="'left'">Apache Tika</li>
                 </ul>
