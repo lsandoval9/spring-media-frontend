@@ -4,18 +4,16 @@
         <a mat-flat-button color="warn" [routerLink]="['/detect']"
         routerLinkActive #detect="routerLinkActive">
         <fa-icon [ngClass]="detect.isActive? 'visible': 'invisible'" [icon]="rightArrowIcon" size="lg"></fa-icon>
-        Detect filetype <fa-icon class="" [icon]="fileImageIcon" size="lg"></fa-icon>
-    </a>
+        Image <fa-icon class="" [icon]="fileImageIcon" size="lg"></fa-icon>
+        </a>
     </li>
     <li class="my-1 w-100">
-        <button>
-        <a color="warn" [routerLink]="['/filters']"
-        routerLinkActive #filters="routerLinkActive">
-        <fa-icon [ngClass]="filters.isActive? 'visible': 'invisible'" [icon]="rightArrowIcon" 
-        size="lg"></fa-icon>
-        Filters <fa-icon class="" [icon]="sliderIcon" size="lg"></fa-icon>
-    </a>
-</button>
+        <a mat-flat-button color="warn" [routerLink]="['/filters']"
+            routerLinkActive #filters="routerLinkActive">
+            <fa-icon [ngClass]="filters.isActive? 'visible': 'invisible'" [icon]="rightArrowIcon" 
+            size="lg"></fa-icon>
+            Filters <fa-icon class="" [icon]="sliderIcon" size="lg"></fa-icon>
+        </a>
     </li>
     <li class="my-1 w-100">
         <a mat-flat-button color="warn" [routerLink]="['/about']"
