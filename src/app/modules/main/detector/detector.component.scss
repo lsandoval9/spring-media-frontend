@@ -1,0 +1,20 @@
+.result-card{
+
+    height: max-content  !important;
+    // flex-column justify-content-center align-items-center
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.detector-card {
+    // flex-column align-items-center justify-content-center
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all .5s;
+    transition-timing-function: ease-in-out;
+
+}

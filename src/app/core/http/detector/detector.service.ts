@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { API_ROUTES } from "src/app/utils/constants/requestImageRoutes";
 import { detectorResultI } from "src/app/utils/interfaces/detectorResult.inteface";
+import memo from "memo-decorator";
 
 @Injectable({
     providedIn: "root",
@@ -55,6 +56,7 @@ export class DetectorService {
         });
     }
 
+    @memo()
     isValidTypeOrMimetype(extension?: string, file?: File, ): boolean {
 
         if (file && !extension) {

@@ -1,0 +1,11 @@
+.submit-btn:disabled {
+    background-color: rgba(48, 48, 48, 1) !important;
+    cursor: not-allowed !important;
+    pointer-events: all !important;
+}
+
+.submit-btn:disabled::before {
+    content: "disabled";
+    margin: 0 0.2em;
+    padding: 0;
+}

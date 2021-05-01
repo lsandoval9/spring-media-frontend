@@ -1,21 +1,26 @@
-mat-drawer-container {
+*,
+*::before,
+*::after {
+    box-sizing: border-box !important;
+    scrollbar-color: rgb(220, 20, 60) transparent;
+    scrollbar-width: thin;
+    scroll-behavior: smooth !important;
+}
 
+
+
+mat-drawer-container {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-
 }
 
-
 .drawer {
-
     padding-top: 6em;
-
 }
 
 .loader {
-
     position: fixed;
     background-color: #dc143c;
     top: 0;
@@ -23,12 +28,21 @@ mat-drawer-container {
     width: 100%;
     height: 100%;
     z-index: 1031;
-
 }
-
 
 .sticky-header {
     position: sticky;
     z-index: 4000;
     top: 0;
 }
+
+.app-content {
+    display: inline-block !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.font-sans {
+    font-family: "Open Sans" !important;
+}
+

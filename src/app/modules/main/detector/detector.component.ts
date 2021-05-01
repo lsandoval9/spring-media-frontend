@@ -16,6 +16,7 @@ import { errorDialogData } from "src/app/utils/interfaces/errorDialogData.interf
     styleUrls: ["./detector.component.scss"],
 })
 export class DetectorComponent implements OnInit {
+    
     fileSize = 0;
 
     fileSizeFormated: string | number = 0;

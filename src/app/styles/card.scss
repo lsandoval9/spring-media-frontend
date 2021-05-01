@@ -1,0 +1,50 @@
+.custom-card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 4px 6px 0 hsla(0, 0%, 0%, 0.4);
+    margin-top: 5rem;
+    box-shadow: black;
+    padding: 0 !important;
+    border-radius: 12px;
+    overflow: hidden;
+    background-image: repeating-linear-gradient(
+        to right,
+        #dc143c,
+        rgb(136, 0, 199)
+    );
+    background-size: 100% 10px;
+    background-repeat: no-repeat;
+}
+.custom-card-action {
+    background: hsla(0, 0%, 72%, 0.5);
+    display: flex;
+    justify-content: center;
+    padding: 1em 0 1em 0;
+}
+
+.file-info-container {
+    background: hsla(220, 12%, 95%, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-info-container,
+.file-info-container > p {
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden;
+    cursor: help;
+}
+
+.card-main-text {
+
+    font-weight: bolder;
+
+}
+
+.card-secondary-text {
+
+    font-weight: lighter;
+
+}
