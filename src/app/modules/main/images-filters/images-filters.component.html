@@ -13,12 +13,15 @@
             <p class="w-100">Filename</p>
         </div>
 
-        <img [src]="((originalImage$) | async)?.src" alt="" >
-
-        {{ ((originalImageSubject) | async)?.src}}
+        <img [src]="(originalImage$ | async)?.src | safeUrl" alt="" >
 
         <div class="custom-card-action mt-2">
-            <button type="submit">
+
+            <button type="button" class="btn" (click)="toggleImage()">
+                Show {{ (isOriginalImageToggled | async)? "Result": "Original" }}
+            </button>
+
+            <button class="btn btn-primary" type="submit">
                 submit
             </button>
          </div>

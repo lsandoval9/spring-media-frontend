@@ -1,4 +1,4 @@
 export interface ImageI {
-    file?: Blob;
+    file?: Blob,
     src?: string
 }

@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { EMPTY, Observable } from "rxjs";
 import { API_ROUTES } from "src/app/utils/constants/requestImageRoutes";
 import { ImageI } from "src/app/utils/interfaces/image/image.interface";
+import { ImageFilterApiParams } from "src/app/utils/interfaces/image/imageFilterApiParams";
 
 @Injectable({
     providedIn: "root",
@@ -10,11 +11,14 @@ import { ImageI } from "src/app/utils/interfaces/image/image.interface";
 export class imageService {
     constructor(private http: HttpClient) {}
 
-    fetchCommonFilterImage(formData: ImageI): Observable<Blob> {
+    fetchCommonFilterImage(imageAPiParams: ImageFilterApiParams): Observable<Blob> {
+
         const form: FormData = new FormData();
 
-        if (formData.file) {
-            form.append("file", formData.file, "file");
+        if (imageAPiParams.file) {
+            form.append("file", imageAPiParams.file, "file");
+        } else {
+            return EMPTY;
         }
         
         const headers = new Headers();
@@ -23,7 +27,7 @@ export class imageService {
         headers.append("Accept", "application/json");
 
         const observable = this.http.post(
-            API_ROUTES.IMAGE_FILTER + "formData.filter",
+            API_ROUTES.IMAGE_FILTER + imageAPiParams.filter,
             form,
             {
                 headers: {

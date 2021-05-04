@@ -95,9 +95,6 @@ export class CommonFormComponent implements OnInit {
             };
             this.toggleLoadBarService.setNextValue(true);
 
-            this.imageService
-                .fetchCommonFilterImage(result)
-                .subscribe(this.imageObserver);
         }
     };
 }

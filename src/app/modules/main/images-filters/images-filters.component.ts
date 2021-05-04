@@ -3,7 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, OnChanges } from
 import { BehaviorSubject, EMPTY, ReplaySubject, Subject, Subscription } from "rxjs";
 import { DetectorService } from "src/app/core/http/detector/detector.service";
 
-import { catchError, finalize, shareReplay, tap } from "rxjs/operators";
+import { catchError, finalize, scan, shareReplay, tap } from "rxjs/operators";
 import { imageService } from "src/app/core/http/image/image.service";
 import { errorMessageDataI } from "src/app/utils/interfaces/errorMessageData.interface";
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
@@ -16,11 +16,18 @@ import { ImageI } from "src/app/utils/interfaces/image/image.interface";
     styleUrls: ["./images-filters.component.scss"],
     changeDetection: ChangeDetectionStrategy.Default,
 })
-export class ImagesFiltersComponent implements OnInit, OnDestroy, OnChanges {
+export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
+    // SUBJECTS
     errorMessage = new BehaviorSubject<errorMessageDataI>({});
 
     originalImageSubject = new ReplaySubject<ImageI>();
+
+    resultImageSubject = new ReplaySubject<ImageI>();
+
+    isOriginalImageToggled = new BehaviorSubject<boolean>(true);
+
+    // OBSERVABLES
 
     originalImage$ = this.originalImageSubject.asObservable()
 
@@ -35,8 +42,6 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy, OnChanges {
     
     ngOnInit(): void {
 
-        this.originalImage$.subscribe((value) => console.log(value))
-
         this.shareImageSubscription = this.shareImageService
         .getImageObservable()
         .pipe(
@@ -45,7 +50,6 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy, OnChanges {
                     this.originalImageSubject.next({file: value, src: URL.createObjectURL(value)})
                 }
             }),
-            shareReplay(1),
             catchError(error => {
                 console.log(error)
                 return EMPTY;
@@ -53,12 +57,8 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy, OnChanges {
         ).subscribe();
     }
 
-    ngOnChanges() {
-        console.log(this.originalImage$)
-    }
-
     ngOnDestroy() {
-
+        this.shareImageSubscription.unsubscribe();
     }
 
     // CLASS METHODS
@@ -82,11 +82,17 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy, OnChanges {
         // @ts-ignore
         if (inputFile = event.target?.files[0]) {
 
-            
+            this.filterService.fetchCommonFilterImage({file: inputFile, filter: "negative"}).subscribe(
+                (value) => {console.log(value); this.originalImageSubject.next({file: value, src:
+                URL.createObjectURL(value)})}
+            )
 
         }
-            
-        
+    }
+
+    toggleImage():void {
+
+            this.isOriginalImageToggled.next(!this.isOriginalImageToggled.getValue());
 
     }
     

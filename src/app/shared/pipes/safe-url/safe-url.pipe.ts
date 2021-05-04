@@ -11,8 +11,6 @@ export class SafeUrlPipe implements PipeTransform {
     @memo()
     public transform(url: string|undefined): SafeResourceUrl {
 
-        console.log(url)
-
         if (!url) {
             return "";
         }
