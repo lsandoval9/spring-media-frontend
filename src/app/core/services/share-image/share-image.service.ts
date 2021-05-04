@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ReplaySubject } from "rxjs";
+import { Observable, ReplaySubject } from "rxjs";
 
 @Injectable({
     providedIn: "root",
@@ -17,9 +17,9 @@ export class ShareImageService {
         
     }
 
-    getImage(): ReplaySubject<File> {
+    getImageObservable(): Observable<File> {
 
-        return this.fileSubject
+        return this.fileSubject.asObservable();
 
     }
 

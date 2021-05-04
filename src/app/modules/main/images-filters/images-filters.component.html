@@ -1,98 +1,28 @@
-<div class="container-fluid overflow-hidden h-auto d-flex row pb-5 mt-3 justify-content-between">
+<div class="container-fluid overflow-hidden h-auto d-flex row p-5 mt-3 justify-content-between">
 
-    <div class="d-flex row col-12 col-md-5 secondary-theme">
+    <form (submit)="submitImage($event)" class="pt-5 d-flex custom-card row col-12 secondary-theme">
 
-        <!-- LOAD IMAGE TO APPLY A FILTER-->
 
-        <label class="btn btn-danger my-5">
-            Load image <input type="file" name="file" (change)="addImage($event)" hidden>
-        </label>
+        <div class="d-flex flex-row">
+            <label for="file" class="btn btn-primary">
+                Load File
+                <input (change)="loadFile($event)" type="file" accept="image/*"  
+                multiple="false" name="file" id="file" hidden required>
+            </label>
 
-        <div *ngIf="showWebpError()" class="alert alert-danger" role="alert">
-            <strong>Some WEBP files may not be supported</strong>
+            <p class="w-100">Filename</p>
         </div>
 
+        <img [src]="((originalImage$) | async)?.src" alt="" >
 
-        <!-- SELECT FILTER TYPE -->
+        {{ ((originalImageSubject) | async)?.src}}
 
-        <span *ngIf="file && isValidFiletype; else selectValidImage" class="secondary-theme">
-            <mat-radio-group color="warn" (change)="changeRadioValue($event)" aria-label="Select an option"
-                class="d-flex flex-row mb-5">
-
-                <mat-radio-button value="basic" class="mx-2">Basic filters</mat-radio-button>
-                <mat-radio-button value="common" class="mx-2">Common filters</mat-radio-button>
-            </mat-radio-group>
-        </span>
-
-        <ng-template #selectValidImage>
-
-            <div class="alert alert-warning" role="alert">
-                <strong>Please select a valid image</strong>
-                <p>PNG, WEBP and JPG are supported</p>
-                <p *ngIf="file"><strong>Selected: </strong> {{file.type}}</p>
-            </div>
-
-        </ng-template>
-
-
-        <!-- RENDER CORRECT FORM -->
-
-        <div *ngIf="file && isValidFiletype">
-            <span *ngIf="selectedValue; else selectOne">
-                <span [ngSwitch]="selectedValue">
-                    <div *ngSwitchCase="'common'">
-                        <app-common-form [file]="file" (outputSelectedValue)="changeSelectedFilterValue($event)"
-                            (resultImage)="showResultImage($event)"></app-common-form>
-                    </div>
-                    <div *ngSwitchCase="'basic'">
-                        <app-basic-form [file]="file"></app-basic-form>
-                    </div>
-                </span>
-            </span>
-
-            <ng-template #selectOne>
-                <div class="alert alert-warning" role="alert">
-                    <strong>Please select a valid option</strong>
-
-                </div>
-            </ng-template>
-        </div>
-
-        <!-- PREVIEW OF THE UPLOAD IMAGE -->
-        <div *ngIf="imageAsSrc">
-            <h5>Preview</h5>
-            <img [src]="imageAsSrc | safeUrl" alt="404"
-                class="col-6 img-fluid hover-shadow rounded-2 preview-image shadow-5-strong border-5">
-        </div>
-
-        
-
-
-    </div>
-
-    <mat-divider class="mx-2 d-none d-md-flex col-md-1" [vertical]="true"></mat-divider>
-    <mat-divider class="my-5 col d-flex col-12 d-md-none" [vertical]="false"></mat-divider>
-
-    <div *ngIf="resultImage" class="col-12 col-md-5 p-2 align-self-center shadow-5-strong my-5">
-
-        
-
-        <mat-card class="rounded">
-            <mat-card-header>
-                <mat-card-title>{{selectedFilterValue}}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <img [src]="resultImage | safeUrl" alt="" srcset=""
-                    class="img-fluid hover-shadow rounded preview-image shadow-5-strong border-5">
-            </mat-card-content>
-            <mat-card-actions class="d-flex justify-content-between">
-                <a class="btn btn-primary mx-2" [download]="downloadSrc" [href]="resultImage | safeUrl">
-                    Save this image
-                </a>
-                <button mailto class="btn btn-success">Send via email</button>
-            </mat-card-actions>
-        </mat-card>
-
-    </div>
+        <div class="custom-card-action mt-2">
+            <button type="submit">
+                submit
+            </button>
+         </div>
+       
+    </form>
 
 </div>

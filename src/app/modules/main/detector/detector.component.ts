@@ -8,7 +8,7 @@ import { ShareImageService } from "src/app/core/services/share-image/share-image
 import { ShowErrorDialogService } from "src/app/core/services/show-error-dialog/show-error-dialog.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
 import { detectorResultI } from "src/app/utils/interfaces/detectorResult.inteface";
-import { errorDialogData } from "src/app/utils/interfaces/errorDialogData.interface";
+import { errorMessageDataI } from "src/app/utils/interfaces/errorMessageData.interface";
 
 @Component({
     selector: "app-detector",
@@ -41,7 +41,7 @@ export class DetectorComponent implements OnInit {
 
             this.result = result;
         },
-        error: (err: errorDialogData) => {
+        error: (err: errorMessageDataI) => {
             this.loadingService.setNextValue(false);
             console.error(err);
             this.errorDialogService.openDialog(err);

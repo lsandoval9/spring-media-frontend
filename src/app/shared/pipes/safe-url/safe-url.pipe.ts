@@ -9,7 +9,14 @@ export class SafeUrlPipe implements PipeTransform {
     constructor(private readonly sanitizer: DomSanitizer) {}
 
     @memo()
-    public transform(url: string): SafeResourceUrl {
+    public transform(url: string|undefined): SafeResourceUrl {
+
+        console.log(url)
+
+        if (!url) {
+            return "";
+        }
+
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 }

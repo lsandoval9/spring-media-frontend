@@ -11,7 +11,7 @@ import { Observer } from "rxjs";
 import { imageService } from "src/app/core/http/image/image.service";
 import { ShowErrorDialogService } from "src/app/core/services/show-error-dialog/show-error-dialog.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
-import { ImageI } from "src/app/utils/interfaces/image.interface";
+import { ImageI } from "src/app/utils/interfaces/image/image.interface";
 
 @Component({
     selector: "app-common-form",
@@ -39,7 +39,7 @@ export class CommonFormComponent implements OnInit {
     imageObserver: Observer<any> = {
         next: (value: Blob) => {
             this.errors = false;
-
+            
             this.toggleLoadBarService.setNextValue(false);
 
             this.resultImage.emit(value);

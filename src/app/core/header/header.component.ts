@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
     constructor(private isLoadingService: ToggleLoadingBarService) {}
 
     ngOnInit(): void {
-        this.isLoadingService.getSubject().subscribe(this.loadingObserver);
+        this.isLoadingService.getObservable().subscribe(this.loadingObserver);
     }
 
     toggleSideNav = (): void => {

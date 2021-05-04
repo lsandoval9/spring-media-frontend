@@ -1,4 +1,4 @@
-export interface errorDialogData {
+export interface errorMessageDataI {
     
     status?: number|string,
 
