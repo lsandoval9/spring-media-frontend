@@ -30,3 +30,19 @@ mat-dialog-container {
 app-root{
     display: block !important;
 }
+
+* {
+    scrollbar-color: rgb(220, 20, 60) transparent !important;
+    scrollbar-width: thin !important;
+    scroll-behavior: smooth !important;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background: rgb(230, 230, 230);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(220, 20, 60);
+    -webkit-border-radius: 0;
+}
