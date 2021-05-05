@@ -1,16 +1,17 @@
 <app-loader [hidden]="true" class="loader h-100 w-100"></app-loader>
 
-<app-header (toggleSideNavEmitter)="drawer.toggle()" [isMenuBarOpen]="drawer.opened"></app-header>
+<header header (toggleSideNavEmitter)="drawer.toggle()" 
+ class="p-0 m-0 d-flex flex-column sticky-header" [isMenuBarOpen]="drawer.opened">
+</header>
 
-<mat-drawer-container [hasBackdrop]="false" class="overflow-hidden drawer-container min-vh-100" 
-style="flex: 1 1 auto;">
+<mat-drawer-container [hasBackdrop]="false" class="">
 
     <mat-drawer [disableClose]="false" [autoFocus]="false" [mode]="'push'" #drawer="matDrawer" class="drawer">
         <app-drawer></app-drawer>
     </mat-drawer>
 
     <mat-drawer-content (click)="toggleDrawer(drawer, drawer.opened)" 
-    class="overflow-scroll app-content h-100 d-flex flex-column">
+    class="t h-100 d-flex flex-column">
         <router-outlet></router-outlet>
     </mat-drawer-content>
 

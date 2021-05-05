@@ -4,7 +4,7 @@
     box-sizing: border-box !important;
     scrollbar-color: rgb(220, 20, 60) transparent;
     scrollbar-width: thin;
-    scroll-behavior: smooth !important;
+    scroll-behavior: unset !important;
 }
 
 
@@ -12,8 +12,6 @@
 mat-drawer-container {
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
 }
 
 .drawer {
@@ -32,12 +30,12 @@ mat-drawer-container {
 
 .sticky-header {
     position: sticky;
-    z-index: 4000;
+    z-index: 3;
+    width: 100%;
     top: 0;
 }
 
 .app-content {
-    display: inline-block !important;
     width: 100% !important;
     height: 100% !important;
 }
@@ -46,3 +44,8 @@ mat-drawer-container {
     font-family: "Open Sans" !important;
 }
 
+app-root {
+
+    display: block !important;
+
+}

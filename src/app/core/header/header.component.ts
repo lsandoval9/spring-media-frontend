@@ -7,7 +7,7 @@ import { ToggleLoadingBarService } from "../services/toggle-loading-bar/toggle-l
 import { menuBarAnimation } from "./animations/menuBar";
 
 @Component({
-    selector: "app-header",
+    selector: "header[header]",
     templateUrl: "./header.component.html",
     styleUrls: ["./header.component.scss"],
     animations: [menuBarAnimation],

@@ -9,8 +9,6 @@ body {
 }
 body {
     margin: 0;
-    font-family: "Open Sans", "Helvetica Neue", sans-serif !important;
-    overflow: hidden;
 }
 
 * {
@@ -27,4 +25,8 @@ mat-dialog-container {
     box-shadow: 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     max-width: 100% !important;
     max-height: 100% !important;
+}
+
+app-root{
+    display: block !important;
 }
