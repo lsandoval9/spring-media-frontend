@@ -3,19 +3,30 @@
     <form (submit)="submitImage($event)" class="pt-5 d-flex custom-card row col-12 secondary-theme">
 
 
-        <div class="d-flex flex-row">
-            <label for="file" class="btn btn-primary">
-                Load File
+        <div class="d-flex flex-row align-items-center mb-2">
+            <label for="file" class="btn btn-primary flex-shrink-0">
+                <span>Load File</span>
                 <input (change)="loadFile($event)" type="file" accept="image/*"  
                 multiple="false" name="file" id="file" hidden required>
             </label>
 
-            <p class="w-100">Filename</p>
+            <p class="w-100 m-0 file-name-container ms-2 ps-1 mb-2 pb-2 fs-6">
+                <ng-container *ngIf="(originalFileName | async )as filename; else selectFile">
+                    {{filename}}
+                </ng-container>
+                
+                <ng-template #selectFile>
+                    Please select a file
+                </ng-template>
+                
+            </p>
         </div>
 
-        <img [src]="(originalImage$ | async)?.src | safeUrl" alt="" >
+        <div class="image-container">
+            <img [src]="(originalImage$ | async)?.src | safeUrl" alt="" class="filter-image">
+        </div>
 
-        <div class="custom-card-action mt-2">
+        <form class="custom-card-action">
 
             <button type="button" class="btn btn-none me-2" (click)="toggleImage()">
                 Show {{ (isOriginalImageToggled | async)? "Result": "Original" }}
@@ -24,7 +35,7 @@
             <button class="btn btn-primary" type="submit">
                 submit
             </button>
-         </div>
+         </form>
        
     </form>
 

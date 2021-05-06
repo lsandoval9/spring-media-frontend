@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommonFormComponent } from './common-form.component';
+import { FilterFormComponent } from './filter-form.component';
 
-describe('FormComponent', () => {
-  let component: CommonFormComponent;
-  let fixture: ComponentFixture<CommonFormComponent>;
+describe('FilterFormComponent', () => {
+  let component: FilterFormComponent;
+  let fixture: ComponentFixture<FilterFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommonFormComponent ]
+      declarations: [ FilterFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CommonFormComponent);
+    fixture = TestBed.createComponent(FilterFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

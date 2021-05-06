@@ -1,8 +1,53 @@
-
-
 .preview-image {
-
     object-fit: fill;
     width: 100%;
+}
+
+.file-name-container {
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden;
+    font-weight: bold;
+    box-shadow: -2px 2px 0px 0px rgba(0, 0, 0, 0.55);
+}
+
+
+
+.image-container {
+
+    display: flex;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0px 0px 5px -3px rgb(32, 32, 32);
+}
+
+.filter-image {
+    
+    padding: 0;
+    max-height: 70vh;
+    max-width: 100%;
+    object-fit: contain;
+    position: relative;
+    box-shadow: 0px 0px 1px 0px rgb(32, 32, 32);
+
+    &:hover {
+
+        
+        &::before {
+            content: "HELLO WORLD";
+            position: absolute;
+            top: auto;
+            right: auto;
+            z-index: 3;
+            color: white;
+            font-size: 50px;
+            width: 50px;
+            height: 50px;
+            background-color: orange;
+        }
+
+    }
 
 }
+
+

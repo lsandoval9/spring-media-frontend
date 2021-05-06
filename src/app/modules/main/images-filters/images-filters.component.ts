@@ -9,6 +9,7 @@ import { errorMessageDataI } from "src/app/utils/interfaces/errorMessageData.int
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
 import { ImageI } from "src/app/utils/interfaces/image/image.interface";
+import { BlobService } from "src/app/core/services/blob/blob.service";
 
 @Component({
     selector: "app-images-filters",
@@ -27,6 +28,8 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
     isOriginalImageToggled = new BehaviorSubject<boolean>(true);
 
+    originalFileName = new BehaviorSubject<string>("");
+
     // OBSERVABLES
 
     originalImage$ = this.originalImageSubject.asObservable()
@@ -36,7 +39,8 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
     constructor(private detectorService: DetectorService, 
         private filterService: imageService,
         private shareImageService: ShareImageService,
-        private loadingService: ToggleLoadingBarService) {}
+        private loadingService: ToggleLoadingBarService,
+        private blobService: BlobService) {}
 
     // LIFECICLE
     
@@ -82,11 +86,41 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
         // @ts-ignore
         if (inputFile = event.target?.files[0]) {
 
-            this.filterService.fetchCommonFilterImage({file: inputFile, filter: "negative"}).subscribe(
-                (value) => {console.log(value); this.originalImageSubject.next({file: value, src:
+            /* this.filterService.fetchCommonFilterImage({file: inputFile, filter: "negative"}).subscribe(
+                (value) => {console.log(value); this.originalImageSubject.next({
+                    file: value, 
+                    src:
                 URL.createObjectURL(value)})}
-            )
+            ) */
 
+            this.detectorService.getFileMimetype(inputFile)
+            .pipe(
+                tap(
+                    (value) => {
+                        if (this.detectorService.isValidTypeOrMimetype(value.mimetype)) {
+                            this.originalImageSubject.next(
+                                {
+                                    file: inputFile,
+                                src: URL.createObjectURL(inputFile)
+                                }
+                            )
+                        } else {
+                            throw new Error("Invalid file").message = `Invalid file, 
+                            please insert an image (jpg, png, webp)`;
+                        }
+                    }
+                ),
+
+                catchError( err => {
+                    this.errorMessage.next({message: err.message});
+                    console.log(err);
+                    return EMPTY;
+                    
+                    })
+                ).subscribe();
+            
+
+            this.originalFileName.next(inputFile.name);
         }
     }
 

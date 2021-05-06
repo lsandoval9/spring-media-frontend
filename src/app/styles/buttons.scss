@@ -13,6 +13,8 @@
 .btn-none {
     box-shadow: none !important;
     font-weight: normal !important;
+    transition-timing-function: cubic-bezier(.46,.03,.52,.96);
+    transition-duration: .3s;
 
    
 }

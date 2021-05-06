@@ -8,13 +8,14 @@ import { MatDrawer } from "@angular/material/sidenav";
     animations: [],
 })
 export class AppComponent implements OnInit {
+    
     title = "spring-media-front";
 
     ngOnInit(): void {}
 
     toggleLoader = (): void => {};
 
-    //logger
+    // TOGGLE HEADER DRAWER
     toggleDrawer(drawer: MatDrawer, isOpened: boolean): void {
         if (isOpened) {
             drawer.toggle();
