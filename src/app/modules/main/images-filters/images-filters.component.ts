@@ -1,6 +1,18 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, OnChanges } from "@angular/core";
+import {
+    Component,
+    OnInit,
+    ChangeDetectionStrategy,
+    OnDestroy,
+    OnChanges,
+} from "@angular/core";
 
-import { BehaviorSubject, EMPTY, ReplaySubject, Subject, Subscription } from "rxjs";
+import {
+    BehaviorSubject,
+    EMPTY,
+    ReplaySubject,
+    Subject,
+    Subscription,
+} from "rxjs";
 import { DetectorService } from "src/app/core/http/detector/detector.service";
 
 import { catchError, finalize, scan, shareReplay, tap } from "rxjs/operators";
@@ -18,7 +30,6 @@ import { BlobService } from "src/app/core/services/blob/blob.service";
     changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ImagesFiltersComponent implements OnInit, OnDestroy {
-
     // SUBJECTS
     errorMessage = new BehaviorSubject<errorMessageDataI>({});
 
@@ -26,39 +37,44 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
     resultImageSubject = new ReplaySubject<ImageI>();
 
-    isOriginalImageToggled = new BehaviorSubject<boolean>(true);
+    isOriginalImageToggledSubject = new BehaviorSubject<boolean>(true);
 
     originalFileName = new BehaviorSubject<string>("");
 
     // OBSERVABLES
 
-    originalImage$ = this.originalImageSubject.asObservable()
+    originalImage$ = this.originalImageSubject.asObservable();
 
     shareImageSubscription!: Subscription;
 
-    constructor(private detectorService: DetectorService, 
+    constructor(
+        private detectorService: DetectorService,
         private filterService: imageService,
         private shareImageService: ShareImageService,
         private loadingService: ToggleLoadingBarService,
-        private blobService: BlobService) {}
+        private blobService: BlobService
+    ) {}
 
     // LIFECICLE
-    
-    ngOnInit(): void {
 
+    ngOnInit(): void {
         this.shareImageSubscription = this.shareImageService
-        .getImageObservable()
-        .pipe(
-            tap((value: File) => {
-                if (value) {
-                    this.originalImageSubject.next({file: value, src: URL.createObjectURL(value)})
-                }
-            }),
-            catchError(error => {
-                console.log(error)
-                return EMPTY;
-            })
-        ).subscribe();
+            .getImageObservable()
+            .pipe(
+                tap((value: File) => {
+                    if (value) {
+                        this.originalImageSubject.next({
+                            file: value,
+                            src: URL.createObjectURL(value),
+                        });
+                    }
+                }),
+                catchError((error) => {
+                    console.log(error);
+                    return EMPTY;
+                })
+            )
+            .subscribe();
     }
 
     ngOnDestroy() {
@@ -68,24 +84,25 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
     // CLASS METHODS
 
     submitImage(event: Event) {
-
         event.preventDefault();
 
-        this.originalImage$.subscribe({next: (value) => {console.log(value.src)}});
+        this.originalImage$.subscribe({
+            next: (value) => {
+                console.log(value.src);
+            },
+        });
     }
 
     loadFile(event: Event): void {
-
         event.preventDefault();
 
         // @ts-ignore
-        this.originalImageSubject.next(event.target?.files[0])
+        this.originalImageSubject.next(event.target?.files[0]);
 
         let inputFile: File;
-        
-        // @ts-ignore
-        if (inputFile = event.target?.files[0]) {
 
+        // @ts-ignore
+        if ((inputFile = event.target?.files[0])) {
             /* this.filterService.fetchCommonFilterImage({file: inputFile, filter: "negative"}).subscribe(
                 (value) => {console.log(value); this.originalImageSubject.next({
                     file: value, 
@@ -93,42 +110,42 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
                 URL.createObjectURL(value)})}
             ) */
 
-            this.detectorService.getFileMimetype(inputFile)
-            .pipe(
-                tap(
-                    (value) => {
-                        if (this.detectorService.isValidTypeOrMimetype(value.mimetype)) {
-                            this.originalImageSubject.next(
-                                {
-                                    file: inputFile,
-                                src: URL.createObjectURL(inputFile)
-                                }
+            this.detectorService
+                .getFileMimetype(inputFile)
+                .pipe(
+                    tap((value) => {
+                        if (
+                            this.detectorService.isValidTypeOrMimetype(
+                                value.mimetype
                             )
+                        ) {
+                            this.originalImageSubject.next({
+                                file: inputFile,
+                                src: URL.createObjectURL(inputFile),
+                            });
                         } else {
-                            throw new Error("Invalid file").message = `Invalid file, 
-                            please insert an image (jpg, png, webp)`;
+                            throw (new Error(
+                                "Invalid file"
+                            ).message = `Invalid file, 
+                            please insert an image (jpg, png, webp)`);
                         }
-                    }
-                ),
+                    }),
 
-                catchError( err => {
-                    this.errorMessage.next({message: err.message});
-                    console.log(err);
-                    return EMPTY;
-                    
+                    catchError((err) => {
+                        this.errorMessage.next({ message: err.message });
+                        console.log(err);
+                        return EMPTY;
                     })
-                ).subscribe();
-            
+                )
+                .subscribe();
 
             this.originalFileName.next(inputFile.name);
         }
     }
 
-    toggleImage():void {
-
-            this.isOriginalImageToggled.next(!this.isOriginalImageToggled.getValue());
-
+    toggleImage() {
+        this.isOriginalImageToggledSubject.next(
+            !this.isOriginalImageToggledSubject.getValue()
+        );
     }
-    
 }
-

@@ -1,6 +1,6 @@
 <div class="container-fluid overflow-hidden h-auto d-flex row p-5 mt-3 justify-content-between">
 
-    <form (submit)="submitImage($event)" class="pt-5 d-flex custom-card row col-12 secondary-theme">
+    <form (submit)="submitImage($event)" class="pt-5 d-flex custom-card row col-12">
 
 
         <div class="d-flex flex-row align-items-center mb-2">
@@ -26,16 +26,9 @@
             <img [src]="(originalImage$ | async)?.src | safeUrl" alt="" class="filter-image">
         </div>
 
-        <form class="custom-card-action">
-
-            <button type="button" class="btn btn-none me-2" (click)="toggleImage()">
-                Show {{ (isOriginalImageToggled | async)? "Result": "Original" }}
-            </button>
-
-            <button class="btn btn-primary" type="submit">
-                submit
-            </button>
-         </form>
+        <app-filter-form (changeImageStateEmitter)="toggleImage()" 
+        [isOriginalImageToggled]="(isOriginalImageToggledSubject | async)" 
+        ></app-filter-form>
        
     </form>
 
