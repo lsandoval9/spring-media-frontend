@@ -12,7 +12,7 @@ body {
 }
 
 * {
-    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
 }
 
 mat-dialog-container {
@@ -34,7 +34,6 @@ app-root{
 * {
     scrollbar-color: rgb(220, 20, 60) transparent !important;
     scrollbar-width: thin !important;
-    scroll-behavior: smooth !important;
 }
 
 ::-webkit-scrollbar {

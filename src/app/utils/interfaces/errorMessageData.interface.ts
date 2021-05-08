@@ -8,5 +8,7 @@ export interface errorMessageDataI {
 
     date?: Date | string;
 
-    url?: string
+    url?: string,
+
+    severity?: "warning" | "danger"
 }

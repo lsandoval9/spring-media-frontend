@@ -3,25 +3,23 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     OnDestroy,
-    OnChanges,
 } from "@angular/core";
-
 import {
     BehaviorSubject,
     EMPTY,
     ReplaySubject,
-    Subject,
     Subscription,
 } from "rxjs";
 import { DetectorService } from "src/app/core/http/detector/detector.service";
 
-import { catchError, finalize, scan, shareReplay, tap } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { imageService } from "src/app/core/http/image/image.service";
 import { errorMessageDataI } from "src/app/utils/interfaces/errorMessageData.interface";
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
 import { ImageI } from "src/app/utils/interfaces/image/image.interface";
 import { BlobService } from "src/app/core/services/blob/blob.service";
+import { frequentErrors } from "src/app/utils/constants/frequentErrors";
 
 @Component({
     selector: "app-images-filters",
@@ -41,9 +39,9 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
     originalFileName = new BehaviorSubject<string>("");
 
-    // OBSERVABLES
+    errorData = new BehaviorSubject<errorMessageDataI|undefined>(frequentErrors.selectImage)
 
-    originalImage$ = this.originalImageSubject.asObservable();
+    // OBSERVABLES
 
     shareImageSubscription!: Subscription;
 
@@ -67,6 +65,8 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
                             file: value,
                             src: URL.createObjectURL(value),
                         });
+                        this.originalFileName.next(value.name);
+                        this.errorData.next(undefined);
                     }
                 }),
                 catchError((error) => {
@@ -86,7 +86,7 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
     submitImage(event: Event) {
         event.preventDefault();
 
-        this.originalImage$.subscribe({
+        this.originalImageSubject.subscribe({
             next: (value) => {
                 console.log(value.src);
             },
@@ -123,6 +123,8 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
                                 file: inputFile,
                                 src: URL.createObjectURL(inputFile),
                             });
+
+                            this.errorData.next(undefined);
                         } else {
                             throw (new Error(
                                 "Invalid file"

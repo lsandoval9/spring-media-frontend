@@ -7,17 +7,35 @@
                 Select filter
             </mat-label>
 
-            <mat-select  (selectionChange)="changeSelectedFilter($event)">
+            <mat-select  [ngModel]="SelectedFilter | async"
+                        (selectionChange)="changeSelectedFilter($event)" name="filter">
 
-                <mat-optgroup label="Basic">
-                    <mat-option value="hello">
-                        hello
+                <!-- COMMON -->
+                <mat-optgroup label="Common" >
+                    <mat-option value="negative">
+                        Negative
+                    </mat-option>
+                    <mat-option value="ascii">
+                        Ascii
+                    </mat-option>
+                    <mat-option value="reflect">
+                        Reflect
+                    </mat-option>
+                    <mat-option value="sepia">
+                        Sepia
+                    </mat-option>
+                    <mat-option value="blur">
+                        Blur
+                    </mat-option>
+                    <mat-option value="grayscale">
+                        Grayscale
                     </mat-option>
                 </mat-optgroup>
 
-                <mat-optgroup label="Common">
-                    <mat-option value="world">
-                        world
+                <!-- BASIC -->
+                <mat-optgroup label="Basic">
+                    <mat-option value="hello">
+                        hello
                     </mat-option>
                 </mat-optgroup>
                 

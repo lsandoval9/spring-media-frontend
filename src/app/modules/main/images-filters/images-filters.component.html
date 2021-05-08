@@ -11,22 +11,32 @@
             </label>
 
             <p class="w-100 m-0 file-name-container ms-2 ps-1 mb-2 pb-2 fs-6">
-                <ng-container *ngIf="(originalFileName | async )as filename; else selectFile">
+                <ng-container *ngIf="(originalFileName | async )as filename">
                     {{filename}}
                 </ng-container>
-                
-                <ng-template #selectFile>
-                    Please select a file
-                </ng-template>
-                
             </p>
         </div>
 
-        <div class="image-container">
-            <img [src]="(originalImage$ | async)?.src | safeUrl" alt="" class="filter-image">
-        </div>
+        
+            <app-filter-image 
+            *ngIf="!(errorData | async); else errorTemplate"  
+            [originalImage]="originalImageSubject | async" 
+            [resultImage]="resultImageSubject | async"
+            [isOriginalImageToggled]="isOriginalImageToggledSubject | async">
+            </app-filter-image>
 
-        <app-filter-form (changeImageStateEmitter)="toggleImage()" 
+        <ng-template #errorTemplate>
+            <div class="alert"  role="alert"
+            [ngClass]="(errorData | async)?.severity === 'danger'? 'alert-danger': 'alert-warning'">
+                <strong *ngIf="(errorData | async)?.code as code">{{code}}</strong>
+                <span *ngIf="(errorData | async)?.message as message">
+                    {{message}}
+                </span>
+            </div>
+        </ng-template>
+        
+
+        <app-filter-form (changeImageStateEmitter)="toggleImage()" class="p-0"
         [isOriginalImageToggled]="(isOriginalImageToggledSubject | async)" 
         ></app-filter-form>
        
