@@ -73,12 +73,11 @@ export class FilterFormComponent implements OnInit, OnDestroy {
             this.imageStateService.originalImageSubject.pipe(
                 mergeMap((value) => 
                 this.imageService
-                .fetchCommonFilterImage({...value, filter: this.selectedFilter.getValue()})
+                .fetchCommonFilterImage({file: value.file, filter: this.selectedFilter.getValue()})
                 ),
                 tap(value => {
                     this.imageStateService
                     .resultImageSubject.next({file: value, src: URL.createObjectURL(value)});
-
                     this.imageStateService.isOriginalImageToggledSubject.next(false);
                 })
             ).subscribe()

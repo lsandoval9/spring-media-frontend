@@ -13,6 +13,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { MainModule } from "./modules/main/main.module";
 import { SafeUrlPipe } from "./shared/pipes/safe-url/safe-url.pipe";
 import { IvyCarouselModule } from "angular-responsive-carousel";
+import { GetFileSrcPipe } from "./shared/pipes/get-file-src/get-file-src.pipe";
 
 @NgModule({
     declarations: [AppComponent ],
@@ -31,7 +32,7 @@ import { IvyCarouselModule } from "angular-responsive-carousel";
         IvyCarouselModule
     ],
     exports: [MaterialModule, IvyCarouselModule],
-    providers: [SafeUrlPipe],
+    providers: [SafeUrlPipe, GetFileSrcPipe],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

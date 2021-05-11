@@ -92,6 +92,7 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
         
         event.preventDefault();
 
+        this.imageStateService.isOriginalImageToggledSubject.next(true);
         this.imageStateService.resultImageSubject.next(undefined)
 
         let inputFile: File;
@@ -133,7 +134,7 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
                             this.imageStateService.errorData.next(undefined);
                         } else {
-                            
+
                             this.imageStateService.errorData.next(frequentErrors.invalidMimetype)
                         }
 
