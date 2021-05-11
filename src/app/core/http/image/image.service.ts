@@ -17,7 +17,7 @@ export class imageApiService {
 
         const form: FormData = new FormData();
 
-
+        console.log(imageAPiParams)
 
         if (imageAPiParams.file) {
             form.append("file", imageAPiParams.file, "file");

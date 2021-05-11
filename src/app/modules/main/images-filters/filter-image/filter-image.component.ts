@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { ImageStateService } from "src/app/core/services/image-state/image-state.service";
-import { ImageI } from "src/app/utils/interfaces/image/image.interface";
 
 @Component({
     selector: "app-filter-image",

@@ -7,17 +7,21 @@ import {
     EventEmitter,
     ChangeDetectionStrategy,
     OnDestroy,
+    ViewChild,
+    ElementRef,
 } from "@angular/core";
 import { MatSelectChange } from "@angular/material/select";
+import { watch } from "rxjs-watcher";
 import {
     BehaviorSubject,
     concat,
+    fromEvent,
     merge,
     Observable,
     Subject,
     Subscription,
 } from "rxjs";
-import { concatMap, map, mergeMap, tap } from "rxjs/operators";
+import { concatMap, map, mergeMap, mergeMapTo, reduce, take, takeUntil, tap } from "rxjs/operators";
 import { imageApiService } from "src/app/core/http/image/image.service";
 import { ImageStateService } from "src/app/core/services/image-state/image-state.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
@@ -40,6 +44,8 @@ export class FilterFormComponent implements OnInit, OnDestroy {
 
     isOriginalImageToggled = this.imageStateService.isOriginalImageToggledSubject
 
+   @ViewChild("submitBtn", {static: true}) submitBtn: ElementRef|undefined;
+
     // SUBSCRIPTIONS
 
     imageServiceSub: Subscription | undefined;
@@ -50,7 +56,38 @@ export class FilterFormComponent implements OnInit, OnDestroy {
         private imageStateService: ImageStateService
     ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+
+        this.imageStateService.resultImageSubject.next(undefined);
+
+        const observable$ = this.imageStateService.originalImageSubject.pipe(
+            mergeMap((value) => 
+                this.imageService
+                .fetchCommonFilterImage({file: value.file, filter: this.selectedFilter.getValue()
+                
+                })
+            ),
+            tap(value => {
+                this.imageStateService
+                .resultImageSubject.next({file: value, src: URL.createObjectURL(value)});
+                this.imageStateService.isOriginalImageToggledSubject.next(false);
+            },
+            
+            )
+        )
+
+        
+
+        const eventObservable$ = fromEvent(this.submitBtn?.nativeElement, "click").pipe(
+            mergeMapTo(observable$)
+            ).subscribe(console.log)
+
+        /* const concat$ = concat(
+            eventObservable$,
+            observable$
+        ).subscribe(console.log) */
+
+    }
 
     ngOnDestroy() {
         if (this.imageServiceSub) {
@@ -68,19 +105,25 @@ export class FilterFormComponent implements OnInit, OnDestroy {
     }
 
     submitImage() {
-        this.imageServiceSub =
+
+        
+
+        
             
-            this.imageStateService.originalImageSubject.pipe(
+            /* this.imageStateService.originalImageSubject.pipe(
                 mergeMap((value) => 
-                this.imageService
-                .fetchCommonFilterImage({file: value.file, filter: this.selectedFilter.getValue()})
+                    this.imageService
+                    .fetchCommonFilterImage({file: value.file, filter: this.selectedFilter.getValue()})
                 ),
                 tap(value => {
                     this.imageStateService
                     .resultImageSubject.next({file: value, src: URL.createObjectURL(value)});
                     this.imageStateService.isOriginalImageToggledSubject.next(false);
-                })
-            ).subscribe()
+                    this.imageServiceSub?.unsubscribe();
+                },
+                watch("Filter odd numbers out", 10)
+                )
+            ).subscribe() */
 
     }
 }

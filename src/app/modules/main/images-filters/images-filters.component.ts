@@ -143,7 +143,7 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
                     catchError((err) => {
                         this.imageStateService.errorData.next({ message: err.message });
-                        console.log(err);
+                        this.imageStateService.originalImageSubject.next(undefined);
                         this.loadingService.setNextValue(false);
                         return EMPTY;
                     })
