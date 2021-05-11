@@ -11,33 +11,36 @@
             </label>
 
             <p class="w-100 m-0 file-name-container ms-2 ps-1 mb-2 pb-2 fs-6">
-                <ng-container *ngIf="(originalFileName | async )as filename">
+                <ng-container *ngIf="(this.imageStateService.originalFileName| async )as filename">
                     {{filename}}
                 </ng-container>
             </p>
         </div>
 
+
+        <!-- SHOW IMAGE AND RESULT IMAGE -->
         
-            <app-filter-image 
-            *ngIf="!(errorData | async); else errorTemplate"  
-            [originalImage]="originalImageSubject | async" 
-            [resultImage]="resultImageSubject | async"
-            [isOriginalImageToggled]="isOriginalImageToggledSubject | async">
-            </app-filter-image>
+        <app-filter-image 
+        *ngIf="!(this.imageStateService.errorData| async); else errorTemplate">
+        </app-filter-image>
+
+
+        <!-- SHOW ERROR -->
 
         <ng-template #errorTemplate>
             <div class="alert"  role="alert"
-            [ngClass]="(errorData | async)?.severity === 'danger'? 'alert-danger': 'alert-warning'">
-                <strong *ngIf="(errorData | async)?.code as code">{{code}}</strong>
-                <span *ngIf="(errorData | async)?.message as message">
+            [ngClass]="(this.imageStateService.errorData | async)?.severity === 'danger'? 'alert-danger': 'alert-warning'">
+                <strong *ngIf="(this.imageStateService.errorData | async)?.code as code">{{code}}</strong>
+                <span *ngIf="(this.imageStateService.errorData | async)?.message as message">
                     {{message}}
                 </span>
             </div>
         </ng-template>
         
+        <!-- FORM FOR SUBMIT IMAGE TO FILTER API -->
 
-        <app-filter-form (changeImageStateEmitter)="toggleImage()" class="p-0"
-        [isOriginalImageToggled]="(isOriginalImageToggledSubject | async)" 
+        <app-filter-form 
+        class="p-0"
         ></app-filter-form>
        
     </form>

@@ -61,6 +61,8 @@
 
     </nav>
 
-    <mat-progress-bar mode="indeterminate" [hidden]="!isLoading" color="warn">
+    <mat-progress-bar mode="indeterminate"
+    [ngClass]="isLoading? 'visible': 'invisible'"
+     color="warn">
     </mat-progress-bar>
 <!-- Navbar -->

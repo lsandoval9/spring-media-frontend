@@ -69,6 +69,7 @@ export class DetectorService {
             ".webp",
             "image/png",
             "image/jpeg",
+            "image/jpg",
             "image/webp",
         ];
 

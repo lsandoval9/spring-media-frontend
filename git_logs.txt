@@ -1,0 +1,618 @@
+81d4869 (HEAD -> testing, origin/testing) created a component for manage image-filters component's forms
+ .../filter-image/filter-image.component.html       |  5 +++++
+ .../filter-image/filter-image.component.scss       |  0
+ .../filter-image/filter-image.component.spec.ts    | 25 ++++++++++++++++++++++
+ .../filter-image/filter-image.component.ts         | 22 +++++++++++++++++++
+ 4 files changed, 52 insertions(+)
+792bc25 added frequent const with frequent errors
+ .../filter-form/filter-form.component.html         | 32 +++++++++++++++++-----
+ .../filter-form/filter-form.component.ts           |  9 ++++--
+ .../images-filters/images-filters.component.html   | 30 +++++++++++++-------
+ .../images-filters/images-filters.component.scss   | 11 +-------
+ .../images-filters/images-filters.component.ts     | 16 ++++++-----
+ src/app/modules/main/main.module.ts                |  7 +++--
+ src/app/utils/constants/errors.ts                  | 19 -------------
+ src/app/utils/constants/frequentErrors.ts          | 13 +++++++++
+ .../utils/interfaces/errorMessageData.interface.ts |  4 ++-
+ src/styles.scss                                    |  3 +-
+ 10 files changed, 83 insertions(+), 61 deletions(-)
+8f1f893 added a form component to handle image-filter component selection
+ .../filter-form/filter-form.component.html         |  41 ++++++-
+ .../filter-form/filter-form.component.ts           |  32 +++--
+ .../images-filters/images-filters.component.html   |  15 +--
+ .../images-filters/images-filters.component.ts     | 129 ++++++++++++---------
+ 4 files changed, 142 insertions(+), 75 deletions(-)
+c192bff added styles for display image in filter-component, removed unused form components
+ src/app/app.component.ts                           |   3 +-
+ src/app/core/services/blob/blob.service.spec.ts    |  16 ++++
+ src/app/core/services/blob/blob.service.ts         |  18 ++++
+ .../basic-form/basic-form.component.html           |   7 --
+ .../basic-form/basic-form.component.spec.ts        |  25 ------
+ .../basic-form/basic-form.component.ts             |  16 ----
+ .../common-form/common-form.component.html         |  47 ----------
+ .../common-form/common-form.component.scss         |   0
+ .../common-form/common-form.component.ts           | 100 ---------------------
+ .../filter-form/filter-form.component.html         |   1 +
+ .../filter-form.component.scss}                    |   0
+ .../filter-form.component.spec.ts}                 |  12 +--
+ .../filter-form/filter-form.component.ts           |  15 ++++
+ .../images-filters/images-filters.component.html   |  25 ++++--
+ .../images-filters/images-filters.component.scss   |  53 ++++++++++-
+ .../images-filters/images-filters.component.ts     |  44 +++++++--
+ src/app/modules/main/main.module.ts                |   6 +-
+ src/app/styles/buttons.scss                        |   2 +
+ 18 files changed, 168 insertions(+), 222 deletions(-)
+6f9e52b added styles for display scrollbar's colors in chrome
+ src/app/app.component.html |  2 +-
+ src/app/app.component.scss |  5 ++---
+ src/styles.scss            | 18 +++++++++++++++++-
+ 3 files changed, 20 insertions(+), 5 deletions(-)
+0a15b67 changed styles to display scroll in body instead of container
+ src/app/app.component.html                |  9 +++++----
+ src/app/app.component.scss                | 13 ++++++++-----
+ src/app/core/header/header.component.html |  4 +---
+ src/app/core/header/header.component.ts   |  2 +-
+ src/styles.scss                           |  6 ++++--
+ 5 files changed, 19 insertions(+), 15 deletions(-)
+4af690d added image a button to image filters component and added bussines logic to display images
+ src/app/core/header/header.component.html                    |  2 +-
+ src/app/core/header/header.component.scss                    |  6 ++++++
+ .../main/images-filters/images-filters.component.html        |  2 +-
+ src/app/styles/buttons.scss                                  | 12 ++++++++++++
+ src/app/styles/index.scss                                    |  6 +++---
+ 5 files changed, 23 insertions(+), 5 deletions(-)
+0b9d05f added global material fonts
+ angular.json                                       |  2 ++
+ src/app/core/http/image/image.service.ts           | 14 ++++++----
+ src/app/material/font/OpenSans.scss                | 17 ++++++++++++
+ .../common-form/common-form.component.ts           |  3 --
+ .../images-filters/images-filters.component.html   | 11 +++++---
+ .../images-filters/images-filters.component.ts     | 32 +++++++++++++---------
+ src/app/shared/pipes/safe-url/safe-url.pipe.ts     |  2 --
+ src/app/utils/interfaces/image/image.interface.ts  |  2 +-
+ .../utils/interfaces/image/imageFilterApiParams.ts |  7 +++++
+ src/styles.scss                                    |  6 +++-
+ 10 files changed, 67 insertions(+), 29 deletions(-)
+12768f3 remade image-filters component, and changed getImageObservable to return and observable instead of a subject
+ src/app/core/header/header.component.ts            |   2 +-
+ src/app/core/http/image/image.service.ts           |  14 +-
+ .../services/share-image/share-image.service.ts    |   6 +-
+ .../show-error-dialog/show-error-dialog.service.ts |   4 +-
+ .../toggle-loading-bar.service.ts                  |  22 +--
+ .../modules/main/detector/detector.component.ts    |   4 +-
+ .../common-form/common-form.component.ts           |   4 +-
+ .../images-filters/images-filters.component.html   | 106 ++---------
+ .../images-filters/images-filters.component.ts     | 203 ++++++---------------
+ src/app/shared/pipes/safe-url/safe-url.pipe.ts     |   9 +-
+ ....interface.ts => errorMessageData.interface.ts} |   2 +-
+ src/app/utils/interfaces/image.interface.ts        |   5 -
+ src/app/utils/interfaces/image/image.interface.ts  |   4 +
+ 13 files changed, 109 insertions(+), 276 deletions(-)
+042ae93 fixed app-drawer component styles
+ src/app/core/drawer/drawer.component.html | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
+1b73175 added global styles for cards, alerts and buttons; changed detector styles
+ .vim/coc-settings.json                             |    3 +
+ angular.json                                       |    1 +
+ package.json                                       |   27 +-
+ src/app/app.component.html                         |    6 +-
+ src/app/app.component.scss                         |   32 +-
+ src/app/core/header/header.component.html          |    3 +-
+ src/app/core/http/detector/detector.service.ts     |    2 +
+ .../modules/main/detector/detector.component.html  |   54 +-
+ .../modules/main/detector/detector.component.scss  |   20 +
+ .../modules/main/detector/detector.component.ts    |    1 +
+ src/app/shared/pipes/safe-url/safe-url.pipe.ts     |   16 +-
+ src/app/styles/alert.scss                          |   15 +
+ src/app/styles/buttons.scss                        |   11 +
+ src/app/styles/card.scss                           |   50 +
+ src/app/styles/index.scss                          |    3 +
+ src/index.html                                     |    6 +-
+ src/styles.scss                                    |    5 +-
+ yarn.lock                                          | 2214 +++++++++++---------
+ 18 files changed, 1428 insertions(+), 1041 deletions(-)
+32b29eb changed header buttons
+ package.json                                             | 2 +-
+ src/app/app-routing.module.ts                            | 4 ++--
+ src/app/core/drawer/drawer.component.html                | 4 +++-
+ src/app/core/services/share-image/share-image.service.ts | 3 ---
+ src/app/modules/main/home/home.component.ts              | 5 +----
+ 5 files changed, 7 insertions(+), 11 deletions(-)
+560eac8 added error dialog for network errors
+ src/app/app.component.html                         |  4 +--
+ src/app/core/header/header.component.html          |  2 +-
+ .../services/share-image/share-image.service.ts    |  5 ++++
+ .../show-error-dialog/show-error-dialog.service.ts |  7 ++---
+ src/app/modules/main/about/about.component.html    | 27 +++++++++---------
+ src/app/modules/main/about/about.component.scss    | 29 +++++++++++++++-----
+ .../modules/main/detector/detector.component.html  |  2 +-
+ .../modules/main/detector/detector.component.ts    | 14 ++++++++--
+ src/app/modules/main/home/home.component.html      | 32 +++++++++++++++++++++-
+ src/app/modules/main/home/home.component.ts        | 23 ++++++++++------
+ .../error-dialog/error-dialog.component.html       | 18 ++++++++++--
+ 11 files changed, 120 insertions(+), 43 deletions(-)
+2ca7c95 (origin/main, main) added a side navigation to home and improved sections
+ angular.json                                  |   4 +-
+ src/app/modules/main/home/home.component.html | 125 +++++++++++++++++---------
+ src/app/modules/main/home/home.component.scss |  25 ++++--
+ src/app/modules/main/home/home.component.ts   |  62 +++++++------
+ src/app/modules/main/home/sections.ts         |   1 +
+ src/app/modules/main/main.module.ts           |   5 +-
+ 6 files changed, 138 insertions(+), 84 deletions(-)
+90449a0 improved home component, added ng-in-viewport depencency and made some fixes to the dialog components
+ package.json                                       |   1 +
+ src/app/app.component.scss                         |   9 +++
+ src/app/core/header/header.component.html          |   4 +-
+ .../show-image-dialog.service.spec.ts              |  16 +++++
+ .../show-image-dialog/show-image-dialog.service.ts |  33 +++++++++
+ src/app/material/material.module.ts                |   4 ++
+ src/app/modules/main/about/about.component.ts      |  15 ++--
+ src/app/modules/main/home/home.component.html      |  66 +++++++++++++++---
+ src/app/modules/main/home/home.component.scss      |  17 +++++
+ src/app/modules/main/home/home.component.ts        |  76 +++++++++++++--------
+ src/app/modules/main/main.module.ts                |   5 +-
+ .../error-dialog/error-dialog.component.ts         |   1 -
+ .../image-dialog/image-dialog.component.html       |  10 +++
+ .../image-dialog/image-dialog.component.scss       |  22 ++++++
+ .../image-dialog/image-dialog.component.spec.ts    |  25 +++++++
+ .../image-dialog/image-dialog.component.ts         |  21 ++++++
+ src/app/shared/shared.module.ts                    |   3 +-
+ .../utils/interfaces/home/imageDialog.interface.ts |   4 ++
+ src/assets/images/testImages/ascii.jpg             | Bin 7833461 -> 0 bytes
+ src/index.html                                     |  37 ++++++----
+ src/styles.scss                                    |   5 +-
+ yarn.lock                                          |  23 +++++--
+ 22 files changed, 322 insertions(+), 75 deletions(-)
+a6d2ff1 added carousel and testing images for the home component and also added Eslint support
+ .eslintrc.json                                     |   3 +-
+ angular.json                                       | 244 ++++----
+ package.json                                       |  15 +-
+ src/app/app.module.ts                              |   6 +-
+ src/app/core/http/image/image.service.ts           |  67 +--
+ src/app/modules/main/home/home.component.html      |  12 +-
+ src/app/modules/main/home/home.component.scss      |   5 +
+ src/app/modules/main/home/home.component.ts        |  28 +
+ src/app/modules/main/home/images.ts                |   9 +
+ .../common-form/common-form.component.ts           |   9 +-
+ .../images-filters/images-filters.component.ts     |   4 +-
+ src/app/modules/main/main.module.ts                |   2 +
+ src/app/utils/interfaces/image.interface.ts        |   4 +-
+ src/assets/images/testImages/ascii.jpg             | Bin 0 -> 7833461 bytes
+ src/assets/images/testImages/blur.png              | Bin 0 -> 34192 bytes
+ src/assets/images/testImages/gray.png              | Bin 0 -> 35963 bytes
+ src/assets/images/testImages/negative.png          | Bin 0 -> 36965 bytes
+ src/assets/images/testImages/original.jpg          | Bin 0 -> 29900 bytes
+ src/assets/images/testImages/reflect.png           | Bin 0 -> 40946 bytes
+ src/assets/images/testImages/sepia.png             | Bin 0 -> 40518 bytes
+ src/index.html                                     |   2 +-
+ src/styles.scss                                    |   1 +
+ tslint.json                                        | 156 -----
+ yarn.lock                                          | 631 ++++++++++++++++++---
+ 24 files changed, 773 insertions(+), 425 deletions(-)
+fbb11ec added detector service to image-filters component
+ src/app/app-routing.module.ts                      |  2 -
+ src/app/core/http/detector/detector.service.ts     | 51 ++++++++++++-
+ .../show-error-dialog/show-error-dialog.service.ts | 23 +++---
+ .../modules/main/detector/detector.component.html  |  2 +-
+ .../modules/main/detector/detector.component.ts    | 83 +++++-----------------
+ src/app/modules/main/home/home.component.ts        |  1 -
+ .../common-form/common-form.component.ts           |  2 +-
+ .../images-filters/images-filters.component.html   | 24 ++++---
+ .../images-filters/images-filters.component.ts     | 64 +++++++++++------
+ .../error-dialog/error-dialog.component.html       |  6 +-
+ .../error-dialog/error-dialog.component.ts         |  5 +-
+ src/app/utils/constants/errors.ts                  | 16 ++++-
+ .../utils/interfaces/errorDialogData.interface.ts  |  7 +-
+ 13 files changed, 164 insertions(+), 122 deletions(-)
+a9cdeb9 added an error dialog service
+ src/app/app.component.html                         |  3 +-
+ .../show-error-dialog.service.spec.ts              | 16 ++++++++++
+ .../show-error-dialog/show-error-dialog.service.ts | 35 ++++++++++++++++++++++
+ src/app/material/material.module.ts                |  2 ++
+ .../modules/main/detector/detector.component.html  |  3 +-
+ .../modules/main/detector/detector.component.ts    | 17 ++++-------
+ .../common-form/common-form.component.ts           | 18 ++++++-----
+ .../images-filters/images-filters.component.ts     |  6 ++--
+ .../error-dialog/error-dialog.component.html       | 11 +++++++
+ .../error-dialog/error-dialog.component.scss       |  0
+ .../error-dialog/error-dialog.component.spec.ts    | 25 ++++++++++++++++
+ .../error-dialog/error-dialog.component.ts         | 27 +++++++++++++++++
+ src/app/shared/shared.module.ts                    |  3 +-
+ .../utils/interfaces/errorDialogData.interface.ts  |  7 +++++
+ src/styles.scss                                    | 26 ++++++++++++++--
+ 15 files changed, 173 insertions(+), 26 deletions(-)
+fa5e76d added a pipe to parse file's size to a readable format, changed drawer location to core component and added more mobile responsiveness features
+ src/app/app.module.ts                              |   2 +-
+ src/app/core/core.module.ts                        |   5 ++--
+ src/app/core/drawer/drawer.component.html          |  32 +++++++++++++++++++++
+ src/app/core/drawer/drawer.component.scss          |  30 +++++++++++++++++++
+ .../drawer/drawer.component.spec.ts                |   0
+ src/app/core/drawer/drawer.component.ts            |  26 +++++++++++++++++
+ src/app/core/header/header.component.html          |   6 ++--
+ src/app/core/header/header.component.ts            |  10 ++-----
+ .../modules/main/detector/detector.component.html  |   2 +-
+ .../modules/main/detector/detector.component.ts    |   4 +--
+ src/app/shared/drawer/drawer.component.html        |  22 --------------
+ src/app/shared/drawer/drawer.component.scss        |   0
+ src/app/shared/drawer/drawer.component.ts          |  17 -----------
+ .../pipes/readable-size/readable-size.pipe.spec.ts |   8 ++++++
+ .../pipes/readable-size/readable-size.pipe.ts      |  21 ++++++++++++++
+ .../pipes/{ => safe-url}/safe-url.pipe.spec.ts     |   0
+ .../shared/pipes/{ => safe-url}/safe-url.pipe.ts   |   0
+ src/app/shared/shared.module.ts                    |   8 +++---
+ src/favicon.ico                                    | Bin 948 -> 15406 bytes
+ 19 files changed, 134 insertions(+), 59 deletions(-)
+52b54e5 started to add web responsive features, it needs more work with mobile devices resolutions
+ src/app/app.component.html                         |  6 ++--
+ src/app/app.component.ts                           | 18 ++++++-----
+ src/app/core/header/animations/menuBar.ts          |  2 +-
+ src/app/modules/main/about/about.component.html    | 15 +++++-----
+ src/app/modules/main/about/about.component.scss    | 35 +++++++---------------
+ .../images-filters/images-filters.component.html   | 13 +++++---
+ src/app/shared/drawer/drawer.component.html        | 23 +++++++++++++-
+ src/app/shared/drawer/drawer.component.ts          | 16 +++++-----
+ src/app/shared/shared.module.ts                    |  6 +++-
+ src/styles.scss                                    |  3 +-
+ 10 files changed, 79 insertions(+), 58 deletions(-)
+731424f added a root folder for main module and added data to share errors between components
+ README.md                                          | 23 +--------
+ src/app/app-routing.module.ts                      | 23 +++++----
+ src/app/app.module.ts                              |  2 +-
+ src/app/config/corsConfig.json                     |  2 +-
+ src/app/core/header/header.component.ts            |  3 +-
+ src/app/modules/home/home.component.ts             | 14 -----
+ .../basic-form/basic-form.component.html           |  0
+ .../modules/{ => main}/about/about.component.html  |  0
+ .../modules/{ => main}/about/about.component.scss  |  0
+ .../{ => main}/about/about.component.spec.ts       |  0
+ .../modules/{ => main}/about/about.component.ts    |  0
+ .../{ => main}/detector/detector.component.html    |  0
+ .../{ => main}/detector/detector.component.scss    |  0
+ .../{ => main}/detector/detector.component.spec.ts |  0
+ .../{ => main}/detector/detector.component.ts      |  4 +-
+ .../modules/{ => main}/home/home.component.html    |  0
+ .../modules/{ => main}/home/home.component.scss    |  0
+ .../modules/{ => main}/home/home.component.spec.ts |  0
+ src/app/modules/main/home/home.component.ts        | 22 ++++++++
+ .../basic-form/basic-form.component.html           |  7 +++
+ .../basic-form/basic-form.component.scss           |  0
+ .../basic-form/basic-form.component.spec.ts        |  0
+ .../basic-form/basic-form.component.ts             |  0
+ .../common-form/common-form.component.html         |  9 ++--
+ .../common-form/common-form.component.scss         |  0
+ .../common-form/common-form.component.spec.ts      |  0
+ .../common-form/common-form.component.ts           |  1 -
+ .../images-filters/images-filters.component.html   | 58 ++++++++++++---------
+ .../images-filters/images-filters.component.scss   |  0
+ .../images-filters.component.spec.ts               |  0
+ .../images-filters/images-filters.component.ts     | 60 ++++++++++++++--------
+ src/app/modules/{ => main}/main.module.ts          |  4 +-
+ src/app/utils/constants/errors.ts                  |  9 ++++
+ 33 files changed, 138 insertions(+), 103 deletions(-)
+47c4f86 added images for about component and changed image-filter component's forms names
+ src/app/app.module.ts                              |   2 +
+ src/app/modules/detector/detector.component.ts     |  13 +--
+ .../basic-form/basic-form.component.html           |  46 ----------
+ ...rm.component.scss => basic-form.component.scss} |   0
+ ...ponent.spec.ts => basic-form.component.spec.ts} |   2 +-
+ .../basic-form/basic-form.component.ts             |  93 ++-------------------
+ .../common-form/common-form.component.html         |  47 ++++++++++-
+ .../common-form/common-form.component.spec.ts      |   2 +-
+ .../common-form/common-form.component.ts           |  91 ++++++++++++++++++--
+ .../images-filters/images-filters.component.html   |   6 +-
+ src/app/modules/main.module.ts                     |   4 +-
+ src/assets/images/angular.png                      | Bin 0 -> 33871 bytes
+ src/assets/images/spring boot.png                  | Bin 0 -> 17671 bytes
+ src/assets/images/spring.jpg                       | Bin 0 -> 25975 bytes
+ 14 files changed, 148 insertions(+), 158 deletions(-)
+2625ca5 Merge branch 'show' into testing
+71b7c4d (show) added basic content to about's page, deleted unused dependencies
+ src/app/material/material.module.ts        |   7 +-
+ src/app/modules/about/about.component.html |  54 +++++++++++++---
+ src/app/modules/about/about.component.scss | 100 ++++++++++++++++++++++++++++-
+ 3 files changed, 146 insertions(+), 15 deletions(-)
+6541ed2 Revert "fixed image-filters' forms names"
+ src/app/modules/detector/detector.component.ts     |  2 +-
+ .../basic-form/basic-form.component.html           | 47 ++++++++++-
+ .../basic-form/basic-form.component.ts             | 93 ++++++++++++++++++++--
+ ...sic-form.component.scss => form.component.scss} |  0
+ ...rm.component.spec.ts => form.component.spec.ts} |  2 +-
+ .../common-form/common-form.component.html         | 47 +----------
+ ...n.component.scss => common-form.component.scss} |  0
+ ...onent.spec.ts => common-form.component.spec.ts} |  3 +-
+ .../common-form/common-form.component.ts           | 93 ++--------------------
+ .../images-filters/images-filters.component.html   |  6 +-
+ .../images-filters/images-filters.component.ts     |  8 +-
+ src/app/modules/main.module.ts                     |  4 +-
+ 12 files changed, 155 insertions(+), 150 deletions(-)
+b071e12 Revert "fixed image-filters' forms names"
+ package.json                                       |  4 +-
+ src/app/core/header/header.component.ts            |  2 +
+ src/app/modules/about/about.component.html         | 21 +---------
+ src/app/modules/about/about.component.scss         |  7 ----
+ src/app/modules/detector/detector.component.html   |  4 +-
+ src/app/modules/detector/detector.component.ts     | 47 ++++++++++------------
+ .../common-form/common-form.component.ts           |  8 +---
+ .../images-filters/images-filters.component.ts     | 24 ++++-------
+ yarn.lock                                          | 14 ++++++-
+ 9 files changed, 52 insertions(+), 79 deletions(-)
+f77aeca fixed image-filters' forms names
+ package.json                                       |  4 +-
+ src/app/core/header/header.component.ts            |  2 -
+ src/app/modules/about/about.component.html         | 21 +++++++++-
+ src/app/modules/about/about.component.scss         |  7 ++++
+ src/app/modules/detector/detector.component.html   |  4 +-
+ src/app/modules/detector/detector.component.ts     | 47 ++++++++++++----------
+ .../common-form/common-form.component.ts           |  8 +++-
+ .../images-filters/images-filters.component.ts     | 24 +++++++----
+ yarn.lock                                          | 14 +------
+ 9 files changed, 79 insertions(+), 52 deletions(-)
+7e3e0ef fixed image-filters' forms names
+ src/app/modules/detector/detector.component.ts     |  2 +-
+ .../basic-form/basic-form.component.html           | 47 +----------
+ ...rm.component.scss => basic-form.component.scss} |  0
+ ...ponent.spec.ts => basic-form.component.spec.ts} |  2 +-
+ .../basic-form/basic-form.component.ts             | 93 ++--------------------
+ .../common-form/common-form.component.html         | 47 ++++++++++-
+ .../common-form/common-form.component.ts           | 93 ++++++++++++++++++++--
+ ...n-form.component.scss => common.component.scss} |  0
+ ....component.spec.ts => common.component.spec.ts} |  3 +-
+ .../images-filters/images-filters.component.html   |  6 +-
+ .../images-filters/images-filters.component.ts     |  8 +-
+ src/app/modules/main.module.ts                     |  4 +-
+ 12 files changed, 150 insertions(+), 155 deletions(-)
+ef0e728 added a loading bar to the header and a service to toggle that loading bar, added some alerts for common errors
+ .vscode/launch.json                                |  28 +++++
+ src/app/app-routing.module.ts                      |   4 +-
+ src/app/core/header/animations/menuBar.ts          |   2 +-
+ src/app/core/header/header.component.html          | 111 +++++++++--------
+ src/app/core/header/header.component.ts            |  33 +++--
+ .../toggle-loading-bar.service.spec.ts             |  16 +++
+ .../toggle-loading-bar.service.ts                  |  31 +++++
+ src/app/material/material.module.ts                |   2 +
+ src/app/modules/about/about.component.html         |   1 +
+ .../about.component.scss}                          |   0
+ .../about.component.spec.ts}                       |  12 +-
+ src/app/modules/about/about.component.ts           |  15 +++
+ src/app/modules/detector/detector.component.html   |  28 +++--
+ src/app/modules/detector/detector.component.ts     | 133 ++++++++++++++++-----
+ src/app/modules/home/home.component.html           |   2 +
+ .../basic-form/basic-form.component.ts             |  13 +-
+ .../images-filters/images-filters.component.ts     |  28 +++--
+ src/app/modules/main.module.ts                     |  16 ++-
+ src/app/modules/more/more.component.html           |   5 -
+ src/app/modules/more/more.component.ts             |  15 ---
+ tslint.json                                        |   2 +-
+ 21 files changed, 342 insertions(+), 155 deletions(-)
+70b290c deleted unused files and modified images-filters' location
+ src/app/core/http/ascii/ascii.service.spec.ts            | 16 ----------------
+ src/app/core/http/ascii/ascii.service.ts                 |  9 ---------
+ src/app/core/http/image/image.service.ts                 |  2 +-
+ src/app/core/services/share-image/share-image.service.ts | 10 +---------
+ .../modules/images-filters/images-filters.component.ts   |  8 +++++---
+ .../shared/components/loader/loader.component.spec.ts    |  2 +-
+ 6 files changed, 8 insertions(+), 39 deletions(-)
+744b3cd changed some files location and added the share-image service
+ src/app/core/header/animations/menuBar.ts          | 29 +++++++++++
+ src/app/core/header/header.component.html          | 58 ++++++++++++++++++++++
+ src/app/core/header/header.component.scss          | 42 ++++++++++++++++
+ src/app/core/header/header.component.spec.ts       | 25 ++++++++++
+ src/app/core/header/header.component.ts            | 36 ++++++++++++++
+ .../share-image/share-image.service.spec.ts        | 16 ++++++
+ .../services/share-image/share-image.service.ts    | 32 ++++++++++++
+ 7 files changed, 238 insertions(+)
+d7bbeaa added service tfor sharing images between components, improved styles of the images and detector components
+ package.json                                       |  2 +-
+ src/app/app-routing.module.ts                      |  4 --
+ src/app/app.component.html                         |  2 +-
+ src/app/app.component.ts                           | 16 ++----
+ src/app/app.module.ts                              |  5 +-
+ src/app/core/animations/loader.ts                  | 47 -----------------
+ src/app/core/core.module.ts                        | 11 ++--
+ .../ascii-filter/ascii-filter.component.html       |  1 -
+ .../ascii-filter/ascii-filter.component.scss       |  0
+ .../ascii-filter/ascii-filter.component.spec.ts    | 25 ---------
+ .../modules/ascii-filter/ascii-filter.component.ts | 15 ------
+ src/app/modules/detector/detector.component.html   | 39 +++++++++-----
+ src/app/modules/detector/detector.component.ts     | 58 +++++++++++++++++---
+ src/app/modules/home/animations/test.ts            | 32 ------------
+ src/app/modules/home/home.component.ts             | 13 +----
+ .../images-filters/images-filters.component.ts     | 53 ++++++++++++++++---
+ src/app/modules/main.module.ts                     |  7 ++-
+ src/app/shared/header/animations/menuBar.ts        | 29 ----------
+ src/app/shared/header/header.component.html        | 61 ----------------------
+ src/app/shared/header/header.component.scss        | 42 ---------------
+ src/app/shared/header/header.component.spec.ts     | 25 ---------
+ src/app/shared/header/header.component.ts          | 39 --------------
+ 22 files changed, 143 insertions(+), 383 deletions(-)
+1823e7f finished images filters' section, started detector section, added services to fetch filters and mimetypes from the server
+ .../core/http/detector/detector.service.spec.ts    | 16 +++++
+ src/app/core/http/detector/detector.service.ts     | 32 +++++++++
+ src/app/core/http/image/image.service.ts           | 15 ++--
+ src/app/modules/detector/detector.component.html   | 36 +++++++++-
+ src/app/modules/detector/detector.component.ts     | 81 ++++++++++++++++++++--
+ .../basic-form/basic-form.component.html           | 17 ++++-
+ .../basic-form/basic-form.component.ts             | 43 +++++-------
+ .../images-filters/images-filters.component.html   | 18 ++---
+ .../images-filters/images-filters.component.ts     | 57 +++++++--------
+ src/app/utils/constants/requestImageRoutes.ts      |  3 +-
+ .../utils/interfaces/detectorResult.inteface.ts    |  8 +++
+ src/app/utils/interfaces/image.interface.ts        |  2 +-
+ 12 files changed, 248 insertions(+), 80 deletions(-)
+4c1e4e8 improved filters page, finished basic filters section, added a pipe to sanitize url and cors configuration
+ package.json                                       |  2 +-
+ src/app/app.module.ts                              |  3 +-
+ src/app/config/corsConfig.json                     |  7 ++
+ src/app/core/http/image/image.service.ts           | 64 ++++++++++++++++--
+ .../core/services/http/image/image.service.spec.ts | 16 -----
+ src/app/core/services/http/image/image.service.ts  | 23 -------
+ .../basic-form/basic-form.component.html           | 26 ++++++--
+ .../basic-form/basic-form.component.ts             | 75 +++++++++++++++++-----
+ .../common-form/common-form.component.ts           | 15 +++--
+ .../images-filters/images-filters.component.html   | 39 +++++++----
+ .../images-filters/images-filters.component.ts     | 48 ++++++++++----
+ src/app/modules/main.module.ts                     |  4 +-
+ src/app/shared/pipes/safe-url.pipe.spec.ts         |  8 +++
+ src/app/shared/pipes/safe-url.pipe.ts              | 15 +++++
+ src/app/shared/shared.module.ts                    |  5 +-
+ src/app/utils/constants/requestImageRoutes.ts      |  4 +-
+ src/app/utils/interfaces/image.interface.ts        |  5 ++
+ 17 files changed, 253 insertions(+), 106 deletions(-)
+4230cb9 added forms to image-filters component
+ angular.json                                       |   5 +-
+ src/app/app.component.html                         |  16 ++-
+ src/app/app.component.scss                         |  13 +++
+ src/app/app.module.ts                              |   7 +-
+ src/app/core/animations/loader.ts                  |   2 +-
+ src/app/core/services/a                            |   0
+ .../core/services/http/image/image.service.spec.ts |  16 +++
+ src/app/core/services/http/image/image.service.ts  |  23 ++++
+ src/app/{ => material}/material.module.ts          |  12 ++-
+ src/app/material/themes/secondary-theme.scss       | 119 +++++++++++++++++++++
+ src/app/modules/home/home.component.html           |  12 ---
+ src/app/modules/home/home.component.ts             |  21 +---
+ .../basic-form/basic-form.component.html           |  17 +++
+ .../basic-form/basic-form.component.ts             |  54 ++++++++++
+ .../images-filters/basic-form/form.component.scss  |   0
+ .../basic-form/form.component.spec.ts              |  25 +++++
+ .../common-form/common-form.component.html         |   1 +
+ .../common-form/common-form.component.scss         |   0
+ .../common-form/common-form.component.spec.ts      |  25 +++++
+ .../common-form/common-form.component.ts           |  15 +++
+ .../images-filters/images-filters.component.html   |  67 +++++++++---
+ .../images-filters/images-filters.component.scss   |   8 ++
+ .../images-filters/images-filters.component.ts     |  83 ++++++++------
+ src/app/modules/main.module.ts                     |  13 ++-
+ src/app/shared/drawer/drawer.component.html        |   1 +
+ src/app/shared/drawer/drawer.component.scss        |   0
+ src/app/shared/drawer/drawer.component.spec.ts     |  25 +++++
+ src/app/shared/drawer/drawer.component.ts          |  15 +++
+ src/app/shared/header/header.component.html        |   2 +-
+ src/app/shared/shared.module.ts                    |   7 +-
+ src/app/utils/constants/requestImageRoutes.ts      |   6 ++
+ src/app/utils/constants/requestRoutes.ts           |   6 --
+ src/styles.scss                                    |   4 +-
+ 33 files changed, 509 insertions(+), 111 deletions(-)
+eb42036 added some animations for the header, changed header's styles, added a new module for the shared directory
+ package-lock.json                                  | 13928 -------------------
+ package.json                                       |     6 +-
+ src/app/app-routing.module.ts                      |     2 +-
+ src/app/app.component.html                         |     4 +-
+ src/app/app.component.scss                         |     6 +
+ src/app/app.component.ts                           |    25 +-
+ src/app/app.module.ts                              |     2 +
+ src/app/core/animations/loader.ts                  |    47 +
+ src/app/material.module.ts                         |     9 +-
+ src/app/modules/home/animations/test.ts            |    32 +
+ src/app/modules/home/home.component.html           |    12 +-
+ src/app/modules/home/home.component.ts             |    41 +-
+ .../images-filters/images-filters.component.html   |    12 +-
+ .../images-filters/images-filters.component.ts     |    47 +-
+ src/app/shared/components/a                        |     0
+ .../shared/components/loader/loader.component.html |     9 +
+ .../shared/components/loader/loader.component.scss |    16 +
+ .../components/loader/loader.component.spec.ts     |    25 +
+ .../shared/components/loader/loader.component.ts   |    15 +
+ src/app/shared/header/animations/menuBar.ts        |    29 +
+ src/app/shared/header/header.component.html        |    41 +-
+ src/app/shared/header/header.component.scss        |    35 +-
+ src/app/shared/header/header.component.ts          |    17 +-
+ src/app/shared/shared.module.ts                    |    16 +
+ src/index.html                                     |     6 +-
+ tsconfig.json                                      |     8 +-
+ tslint.json                                        |     2 +
+ yarn.lock                                          |   126 +-
+ 28 files changed, 430 insertions(+), 14088 deletions(-)
+8daa51c added more and ascii-filter pages
+ .eslintrc.json                                     |    22 +
+ angular.json                                       |   245 +-
+ package-lock.json                                  | 13928 +++++++++++++++++++
+ package.json                                       |    13 +-
+ src/app/app-routing.module.ts                      |    39 +-
+ src/app/app.component.html                         |    15 +
+ src/app/app.component.scss                         |     6 +
+ src/app/app.module.ts                              |    18 +-
+ src/app/core/core.module.ts                        |    12 +
+ src/app/core/http/ascii/ascii.service.spec.ts      |    16 +
+ src/app/core/http/ascii/ascii.service.ts           |     9 +
+ src/app/core/http/image/image.service.spec.ts      |    16 +
+ src/app/core/http/image/image.service.ts           |     9 +
+ src/app/material.module.ts                         |    27 +
+ .../ascii-filter/ascii-filter.component.html       |     1 +
+ .../ascii-filter/ascii-filter.component.scss       |     0
+ .../ascii-filter/ascii-filter.component.spec.ts    |    25 +
+ .../modules/ascii-filter/ascii-filter.component.ts |    15 +
+ src/app/modules/detector/detector.component.html   |     1 +
+ src/app/modules/detector/detector.component.scss   |     0
+ .../modules/detector/detector.component.spec.ts    |    25 +
+ src/app/modules/detector/detector.component.ts     |    15 +
+ src/app/modules/home/home.component.html           |     5 +
+ src/app/modules/home/home.component.scss           |     0
+ src/app/modules/home/home.component.spec.ts        |    25 +
+ src/app/modules/home/home.component.ts             |    15 +
+ .../images-filters/images-filters.component.html   |    29 +
+ .../images-filters/images-filters.component.scss   |     0
+ .../images-filters.component.spec.ts               |    25 +
+ .../images-filters/images-filters.component.ts     |    17 +
+ src/app/modules/main.module.ts                     |    20 +
+ src/app/modules/more/more.component.html           |     5 +
+ src/app/modules/more/more.component.scss           |     0
+ src/app/modules/more/more.component.spec.ts        |    25 +
+ src/app/modules/more/more.component.ts             |    15 +
+ src/app/shared/header/header.component.html        |    50 +
+ src/app/shared/header/header.component.scss        |    17 +
+ src/app/shared/header/header.component.spec.ts     |    25 +
+ src/app/shared/header/header.component.ts          |    26 +
+ src/app/utils/constants/homePageParams.ts          |     1 +
+ src/app/utils/constants/requestRoutes.ts           |     6 +
+ src/static/css/bootstrap-reboot.min.css            |     8 +
+ src/static/css/mdb.min.css                         |    48 +
+ yarn.lock                                          |   573 +-
+ 44 files changed, 15243 insertions(+), 149 deletions(-)
+df554f4 first version. barebone app
+ .editorconfig                 |   4 +-
+ .vscode/settings.json         |   4 +
+ angular.json                  |   2 +
+ package.json                  |   4 +-
+ src/app/app.component.html    | 534 ------------------------------------------
+ src/app/app.component.spec.ts |  58 +++--
+ src/app/app.component.ts      |  10 +-
+ src/app/app.module.ts         |  24 +-
+ src/index.html                |   5 +-
+ src/styles.scss               |   3 +
+ tslint.json                   |   4 +-
+ yarn.lock                     |  21 ++
+ 12 files changed, 85 insertions(+), 588 deletions(-)
+10d4abc (master) initial commit
+ .browserslistrc                      |   17 +
+ .editorconfig                        |   16 +
+ .gitignore                           |   46 +
+ README.md                            |   27 +
+ angular.json                         |  131 +
+ e2e/protractor.conf.js               |   37 +
+ e2e/src/app.e2e-spec.ts              |   23 +
+ e2e/src/app.po.ts                    |   11 +
+ e2e/tsconfig.json                    |   13 +
+ karma.conf.js                        |   44 +
+ package.json                         |   45 +
+ src/app/app-routing.module.ts        |   10 +
+ src/app/app.component.html           |  534 ++
+ src/app/app.component.scss           |    0
+ src/app/app.component.spec.ts        |   35 +
+ src/app/app.component.ts             |   10 +
+ src/app/app.module.ts                |   18 +
+ src/assets/.gitkeep                  |    0
+ src/environments/environment.prod.ts |    3 +
+ src/environments/environment.ts      |   16 +
+ src/favicon.ico                      |  Bin 0 -> 948 bytes
+ src/index.html                       |   13 +
+ src/main.ts                          |   12 +
+ src/polyfills.ts                     |   63 +
+ src/styles.scss                      |    1 +
+ src/test.ts                          |   25 +
+ tsconfig.app.json                    |   15 +
+ tsconfig.json                        |   29 +
+ tsconfig.spec.json                   |   18 +
+ tslint.json                          |  152 +
+ yarn.lock                            | 8990 ++++++++++++++++++++++++++++++++++
+ 31 files changed, 10354 insertions(+)

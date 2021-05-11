@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ImageStateService } from "src/app/core/services/image-state/image-state.service";
 import { ImageI } from "src/app/utils/interfaces/image/image.interface";
 
 @Component({
@@ -9,14 +10,22 @@ import { ImageI } from "src/app/utils/interfaces/image/image.interface";
 })
 export class FilterImageComponent implements OnInit {
 
-    @Input() originalImage: ImageI|undefined|null;
+    originalImage= this.imageStateService.originalImageSubject;
 
-    @Input() resultImage: ImageI|undefined|null;
+    resultImage = this.imageStateService.resultImageSubject;
 
-    @Input() isOriginalImageToggled!: boolean|null;
+    isOriginalImageToggled = this.imageStateService.isOriginalImageToggledSubject;
 
-    constructor() {}
+    @Output() toggleImageEmitter = new EventEmitter<void>();
+
+    constructor(public imageStateService: ImageStateService) {}
 
     ngOnInit(): void {
+    }
+
+    toggleImage() {
+
+        this.toggleImageEmitter.emit();
+
     }
 }

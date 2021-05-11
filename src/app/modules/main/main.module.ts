@@ -21,7 +21,7 @@ import { FilterImageComponent } from './images-filters/filter-image/filter-image
         DetectorComponent,
         AboutComponent,
         FilterFormComponent,
-        FilterImageComponent,
+        FilterImageComponent
     ],
     imports: [
         CommonModule,

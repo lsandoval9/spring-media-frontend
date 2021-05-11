@@ -1,5 +1,8 @@
-<div class="filter-image">
-
-    <img [src]="originalImage?.src | safeUrl" alt="">
-
+<div class="image-container">
+    <img [src]="(isOriginalImageToggled|async)?  
+    ((originalImage | async)?.src | safeUrl): ((resultImage|async)?.src| safeUrl)" 
+    alt="" 
+    matTooltip="hello world" 
+    [matTooltipPosition]="'left'"
+    class="filter-image">
 </div>

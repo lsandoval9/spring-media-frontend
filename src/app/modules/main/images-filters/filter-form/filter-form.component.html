@@ -1,4 +1,6 @@
-<form class="custom-card-action d-flex flex-column align-items-center">
+<form 
+(submit)="submitImage()"
+class="custom-card-action d-flex flex-column align-items-center">
 
     <div>
         <mat-form-field color="primary">
@@ -7,7 +9,7 @@
                 Select filter
             </mat-label>
 
-            <mat-select  [ngModel]="SelectedFilter | async"
+            <mat-select  [ngModel]="selectedFilter | async"
                         (selectionChange)="changeSelectedFilter($event)" name="filter">
 
                 <!-- COMMON -->
@@ -46,8 +48,8 @@
     </div>
 
     <div class="d-flex flex-row" #formActions>
-        <button type="button" class="btn btn-none me-2" (click)="toggleImage()">
-            Show {{ isOriginalImageToggled? "Result": "Original" }}
+        <button [disabled]="!(resultImage|async)?.file" type="button" class="btn btn-none me-2" (click)="toggleImage()">
+            Show {{ (isOriginalImageToggled | async)? "Result": "Original" }}
         </button>
 
         <button class="btn btn-primary" type="submit">
