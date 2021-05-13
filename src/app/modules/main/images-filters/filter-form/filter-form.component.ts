@@ -6,6 +6,7 @@ import {
     OnDestroy,
     ViewChild,
     ElementRef,
+    OnChanges,
 } from "@angular/core";
 import { MatSelectChange } from "@angular/material/select";
 import { watch } from "rxjs-watcher";
@@ -39,8 +40,6 @@ export class FilterFormComponent implements OnInit, OnDestroy {
     @Input() originalImage: Blob | null | undefined;
 
     @Input() resultImage: Blob | null | undefined;
-
-   @ViewChild("submitBtn", {static: true}) submitBtn: ElementRef|undefined;
 
     // SUBSCRIPTIONS
 

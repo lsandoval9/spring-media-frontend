@@ -5,19 +5,14 @@ import {
     OnDestroy,
 } from "@angular/core";
 import {
-    BehaviorSubject,
     EMPTY,
-    ReplaySubject,
     Subscription,
 } from "rxjs";
 import { DetectorService } from "src/app/core/http/detector/detector.service";
 
 import { catchError, tap } from "rxjs/operators";
-import { imageApiService } from "src/app/core/http/image/image.service";
-import { errorMessageDataI } from "src/app/utils/interfaces/errorMessageData.interface";
 import { ShareImageService } from "src/app/core/services/share-image/share-image.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
-import { ImageI } from "src/app/utils/interfaces/image/image.interface";
 import { frequentErrors } from "src/app/utils/constants/frequentErrors";
 import { Title } from "@angular/platform-browser";
 import { ImageFilterApiParams } from "src/app/utils/interfaces/image/imageFilterApiParams";
@@ -40,7 +35,6 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
     constructor(
         private detectorService: DetectorService,
-        private filterService: imageApiService,
         private shareImageService: ShareImageService,
         private loadingService: ToggleLoadingBarService,
         private titleSevice: Title,
@@ -76,6 +70,7 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         
+        this.imageStateService.resetImageValues();
 
         if (this.shareImageSubscription) this.shareImageSubscription.unsubscribe();
 
@@ -83,16 +78,6 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
     }
 
     // CLASS METHODS
-
-    submitImage(event: Event) {
-        event.preventDefault();
-
-        this.imageStateService.originalImageSubject.subscribe({
-            next: (value) => {
-                console.log(value.src);
-            },
-        });
-    }
 
     loadFile(event: Event|any): void {
 
@@ -114,18 +99,18 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
         this.loadingService.setNextValue(true);
 
-        this.detectorServiceSubscription = this.detectorService
+        if (inputFile.size > 10_485_760) {
+            this.imageStateService.errorData.next(frequentErrors.fileToBig);
+            this.loadingService.setNextValue(false);
+        } else {
+            this.detectorServiceSubscription = this.detectorService
                 .getFileMimetype(inputFile)
                 .pipe(
                     tap((value) => {
-
-                        if (inputFile.size > 1_000_000) {
-                            this.imageStateService.errorData.next(frequentErrors.fileToBig)
-                        }
-
+                        console.log(value)
                         if (this.detectorService.isValidTypeOrMimetype(
                                 value.mimetype
-                            ) && inputFile.size < 1_000_000
+                            )
                         ) {
 
                             this.loadingService.setNextValue(false);
@@ -152,6 +137,9 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
                     })
                 )
                 .subscribe();
+        }
+
+        
     }
     
     loadResultImage(value: ImageFilterApiParams) {

@@ -1,6 +1,6 @@
 <div class="container-fluid overflow-hidden h-auto d-flex row p-5 mt-3 justify-content-between">
 
-    <form (submit)="submitImage($event)" class="pt-5 d-flex custom-card row col-12">
+    <div class="pt-5 d-flex custom-card row col-12">
 
 
         <div class="d-flex flex-row align-items-center mb-2">
@@ -49,8 +49,9 @@
         [isOriginalImageToggled]="(imageStateService.isOriginalImageToggledSubject | async)"
         [originalImage]="(imageStateService.originalImageSubject | async)?.file"
         [selectedFilter]="imageStateService.SelectedFilter | async"
+        [resultImage]="(imageStateService.resultImageSubject | async)?.file"
         ></app-filter-form>
        
-    </form>
+    </div>
 
 </div>
