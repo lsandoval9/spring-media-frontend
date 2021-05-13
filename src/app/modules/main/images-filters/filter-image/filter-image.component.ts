@@ -9,11 +9,13 @@ import { ImageStateService } from "src/app/core/services/image-state/image-state
 })
 export class FilterImageComponent implements OnInit {
 
-    originalImage= this.imageStateService.originalImageSubject;
+    @Input() originalImage: Blob | undefined | null;
 
-    resultImage = this.imageStateService.resultImageSubject;
+    @Input() resultImage: Blob | undefined | null;
 
-    isOriginalImageToggled = this.imageStateService.isOriginalImageToggledSubject;
+    @Input() isOriginalImageToggled: boolean|null|undefined;
+
+    @Input() filterName: string|undefined|null;
 
     @Output() toggleImageEmitter = new EventEmitter<void>();
 

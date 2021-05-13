@@ -34,7 +34,9 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
     // OBSERVABLES
 
-    shareImageSubscription!: Subscription;
+    shareImageSubscription: Subscription | undefined;
+
+    detectorServiceSubscription: Subscription | undefined
 
     constructor(
         private detectorService: DetectorService,
@@ -73,7 +75,11 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.shareImageSubscription.unsubscribe();
+        
+
+        if (this.shareImageSubscription) this.shareImageSubscription.unsubscribe();
+
+        if (this.detectorServiceSubscription) this.detectorServiceSubscription.unsubscribe()
     }
 
     // CLASS METHODS
@@ -89,11 +95,8 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
     }
 
     loadFile(event: Event|any): void {
-        
-        event.preventDefault();
 
-        this.imageStateService.isOriginalImageToggledSubject.next(true);
-        this.imageStateService.resultImageSubject.next(undefined)
+        this.imageStateService.resetImageValues();
 
         let inputFile: File;
 
@@ -111,7 +114,7 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
         this.loadingService.setNextValue(true);
 
-        this.detectorService
+        this.detectorServiceSubscription = this.detectorService
                 .getFileMimetype(inputFile)
                 .pipe(
                     tap((value) => {

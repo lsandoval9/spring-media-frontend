@@ -2,9 +2,6 @@ import {
     Component,
     Input,
     OnInit,
-    Output,
-    ViewChildren,
-    EventEmitter,
     ChangeDetectionStrategy,
     OnDestroy,
     ViewChild,
@@ -21,15 +18,12 @@ import {
     Subject,
     Subscription,
 } from "rxjs";
-import { concatMap, map, mergeMap, mergeMapTo, reduce, take, takeUntil, tap } from "rxjs/operators";
+import { concatMap, map, mergeMap, mergeMapTo, reduce,
+     shareReplay, skipUntil, skipWhile, take, takeLast, takeUntil, tap } from "rxjs/operators";
 import { imageApiService } from "src/app/core/http/image/image.service";
 import { ImageStateService } from "src/app/core/services/image-state/image-state.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
-import { frequentErrors } from "src/app/utils/constants/frequentErrors";
-import { errorMessageDataI } from "src/app/utils/interfaces/errorMessageData.interface";
 import { ImageI } from "src/app/utils/interfaces/image/image.interface";
-import { ImageFilterApiParams } from "src/app/utils/interfaces/image/imageFilterApiParams";
-
 @Component({
     selector: "app-filter-form",
     templateUrl: "./filter-form.component.html",
@@ -38,11 +32,13 @@ import { ImageFilterApiParams } from "src/app/utils/interfaces/image/imageFilter
 })
 export class FilterFormComponent implements OnInit, OnDestroy {
 
-    resultImage = this.imageStateService.resultImageSubject
+    @Input() selectedFilter: string|null|undefined;
 
-    selectedFilter = this.imageStateService.SelectedFilter
+    @Input() isOriginalImageToggled: boolean | null | undefined;
 
-    isOriginalImageToggled = this.imageStateService.isOriginalImageToggledSubject
+    @Input() originalImage: Blob | null | undefined;
+
+    @Input() resultImage: Blob | null | undefined;
 
    @ViewChild("submitBtn", {static: true}) submitBtn: ElementRef|undefined;
 
@@ -58,34 +54,8 @@ export class FilterFormComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        this.imageStateService.resultImageSubject.next(undefined);
-
-        const observable$ = this.imageStateService.originalImageSubject.pipe(
-            mergeMap((value) => 
-                this.imageService
-                .fetchCommonFilterImage({file: value.file, filter: this.selectedFilter.getValue()
-                
-                })
-            ),
-            tap(value => {
-                this.imageStateService
-                .resultImageSubject.next({file: value, src: URL.createObjectURL(value)});
-                this.imageStateService.isOriginalImageToggledSubject.next(false);
-            },
-            
-            )
-        )
-
         
-
-        const eventObservable$ = fromEvent(this.submitBtn?.nativeElement, "click").pipe(
-            mergeMapTo(observable$)
-            ).subscribe(console.log)
-
-        /* const concat$ = concat(
-            eventObservable$,
-            observable$
-        ).subscribe(console.log) */
+           
 
     }
 
@@ -106,24 +76,32 @@ export class FilterFormComponent implements OnInit, OnDestroy {
 
     submitImage() {
 
-        
+    
+        this.imageStateService.resetImageValues();
 
-        
-            
-            /* this.imageStateService.originalImageSubject.pipe(
-                mergeMap((value) => 
-                    this.imageService
-                    .fetchCommonFilterImage({file: value.file, filter: this.selectedFilter.getValue()})
-                ),
-                tap(value => {
-                    this.imageStateService
-                    .resultImageSubject.next({file: value, src: URL.createObjectURL(value)});
-                    this.imageStateService.isOriginalImageToggledSubject.next(false);
-                    this.imageServiceSub?.unsubscribe();
-                },
-                watch("Filter odd numbers out", 10)
+        this.imageService
+                .fetchCommonFilterImage({
+                    file: this.originalImage?? undefined, 
+                    filter: this.selectedFilter?? "negative"
+                })
+                .pipe(
+                    tap(
+                        (image) => {
+                            this.imageStateService.isOriginalImageToggledSubject.next(false);
+                            this.loadingService.setNextValue(true);
+                            this.imageStateService.resultImageSubject.next(
+                                {
+                                    file: image, 
+                                    src: URL.createObjectURL(image),
+                                    filter: this.selectedFilter || ''
+                                }
+                            )
+                        }
+                    )
                 )
-            ).subscribe() */
+                .subscribe({complete: () => {
+                    this.loadingService.setNextValue(false);
+                }})
 
     }
 }

@@ -1,8 +1,11 @@
 <div class="image-container">
-    <img [src]="(isOriginalImageToggled|async)?  
-    ((originalImage | async)?.file | getFileSrc | safeUrl): ((resultImage|async)?.file | getFileSrc | safeUrl)" 
-    alt="" 
-    matTooltip="hello world" 
-    [matTooltipPosition]="'left'"
-    class="filter-image">
+    <a type="download" [href]="isOriginalImageToggled?  
+    (originalImage | getFileSrc | safeUrl): (resultImage | getFileSrc | safeUrl)" target="_blank" rel="noopener noreferrer">
+        <img [src]="isOriginalImageToggled?  
+        (originalImage | getFileSrc | safeUrl): (resultImage | getFileSrc | safeUrl)" 
+        alt="" 
+        [matTooltip]="isOriginalImageToggled? 'original': (filterName||'result')" 
+        [matTooltipPosition]="'left'"
+        class="filter-image">
+    </a>
 </div>

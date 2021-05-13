@@ -21,7 +21,12 @@
         <!-- SHOW IMAGE AND RESULT IMAGE -->
         
         <app-filter-image 
-        *ngIf="!(this.imageStateService.errorData| async); else errorTemplate">
+        *ngIf="!(this.imageStateService.errorData| async); else errorTemplate"
+        [originalImage]="(imageStateService.originalImageSubject | async)?.file"
+        [resultImage]="(imageStateService.resultImageSubject | async)?.file"
+        [isOriginalImageToggled]="(imageStateService.isOriginalImageToggledSubject | async)"
+        [filterName]="(imageStateService.resultImageSubject| async)?.filter"
+        >
         </app-filter-image>
 
 
@@ -41,6 +46,9 @@
 
         <app-filter-form 
         class="p-0"
+        [isOriginalImageToggled]="(imageStateService.isOriginalImageToggledSubject | async)"
+        [originalImage]="(imageStateService.originalImageSubject | async)?.file"
+        [selectedFilter]="imageStateService.SelectedFilter | async"
         ></app-filter-form>
        
     </form>
