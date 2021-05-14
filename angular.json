@@ -32,10 +32,10 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/app/styles/index.scss",
               "src/app/material/font/OpenSans.scss",
-              "src/static/css/mdb.min.css",
               "src/styles.scss",
+              "src/assets/css/mdb.min.css",
+              "src/app/styles/index.scss",
               "src/app/material/themes/secondary-theme.scss"
               
             ],
