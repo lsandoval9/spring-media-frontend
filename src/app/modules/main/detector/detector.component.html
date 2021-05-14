@@ -1,7 +1,8 @@
 <div class="container-fluid mt-3 h-auto d-flex flex-wrap row justify-content-around">
 
-    <app-detector-card (resultEmitter)="setResult($event)" 
-    (fileEmitter)="setFile($event)"></app-detector-card>
+    <app-detector-card-form (resultEmitter)="setResult($event)"
+    class="d-flex detector-card col-12 col-md-5 mb-5 custom-card pt-3"
+    (fileEmitter)="setFile($event)"></app-detector-card-form>
 
     <mat-divider [vertical]="true" *ngIf="(result$|async)"
      class="d-sm-none p-0 d-md-flex col-md-1 flex-shrink-1"></mat-divider>
@@ -9,7 +10,9 @@
     <mat-divider *ngIf="(result$|async)" class=" d-block col p-0 d-md-none "></mat-divider>
 
     <app-detector-card-result
-    [file]="file$ | async"
-    [result]="result$ | async"></app-detector-card-result>
+    *ngIf="result$ | async as result"
+    class="d-flex col-12 col-md-5 pt-3 custom-card result-card"
+    [inputFile]="(file$ | async)"
+    [result]="result"></app-detector-card-result>
 
 </div>

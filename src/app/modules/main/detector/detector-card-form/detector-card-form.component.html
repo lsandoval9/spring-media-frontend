@@ -1,20 +1,23 @@
-<form matFormFieldControl [formGroup]="detectorForm"
-        class="d-flex detector-card col-12 col-md-5 mb-5 custom-card pt-3 "
-        (ngSubmit)="submitFile()">
+<form matFormFieldControl [formGroup]="detectorForm" class="p-0 m-0 w-100 h-100 d-flex flex-column"
+(ngSubmit)="submitFile()">
 
-        <label class="btn btn-danger w-75 mx-auto">
+        <label class="btn btn-danger w-75 mx-auto justify-content-center">
             Load file <input formControlName="file" type="file" name="file" 
             (change)="onLoadFile($event)" hidden>
         </label>
 
         <div class="my-5 border-5 alert alert--gray w-100 font-sans file-info-container">
 
-            <p>Filename: <span class="card-secondary-text">{{(fileData|async)?.fileName}}</span></p>
-            <p *ngIf="(fileData|async)?.fileDate">
+            <p class="fs-6">Filename: 
+                <span class="card-secondary-text">{{(fileData|async)?.fileName}}</span>
+            </p>
+            <p class="fs-6" *ngIf="(fileData|async)?.fileDate">
                 Created at: <span class="card-secondary-text">{{(fileData|async)?.fileDate}}</span>
             </p>
-            <p>Type: <span class="card-secondary-text">{{(fileData|async)?.fileType}}</span></p>
-            <p>Size:
+            <p class="fs-6">Type: 
+                <span class="card-secondary-text">{{(fileData|async)?.fileType}}</span>
+            </p>
+            <p class="fs-6">Size:
                 <span class="mb-3 card-secondary-text" *ngIf="(fileData|async)?.fileSize as fileSize">
                     {{fileSize}} Bytes 
                     <span *ngIf="fileSize && 

@@ -1,15 +1,21 @@
+@use "../../assets/css/mdb.min.css";
+
 .alert--success {
     border-left: 3px solid rgb(0, 117, 0) !important;
+    @extend .fs-5;
 }
 
 .alert--danger {
     border-left: 3px solid rgb(109, 0, 0) !important;
+    @extend .fs-5;
 }
 
 .alert--warning {
     border-left: 3px solid rgb(230, 214, 0) !important;
+    @extend .fs-5;
 }
 
 .alert--gray {
     border-left: 3px solid rgb(78, 78, 78) !important;
+    @extend .fs-5;
 }

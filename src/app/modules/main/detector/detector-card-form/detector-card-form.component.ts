@@ -1,26 +1,35 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observer, Subject } from 'rxjs';
-import { DetectorService } from 'src/app/core/http/detector/detector.service';
-import { ShowErrorDialogService } from 'src/app/core/services/show-error-dialog/show-error-dialog.service';
-import { ToggleLoadingBarService } from 'src/app/core/services/toggle-loading-bar/toggle-loading-bar.service';
-import { fileDataI } from 'src/app/utils/interfaces/detector/fileData';
-import { detectorResultI } from 'src/app/utils/interfaces/detectorResult.inteface';
-import { errorMessageDataI } from 'src/app/utils/interfaces/errorMessageData.interface';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    OnInit,
+    Output,
+} from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { BehaviorSubject, Observer, Subscription } from "rxjs";
+import { DetectorService } from "src/app/core/http/detector/detector.service";
+import { ShowErrorDialogService } from "src/app/core/services/show-error-dialog/show-error-dialog.service";
+import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
+import { fileDataI } from "src/app/utils/interfaces/detector/fileData";
+import { detectorResultI } from "src/app/utils/interfaces/detectorResult.inteface";
+import { errorMessageDataI } from "src/app/utils/interfaces/errorMessageData.interface";
 
 @Component({
-  selector: 'app-detector-card',
-  templateUrl: './detector-card-form.component.html',
-  styleUrls: ['./detector-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: "app-detector-card-form",
+    templateUrl: "./detector-card-form.component.html",
+    styleUrls: ["./detector-card.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetectorCardFormComponent implements OnInit {
-
     // INPUTS
-    file: File|null|undefined;
-    fileData = new BehaviorSubject<fileDataI|undefined>(undefined);
+    file: File | null | undefined;
+    fileData = new BehaviorSubject<fileDataI | undefined>(undefined);
     @Output() resultEmitter: EventEmitter<detectorResultI> = new EventEmitter();
     @Output() fileEmitter: EventEmitter<File> = new EventEmitter();
+
+    // Subscriptions
+
+    subscriptions: Subscription[] = [];
 
     private resultObserver: Observer<detectorResultI> = {
         next: (result: detectorResultI) => {
@@ -39,59 +48,51 @@ export class DetectorCardFormComponent implements OnInit {
 
     detectorForm!: FormGroup;
 
-    
+    constructor(
+        private loadingService: ToggleLoadingBarService,
+        private detectorService: DetectorService,
+        private errorDialogService: ShowErrorDialogService
+    ) {}
 
-  constructor(private loadingService: ToggleLoadingBarService,
-    private detectorService: DetectorService,
-    private errorDialogService: ShowErrorDialogService) { }
+    ngOnInit(): void {
+        this.detectorForm = new FormGroup({
+            file: new FormControl("", [Validators.required]),
+        });
 
-  ngOnInit(): void {
-    this.detectorForm = new FormGroup({
-        file: new FormControl("", [Validators.required]),
-    });
-  }
+        this.subscriptions.map(
+            sub => sub.unsubscribe()
+        )
+    }
 
-  onLoadFile(event: any): void {
+    onLoadFile(event: any): void {
+        this.resultEmitter.emit(undefined);
 
-    this.resultEmitter.emit(undefined);
+        if (event.target?.files && event.target?.files[0]) {
+            this.fileData.next({
+                fileDate: event.target.files[0].lastModifiedDate ?? "",
+                fileName: event.target.files[0].name ?? "",
+                fileSize: event.target.files[0].size ?? "",
+                fileType: event.target.files[0].type ?? "",
+                file: event.target.files[0],
+            });
 
-    if (
-        event.target?.files &&
-        event.target?.files[0]
-    ) {
+            this.file = event.target.files[0];
 
-        console.log(event.target?.files[0])
+            if (event.target.files[0]) {
+                this.fileEmitter.emit(event.target.files[0]);
+            }
+        }
+    }
 
-        this.fileData.next({
-
-            fileDate: event.target.files[0].lastModifiedDate?? "",
-            fileName: event.target.files[0].name?? "",
-            fileSize: event.target.files[0].size?? "",
-            fileType: event.target.files[0].type?? "",
-            file: event.target.files[0]
-        })
-
-        this.file = event.target.files[0];
+    submitFile(): void {
+        this.loadingService.setNextValue(true);
 
         if (this.file) {
-            this.fileEmitter.emit(this.file);
+           this.subscriptions.push(
+               this.detectorService
+                .getFileMimetype(this.file)
+                .subscribe(this.resultObserver)
+                )
         }
-        
     }
-}
-
-  submitFile(): void {
-
-    this.loadingService.setNextValue(true);
-
-
-
-    if (this.file) {
-
-        this.detectorService
-            .getFileMimetype(this.file)
-            .subscribe(this.resultObserver);
-    }
-}
-
 }

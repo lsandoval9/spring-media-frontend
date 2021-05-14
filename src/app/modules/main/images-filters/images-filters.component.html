@@ -33,8 +33,9 @@
         <!-- SHOW ERROR -->
 
         <ng-template #errorTemplate>
-            <div class="alert"  role="alert"
-            [ngClass]="(this.imageStateService.errorData | async)?.severity === 'danger'? 'alert-danger': 'alert-warning'">
+            <div class="alert my-3"  role="alert"
+            [ngClass]="(this.imageStateService.errorData | async)?.severity === 'danger'? 
+            'alert-danger alert--danger': 'alert-warning alert--warning'">
                 <strong *ngIf="(this.imageStateService.errorData | async)?.code as code">{{code}}</strong>
                 <span *ngIf="(this.imageStateService.errorData | async)?.message as message">
                     {{message}}

@@ -1,14 +1,15 @@
-<div *ngIf="result" 
-    class="d-flex col-12 col-md-5 pt-3 custom-card result-card">
+<div
+class="w-100 h-100" 
+    >
 
         <div class="border-5 alert alert--gray w-100 m-0 file-info-container">
-            <h1>Results:</h1>
-            <mat-divider></mat-divider>
-            <h2>Mimetype: <span class="text-muted">{{result?.mimetype}}</span></h2>
-            <h2>extension: <span class="text-muted">{{result?.extension}}</span></h2>
+            <p class="fs-6">Results:</p>
+            <mat-divider class="mb-1"></mat-divider>
+            <p class="fs-6">Mimetype: <span class="fw-lighter">{{result?.mimetype}}</span></p>
+            <p class="fs-6">extension: <span class="fw-lighter">{{result?.extension}}</span></p>
         </div>
 
-        <div *ngIf="file && this.detectorService.isValidTypeOrMimetype(result.extension, this.file)" 
+        <div *ngIf="inputFile && this.detectorService.isValidTypeOrMimetype(result?.extension, inputFile)" 
         class="alert alert-success m-0
         d-flex flex-column alert--success col-sm-8 col-md-12" role="alert">
             <strong class="h4">This file is a valid image</strong>
