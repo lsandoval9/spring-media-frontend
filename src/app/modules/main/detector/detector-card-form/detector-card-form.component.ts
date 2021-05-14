@@ -25,7 +25,6 @@ export class DetectorCardFormComponent implements OnInit {
     private resultObserver: Observer<detectorResultI> = {
         next: (result: detectorResultI) => {
             this.loadingService.setNextValue(false);
-
             this.resultEmitter.emit(result);
         },
         error: (err: errorMessageDataI) => {
@@ -60,6 +59,8 @@ export class DetectorCardFormComponent implements OnInit {
         event.target?.files &&
         event.target?.files[0]
     ) {
+
+        console.log(event.target?.files[0])
 
         this.fileData.next({
 
