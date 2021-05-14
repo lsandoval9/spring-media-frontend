@@ -5,6 +5,13 @@ import { errorMessageDataI } from "src/app/utils/interfaces/errorMessageData.int
 import { ImageI } from "src/app/utils/interfaces/image/image.interface";
 import { ImageFilterApiParams } from "src/app/utils/interfaces/image/imageFilterApiParams";
 
+
+/**
+ * 
+ * @service
+ * 
+ * @var originalImageSubject
+ */
 @Injectable({
     providedIn: "root",
 })

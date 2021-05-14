@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observer } from 'rxjs';
+import { BehaviorSubject, Observer, Subject } from 'rxjs';
 import { DetectorService } from 'src/app/core/http/detector/detector.service';
 import { ShowErrorDialogService } from 'src/app/core/services/show-error-dialog/show-error-dialog.service';
 import { ToggleLoadingBarService } from 'src/app/core/services/toggle-loading-bar/toggle-loading-bar.service';
+import { fileDataI } from 'src/app/utils/interfaces/detector/fileData';
 import { detectorResultI } from 'src/app/utils/interfaces/detectorResult.inteface';
 import { errorMessageDataI } from 'src/app/utils/interfaces/errorMessageData.interface';
 
@@ -17,10 +18,7 @@ export class DetectorCardFormComponent implements OnInit {
 
     // INPUTS
     file: File|null|undefined;
-    filename: string|null|undefined;
-    fileDate: string|null|undefined;
-    fileType: string|null|undefined;
-    fileSize: number|null|undefined;
+    fileData = new BehaviorSubject<fileDataI|undefined>(undefined);
     @Output() resultEmitter: EventEmitter<detectorResultI> = new EventEmitter();
     @Output() fileEmitter: EventEmitter<File> = new EventEmitter();
 
@@ -59,25 +57,18 @@ export class DetectorCardFormComponent implements OnInit {
     this.resultEmitter.emit(undefined);
 
     if (
-        event.target.files &&
-        event.target.files[0] &&
-        event.target.files[0] !== undefined
+        event.target?.files &&
+        event.target?.files[0]
     ) {
-        this.filename = event.target.files[0].name
-            ? event.target.files[0].name
-            : "";
 
-        this.fileSize = event.target.files[0].size
-            ? event.target.files[0].size
-            : "";
+        this.fileData.next({
 
-        this.fileType = event.target.files[0].type
-            ? event.target.files[0].type
-            : "";
-
-        this.fileDate = event.target.files[0].lastModifiedDate
-            ? event.target.files[0].lastModifiedDate
-            : "";
+            fileDate: event.target.files[0].lastModifiedDate?? "",
+            fileName: event.target.files[0].name?? "",
+            fileSize: event.target.files[0].size?? "",
+            fileType: event.target.files[0].type?? "",
+            file: event.target.files[0]
+        })
 
         this.file = event.target.files[0];
 
@@ -89,9 +80,13 @@ export class DetectorCardFormComponent implements OnInit {
 }
 
   submitFile(): void {
+
     this.loadingService.setNextValue(true);
 
-    if (this.file !== undefined && this.file !== null) {
+
+
+    if (this.file) {
+
         this.detectorService
             .getFileMimetype(this.file)
             .subscribe(this.resultObserver);
