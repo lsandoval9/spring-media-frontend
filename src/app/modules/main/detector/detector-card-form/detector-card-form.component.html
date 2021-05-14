@@ -1,0 +1,30 @@
+<form matFormFieldControl [formGroup]="detectorForm"
+        class="d-flex detector-card col-12 col-md-5 mb-5 custom-card pt-3 "
+        (ngSubmit)="submitFile()">
+
+        <label class="btn btn-danger w-75">
+            Load file <input formControlName="file" type="file" name="file" 
+            (change)="onLoadFile($event)" hidden>
+        </label>
+
+        <div class="my-5 border-5 alert alert--gray w-100 font-sans file-info-container">
+
+            <p>Filename: <span class="card-secondary-text">{{filename}}</span></p>
+            <p>Created at: <span class="card-secondary-text">{{fileDate}}</span></p>
+            <p>Type: <span class="card-secondary-text">{{fileType}}</span></p>
+            <p>Size:
+                <span class="mb-3 card-secondary-text" *ngIf="fileSize !== 0">
+                    {{fileSize}} Bytes 
+                    <span *ngIf="fileSize && fileSize / 1000 >= 1"> ({{fileSize | readableSize}}) </span>
+                </span>
+        
+            </p>
+        
+        </div>
+
+        <div class="custom-card-action w-100">
+            <input type="submit" value="Check mimetype" class="btn btn-success w-75 submit-btn"
+            [disabled]="detectorForm.invalid" [ngClass]="detectorForm.invalid? '': ''">
+        </div>
+
+    </form>

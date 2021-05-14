@@ -13,6 +13,8 @@ import { InViewportModule } from "ng-in-viewport";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { FilterFormComponent } from './images-filters/filter-form/filter-form.component';
 import { FilterImageComponent } from './images-filters/filter-image/filter-image.component';
+import { DetectorCardFormComponent } from './detector/detector-card-form/detector-card-form.component';
+import { DetectorCardResultComponent } from './detector/detector-card-result/detector-card-result.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +23,9 @@ import { FilterImageComponent } from './images-filters/filter-image/filter-image
         DetectorComponent,
         AboutComponent,
         FilterFormComponent,
-        FilterImageComponent
+        FilterImageComponent,
+        DetectorCardFormComponent,
+        DetectorCardResultComponent
     ],
     imports: [
         CommonModule,
