@@ -9,23 +9,28 @@ const routes: Routes = [
     {
         path: "filters",
         component: ImagesFiltersComponent,
+        data: {animation: "filters"}
     },
     {
         path: "detect",
         component: DetectorComponent,
+        data: {animation: "detect"}
     },
     {
         path: "about",
         component: AboutComponent,
+        data: {animation: "about"}
     },
     {
         path: "",
         component: HomeComponent,
         pathMatch: "full"
+        ,data: {animation: "home"}
     },
     {
         path: "**",
         redirectTo: "",
+        data: {animation: "home"}
     },
 ];
 // hello

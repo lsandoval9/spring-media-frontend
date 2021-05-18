@@ -12,7 +12,9 @@
 
     <mat-drawer-content (click)="toggleDrawer(drawer, drawer.opened)" 
     class="h-100 d-flex flex-column">
-        <router-outlet></router-outlet>
+        <main [@slideInOut]="prepareRoute(outlet)" style="position: relative;">
+            <router-outlet #outlet="outlet"></router-outlet>
+        </main>
     </mat-drawer-content>
 
 </mat-drawer-container>

@@ -1,11 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDrawer } from "@angular/material/sidenav";
+import { RouterOutlet } from "@angular/router";
+import { sliderAnimation } from "./routing-animation";
 
 @Component({
     selector: "app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"],
-    animations: [],
+    animations: [
+        sliderAnimation
+    ],
 })
 export class AppComponent implements OnInit {
     
@@ -20,5 +24,10 @@ export class AppComponent implements OnInit {
         if (isOpened) {
             drawer.toggle();
         }
+    }
+
+    prepareRoute(outlet: RouterOutlet): any {
+
+        if (outlet && outlet.activatedRouteData) return outlet.activatedRouteData.animation;
     }
 }
