@@ -1,0 +1,11 @@
+@use "../../assets/css/mdb.min.css";
+
+.routes-container {
+
+    @extend .container;
+    display: flex !important;
+    justify-content: flex-start !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+}

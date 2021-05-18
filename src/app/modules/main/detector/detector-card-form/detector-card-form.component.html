@@ -29,7 +29,7 @@
         </div>
 
         <div class="custom-card-action w-100">
-            <input type="submit" value="Check mimetype" class="btn btn-success w-75 submit-btn"
+            <input type="submit" value="Check mimetype" (keyup.enter)="submitFile()"  class="btn btn-success w-75 submit-btn"
             [matTooltip]="detectorForm.invalid? 'Please submit a valid file': ''"
             [disabled]="detectorForm.invalid" [ngClass]="detectorForm.invalid? '': ''">
         </div>

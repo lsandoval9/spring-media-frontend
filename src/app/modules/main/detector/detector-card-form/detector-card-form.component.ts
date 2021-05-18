@@ -87,7 +87,7 @@ export class DetectorCardFormComponent implements OnInit {
     submitFile(): void {
         this.loadingService.setNextValue(true);
 
-        if (this.file) {
+        if (this.file && this.detectorForm.valid) {
            this.subscriptions.push(
                this.detectorService
                 .getFileMimetype(this.file)
