@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDrawer } from "@angular/material/sidenav";
 import { RouterOutlet } from "@angular/router";
+import { environment } from "src/environments/environment";
 import { sliderAnimation } from "./routing-animation";
 
 @Component({
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
     
     title = "spring-media-front";
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
     toggleLoader = (): void => {};
 

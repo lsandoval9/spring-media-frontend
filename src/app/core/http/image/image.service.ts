@@ -34,7 +34,7 @@ export class imageApiService {
         headers.append("Accept", "application/json");
 
         const observable = this.http.post(
-            API_ROUTES.IMAGE_FILTER + imageAPiParams.filter,
+            API_ROUTES.HOST + API_ROUTES.IMAGE_FILTER + imageAPiParams.filter,
             form,
             {
                 headers: {
