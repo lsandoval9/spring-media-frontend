@@ -1,10 +1,7 @@
-<div class="dialog-container">
+<div (click)="closeDialog()" class="overflow-hidden position-relative">
+    <img class="dialog-image overflow-hidden" [src]="data.path">
 
-    <img class="dialog-image" [src]="data.path">
-
-    <mat-chip-list class="top-left ">
-        <mat-chip >{{data.name}}</mat-chip>
+    <mat-chip-list class="mat-chips d-flex justify-content-center overflow-hidden">
+        <mat-chip color="accent" class="filter-chip mb-2" selected>{{data.name}}</mat-chip>
     </mat-chip-list>
-
-    <div style="clear: both;"></div>
 </div>

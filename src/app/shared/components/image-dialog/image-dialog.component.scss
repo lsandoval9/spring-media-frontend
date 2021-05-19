@@ -1,22 +1,36 @@
 .dialog-container {
-
-    position: relative;
+    position: fixed;
     top: 10%;
     left: 37%;
     max-width: 100%;
     max-height: 100%;
-
 }
 
 .dialog-image {
-
-    max-width: 50% !important;
-
+    max-width: 100% !important;
+    max-height: 90vh !important;
 }
 
 .top-left {
     position: absolute;
     top: 10%;
     left: 25%;
+}
 
+.image-dialog {
+    display: flex !important;
+    justify-content: center;
+}
+
+.mat-chips {
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.filter-chip {
+    box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.4);
 }

@@ -1,7 +1,7 @@
 <app-loader [hidden]="true" class="loader h-100 w-100"></app-loader>
 
 <header header (toggleSideNavEmitter)="drawer.toggle()" 
- class="p-0 m-0 d-flex flex-column sticky-header" [isMenuBarOpen]="drawer.opened">
+ class="p-0 m-0 d-flex flex-column sticky-header d-block" [isMenuBarOpen]="drawer.opened">
 </header>
 
 <mat-drawer-container [hasBackdrop]="false" class="">

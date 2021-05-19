@@ -1,6 +1,6 @@
 <div class="container-fluid row">
 
-    <div class="col-10 position-relative z1 container-text row">
+    <div class="col-12 position-relative z1 container-text row">
 
         <!-- inViewport (inViewportAction)="changeOnView($event)" -->
         <div class="section-divider">
@@ -20,8 +20,8 @@
             </p>
 
             <ul>
-                <li><a href="#mimetypes">Mimetypes</a></li>
-                <li><a href="#filters">Filters</a></li>
+                <li><a href="#mimetypes-section">Mimetypes</a></li>
+                <li><a href="#filters-section">Filters</a></li>
             </ul>
 
             <p class="fs-6">
@@ -39,7 +39,8 @@
         </div>
 
         <div class="section-divider">
-            <h1 class="mt-5 mb-0 fw-light" #mimetypes index="1" inViewport (inViewportAction)="changeOnView($event)"
+            <h1 class="mb-0 fw-light" id="mimetypes-section" 
+            #mimetypes index="1" inViewport (inViewportAction)="changeOnView($event)"
                 id="mimetypes">MIME types</h1>
             <a class="text-muted" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types"
                 target="_blank">
@@ -73,13 +74,12 @@
                     <span matTooltip="type">image</span>/<span matTooltip="subtype">jpeg</span>
                 </p>
             </div>
-
             
         </div>
 
         <div class="section-divider">
 
-            <h1 class="fw-light" index="2" #filters inViewport (inViewportAction)="changeOnView($event)" id="filters">
+            <h1 class="fw-light" index="2" #filters inViewport (inViewportAction)="changeOnView($event)" id="filters-section">
                 Filters
             </h1>
 
@@ -112,7 +112,7 @@
 
 
 
-    <mat-vertical-stepper #stepper="matVerticalStepper" class="col-2 side-stepper" color="warn">
+    <!-- <mat-vertical-stepper #stepper="matVerticalStepper" class="col-2 side-stepper" color="warn">
 
         <mat-step (optional)="true" #step label="Intro" name="TTTTTTTTTT">
         </mat-step>
@@ -122,7 +122,7 @@
 
         <mat-step (optional)="true" #step label="Filters">
         </mat-step>
-    </mat-vertical-stepper>
+    </mat-vertical-stepper> -->
 
 
 </div>

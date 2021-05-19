@@ -28,6 +28,7 @@ export class ShowImageDialogService {
         this.dialogRef = this.matDialog.open(ImageDialogComponent, {
             data,
             hasBackdrop: true,
+            panelClass: "image-dialog"
         });
     }
 }
