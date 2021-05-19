@@ -29,10 +29,10 @@ export const sliderAnimation = trigger("slideInOut", [
         query(
             ":enter",
             [stagger(0, [
-                animate('500ms 0ms cubic-bezier(0.35, 0, 0.25, 1)', keyframes([
+                animate('550ms 0ms cubic-bezier(0.35, 0, 0.25, 1)', keyframes([
                     style({ opacity: .1, transform: "translateX(-500px)"}),
-                    style({ opacity: .3, transform: "translateX(-300px)"}),
-                    style({ opacity: .5, transform: "translateX(-30px)"}),
+                    style({ opacity: .2, transform: "translateX(-300px)"}),
+                    style({ opacity: .3, transform: "translateX(-30px)"}),
                     style({ opacity: 1, transform: "translateX(0)"}),
                 ]))
               ])],

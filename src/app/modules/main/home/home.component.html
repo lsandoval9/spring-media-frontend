@@ -4,7 +4,7 @@
 
         <!-- inViewport (inViewportAction)="changeOnView($event)" -->
         <div class="section-divider">
-            <h1 class="fw-light" index="0" #intro inViewport (inViewportAction)="changeOnView($event)" id="intro">
+            <h1 class="fw-light" index="0" #intro id="intro">
                 Intro
             </h1>
 
@@ -40,7 +40,7 @@
 
         <div class="section-divider">
             <h1 class="mb-0 fw-light" id="mimetypes-section" 
-            #mimetypes index="1" inViewport (inViewportAction)="changeOnView($event)"
+            #mimetypes index="1"
                 id="mimetypes">MIME types</h1>
             <a class="text-muted" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types"
                 target="_blank">
@@ -79,7 +79,7 @@
 
         <div class="section-divider">
 
-            <h1 class="fw-light" index="2" #filters inViewport (inViewportAction)="changeOnView($event)" id="filters-section">
+            <h1 class="fw-light" index="2" #filters id="filters-section">
                 Filters
             </h1>
 
@@ -100,7 +100,6 @@
                     <div *ngFor="let image of images" class="carousel-cell" dots="false" matTooltip="{{image.name}}">
                         <div>
                             <img (click)="showImage(image)" class="carousel-image" [src]="image.path">
-                            <button class=" my-5">CLICK me</button>
                         </div>
                     </div>
 

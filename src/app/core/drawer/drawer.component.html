@@ -3,14 +3,18 @@
     <li class="my-1 w-100">
         <a mat-flat-button color="warn" [routerLink]="['/detect']"
         routerLinkActive #detect="routerLinkActive">
-        <fa-icon [ngClass]="detect.isActive? 'visible': 'invisible'" [icon]="rightArrowIcon" size="lg"></fa-icon>
+        <fa-icon [ngClass]="detect.isActive? 'visible': 'invisible'" 
+        [icon]="rightArrowIcon" size="lg">
+
+        </fa-icon>
         Detector <fa-icon class="" [icon]="fileImageIcon" size="lg"></fa-icon>
         </a>
     </li>
     <li class="my-1 w-100">
         <a mat-flat-button color="warn" [routerLink]="['/filters']"
             routerLinkActive #filters="routerLinkActive">
-            <fa-icon [ngClass]="filters.isActive? 'visible': 'invisible'" [icon]="rightArrowIcon" 
+            <fa-icon [ngClass]="filters.isActive? 'visible': 'invisible'" 
+            [icon]="rightArrowIcon" 
             size="lg"></fa-icon>
             Filters <fa-icon class="" [icon]="sliderIcon" size="lg"></fa-icon>
         </a>
@@ -18,8 +22,13 @@
     <li class="my-1 w-100">
         <a mat-flat-button color="warn" [routerLink]="['/about']"
         routerLinkActive #about="routerLinkActive">
-        <fa-icon [ngClass]="about.isActive? 'visible': 'invisible'"  [icon]="rightArrowIcon" size="lg"></fa-icon>
-        About <fa-icon class="" [icon]="addressCardIcon" size="lg"></fa-icon>
+        <fa-icon [ngClass]="about.isActive? 'visible': 'invisible'"  
+        [icon]="rightArrowIcon" size="lg">
+
+        </fa-icon>
+        About <fa-icon class="" [icon]="addressCardIcon" size="lg">
+            
+        </fa-icon>
     </a>
     </li>
     <li class="my-2 w-100">
