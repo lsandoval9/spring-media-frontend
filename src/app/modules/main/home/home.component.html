@@ -1,16 +1,16 @@
 <div class="container-fluid row">
 
-    <div class="col-12 position-relative z1 container-text row">
+    <div class="col-12 mt-3 position-relative z1 container-text row">
 
         <!-- inViewport (inViewportAction)="changeOnView($event)" -->
         <div class="section-divider">
-            <h1 class="fw-light" index="0" #intro id="intro">
+            <h1 class="fw-normal" index="0" #intro id="intro">
                 Intro
             </h1>
 
             <mat-divider class="mb-2"></mat-divider>
 
-            <p class="fs-6">
+            <p class="fs-6 section-text">
 
                 Hello, my name is Luis Augusto and this is my first full stack application.
                 The application consists of tools to apply filters to images and
@@ -24,7 +24,7 @@
                 <li><a href="#filters-section">Filters</a></li>
             </ul>
 
-            <p class="fs-6">
+            <p class="fs-6 section-text">
                 the filter section was made with the same filters from the CS50X course 
                 and some others that I added like negative, contrast, saturation (hue).
             </p>
@@ -39,7 +39,7 @@
         </div>
 
         <div class="section-divider">
-            <h1 class="mb-0 fw-light" id="mimetypes-section" 
+            <h1 class="mb-0 fw-normal" id="mimetypes-section" 
             #mimetypes index="1"
                 id="mimetypes">MIME types</h1>
             <a class="text-muted" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types"
@@ -54,13 +54,13 @@
 
             <mat-divider class="mb-2"></mat-divider>
 
-            <p class="fs-6">
+            <p class="fs-6 section-text">
                 In the Detect section you can detect the MIME type of a provided file, this is
                 useful when you have a file without a valid extension as ".jpg", ".pdf", etc. and you
                 want to know which type of file it is.
             </p>
 
-            <p class="fs-6">
+            <p class="fs-6 section-text">
                 The mimetypes generally consists in and type and a subtype divided with a slash (/). The
                 type represent a general category that indicates the file's purpose such a video, text, image, audio.
                 The subtype indicates the exact kind of data used by the file, some examples may be
@@ -79,13 +79,13 @@
 
         <div class="section-divider">
 
-            <h1 class="fw-light" index="2" #filters id="filters-section">
+            <h1 class="fw-normal" index="2" #filters id="filters-section">
                 Filters
             </h1>
 
             <mat-divider class="mb-2"></mat-divider>
 
-            <p class="fs-6">
+            <p class="fs-6 section-text">
 
                 In the filters section you can apply effect to your photos like negative, sepia,
                 ascii, reflect, blur and some basic effects like hue, brightness, etc.
