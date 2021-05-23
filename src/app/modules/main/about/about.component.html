@@ -1,61 +1,79 @@
+<!-- TODO: describe page, tools, etc -->
+
+
+
 <div class="container-fluid my-5 pb-5 about-container">
+    <div class="mb-5 col-6">
+        <h3 class="fs-4 fw-normal">Intro</h3>
 
-    <h1 class="display-1 fw-light">Intro</h1>
+        <mat-divider class="mb-2"></mat-divider>
 
-    <p class="fs-6">Hello, my name is Luis Augusto and this is my first full stack app. The app consist in
-        tools to apply filters to images and for detecting file's mimetype.
-    </p>
-
-    <mat-divider class="mb-5"></mat-divider>
-
-    <h1 class="display-1 fw-light">What I used to build it?</h1>
-
-    <div *ngIf="" class="stack-list px-5 row justify-content-around">
-
-        <div class="angular-list-container col-12 col-xl-6 px-0">
-
-            <img src="/assets/images/angular.png" class="stack-image">
-
-            <div class="angular-text-container">
-
-                <span class="angular-text">
-
-                    <h2 class="display-1 col-6 fw-light fs-4 spring-text-title">Front-End</h2>
-
-                    <ul class="fw-lighter stack-list p-0 col-6">
-                        <li matTooltip="Angular 11" [matTooltipPosition]="'left'">Angular</li>
-                        <li matTooltip="Apache Tika 0" [matTooltipPosition]="'left'">MDBootstrap</li>
-
-                    </ul>
-                </span>
-            </div>
-        </div>
-
-
- 
-        <mat-divider class="my-5 w-75 col-1 d-xl-none"></mat-divider>
-
-        <mat-divider [vertical]="true" class="my-5 h-75 d-none col-1 d-xl-flex"></mat-divider>
-
-        <div class="spring-list-container col-12 col-xl-6">
-
-            <img src="/assets/images/spring.jpg" class="stack-image">
-
-            <div class="spring-text-container"></div>
-
-            <span class="spring-text">
-
-                <h2 class="display-1 fw-light fs-4 spring-text-title">Back-end</h2>
-
-                <ul class="fw-lighter stack-list p-0">
-                    <li matTooltip="Spring 2.3.7" [matTooltipPosition]="'left'">Spring boot</li>
-                    <li matTooltip="Apache Tika 0" [matTooltipPosition]="'left'">Apache Tika</li>
-                </ul>
-            </span>
-        </div>
-
+        <p class="fs-6 section-text">
+            This app consist in two parts: Backend and Frontend
+        </p>
     </div>
 
+    <section class="d-flex row section-content nowrap">
+        <div class="col-md-6 d-flex flex-column">
+            <h3 class="fs-4 fw-normal">Frontend</h3>
+            <mat-divider></mat-divider>
+            <p class="fs-6 section-text">
+                The frontend is made with Angular, MDBootstrap (boostrap
+                implementation with material design), Angular material.
+            </p>
+            <p class="fs-6 section-text">
+                The Frontend has 4 entries: Home, detector, filters and about.
+                It usage it's quite simple, it display information with card and
+                then comunicate with the backend.
+            </p>
+        </div>
+        <img
+            src="assets/images/angular.png"
+            alt="angular image"
+            class="mx-auto col-md-6"
+        />
+    </section>
 
+    <section class="d-flex row section-content nowrap">
+        <img
+            src="assets/images/spring boot.png"
+            alt="Spring image"
+            class="mx-auto col-md-6 d-none d-md-flex"
+        />
+        <div class="col-md-6 d-flex flex-column">
+            <h3 class="fs-4 fw-normal">Backend</h3>
+            <mat-divider></mat-divider>
+            <p class="fs-6 section-text">
+                The backend is made with spring boot and apache tika
+            </p>
+            <p class="fs-6 section-text">
+                The Backend handle the data send from the Frontend and apply
+                filters or return the mimetype of the file
+            </p>
+        </div>
+        <img
+            src="assets/images/spring boot.png"
+            alt="Spring image"
+            class="mx-auto col-md-6 d-md-none"
+        />
+    </section>
 
+    <section class="d-flex section-content row nowrap">
+        <div class="col-md-6 d-flex flex-column">
+            <h3 class="fs-4 fw-normal">Backend</h3>
+            <mat-divider></mat-divider>
+            <p class="fs-6 section-text">
+                The backend is made with spring boot and apache tika
+            </p>
+            <p class="fs-6 section-text">
+                The Backend handle the data send from the Frontend and apply
+                filters or return the mimetype of the file
+            </p>
+        </div>
+        <img
+            src="assets/images/CS50x.jpg"
+            alt="Spring image"
+            class="mx-auto col-md-6"
+        />
+    </section>
 </div>
