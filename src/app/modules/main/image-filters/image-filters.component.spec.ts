@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ImagesFiltersComponent } from './images-filters.component';
+import { ImagesFiltersComponent } from './image-filters.component';
 
 describe('ImagesFiltersComponent', () => {
   let component: ImagesFiltersComponent;

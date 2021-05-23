@@ -1,6 +1,6 @@
 <div class="routes-container pe-0 overflow-hidden h-auto d-flex row mx-auto mt-3 justify-content-between">
 
-    <div class="pt-5 d-flex custom-card row col-12">
+    <div class="pt-5 mb-5 d-flex custom-card row col-12">
 
 
         <div class="d-flex flex-row align-items-center mb-2">
@@ -11,7 +11,7 @@
             </label>
 
             <p class="w-100 m-0 file-name-container ms-2 ps-1 mb-2 pb-2 fs-6">
-                <ng-container *ngIf="(this.imageStateService.originalFileName| async )as filename">
+                <ng-container *ngIf="(this.imageStateService.originalFileName | async )as filename">
                     {{filename}}
                 </ng-container>
             </p>
@@ -21,7 +21,7 @@
         <!-- SHOW IMAGE AND RESULT IMAGE -->
         
         <app-filter-image 
-        *ngIf="!(this.imageStateService.errorData| async); else errorTemplate"
+        *ngIf="!(this.imageStateService.errorData | async); else errorTemplate"
         [originalImage]="(imageStateService.originalImageSubject | async)?.file"
         [resultImage]="(imageStateService.resultImageSubject | async)?.file"
         [isOriginalImageToggled]="(imageStateService.isOriginalImageToggledSubject | async)"

@@ -42,18 +42,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         private elRef: ElementRef,
         private imageDialogService: ShowImageDialogService,
         private router: Router,
-        private scroller: ViewportScroller
     ) {}
     ngOnInit(): void {}
     ngAfterViewInit(): void {
-        this.stepperSections = document.querySelectorAll("mat-step-header");
-        if (this.stepperSections) {
-            this.stepperSections.forEach((section, index) => {
-                fromEvent(section, "click").subscribe((x) => {
-                    this.scroller.scrollToAnchor(sections[index]);
-                });
-            });
-        }
+        
     }
 
     showImage(path: imageDialogI): void {

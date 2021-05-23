@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { AboutComponent } from "./modules/main/about/about.component";
 import { DetectorComponent } from "./modules/main/detector/detector.component";
 import { HomeComponent } from "./modules/main/home/home.component";
-import { ImagesFiltersComponent } from "./modules/main/images-filters/images-filters.component";
+import { ImagesFiltersComponent } from "./modules/main/image-filters/image-filters.component";
 
 const routes: Routes = [
     {

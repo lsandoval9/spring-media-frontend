@@ -20,8 +20,8 @@ import { ImageStateService } from "src/app/core/services/image-state/image-state
 
 @Component({
     selector: "app-images-filters",
-    templateUrl: "./images-filters.component.html",
-    styleUrls: ["./images-filters.component.scss"],
+    templateUrl: "./image-filters.component.html",
+    styleUrls: ["./image-filters.component.scss"],
     changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ImagesFiltersComponent implements OnInit, OnDestroy {
@@ -29,7 +29,7 @@ export class ImagesFiltersComponent implements OnInit, OnDestroy {
 
     // OBSERVABLES
 
-    shareImageSubscription: Subscription | undefined;
+    shareImageSubscription: Subscription | undefined = undefined;
 
     detectorServiceSubscription: Subscription | undefined
 
