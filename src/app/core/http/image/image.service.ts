@@ -22,6 +22,8 @@ export class imageApiService {
         if (imageAPiParams.file) {
             form.append("file", imageAPiParams.file, "file");
             form.append("negative", "false");
+            form.append("color", imageAPiParams.color || "");
+            form.append("value", imageAPiParams.value?? "MEDIUM")
         } else {
             return EMPTY;
         }

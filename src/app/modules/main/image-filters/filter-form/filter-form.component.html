@@ -1,73 +1,103 @@
-<form 
-(submit)="submitImage()"
-class="custom-card-action d-flex flex-column align-items-center">
-
-    <div>
+<form
+    (submit)="submitImage()"
+    class="custom-card-action d-flex flex-column align-items-center"
+>
+    <div class="d-flex flex-row justify-content-around w-100">
         <mat-form-field color="primary">
+            <mat-label> Select filter </mat-label>
 
-            <mat-label>
-                Select filter
-            </mat-label>
-
-            <mat-select  [ngModel]="selectedFilter"
-                        (selectionChange)="changeSelectedFilter($event)" name="filter">
-
+            <mat-select
+                
+                [ngModel]="selectedFilter"
+                (selectionChange)="changeSelectedFilter($event)"
+                name="filter"
+            >
                 <!-- COMMON -->
-                <mat-optgroup label="Common" >
-                    <mat-option value="negative">
-                        Negative
-                    </mat-option>
-                    <mat-option value="ascii">
-                        Ascii
-                    </mat-option>
-                    <mat-option value="reflect">
-                        Reflect
-                    </mat-option>
-                    <mat-option value="sepia">
-                        Sepia
-                    </mat-option>
-                    <mat-option value="blur">
-                        Blur
-                    </mat-option>
-                    <mat-option value="grayscale">
-                        Grayscale
-                    </mat-option>
+                <mat-optgroup label="Common">
+                    <mat-option value="negative"> Negative </mat-option>
+                    <mat-option value="ascii"> Ascii </mat-option>
+                    <mat-option value="reflect"> Reflect </mat-option>
+                    <mat-option value="sepia"> Sepia </mat-option>
+                    <mat-option value="blur"> Blur </mat-option>
+                    <mat-option value="grayscale"> Grayscale </mat-option>
                 </mat-optgroup>
 
                 <!-- BASIC -->
                 <mat-optgroup label="Basic">
-                    <mat-option value="hello">
-                        hello
-                    </mat-option>
+                    <mat-option value="unicolor"> Unicolor </mat-option>
+                    <mat-option value="brightness"> Brightness </mat-option>
+                    <mat-option value="saturation"> Saturation </mat-option>
                 </mat-optgroup>
-                
             </mat-select>
+        </mat-form-field>
 
+        <mat-form-field *ngIf="selectedFilter === 'unicolor'">
+            <mat-select
+                (selectionChange)="changeSelectedColor($event)"
+                *ngIf="true"
+                name="color"
+                [ngModel]="selectedColor"
+            >
+            
+                <!-- COLOR FOR UNICOLOR FILTER -->
+                <mat-optgroup label="color">
+                    <mat-option value="red"> Red </mat-option>
+                    <mat-option value="green"> Green </mat-option>
+                    <mat-option value="blue"> Blue </mat-option>
+                </mat-optgroup>
+            </mat-select>
+        </mat-form-field>
 
+        <mat-form-field *ngIf="isBasicFilter(selectedFilter || '')">
+            <mat-select
+                (selectionChange)="changeSelectedValue($event)"
+                name="value"
+                *ngIf="true"
+                [ngModel]="selectedValue"
+            >
+            
+                <!-- BASIC FILTERS VALUES -->
+                <mat-optgroup label="Basic">
+                    <mat-option value="light"> Light </mat-option>
+                    <mat-option value="medium"> Medium </mat-option>
+                    <mat-option value="hight"> Hight </mat-option>
+                </mat-optgroup>
+            </mat-select>
         </mat-form-field>
     </div>
 
     <div class="d-flex flex-row" #formActions>
-
-        <a [href]="resultImage? (resultImage  | getFileSrc | safeUrl): ''"
-        type="button"
-        class="w-100 h-100" [download]="selectedFilter">
-            <button [disabled]="!resultImage" class="btn btn-none me-2 flex-shrink-0" type="button">
+        <a
+            [href]="resultImage ? (resultImage | getFileSrc | safeUrl) : ''"
+            type="button"
+            class="w-100 h-100"
+            [download]="selectedFilter"
+        >
+            <button
+                [disabled]="!resultImage"
+                class="btn btn-none me-2 flex-shrink-0"
+                type="button"
+            >
                 Download
             </button>
         </a>
 
-        <button [disabled]="!resultImage" type="button" class="btn btn-none me-2 flex-shrink-0" 
-        (click)="toggleImage()">
-            Show {{ isOriginalImageToggled? "Result": "Original" }}
+        <button
+            [disabled]="!resultImage"
+            type="button"
+            class="btn btn-none me-2 flex-shrink-0"
+            (click)="toggleImage()"
+        >
+            Show {{ isOriginalImageToggled ? "Result" : "Original" }}
         </button>
 
-
-        <button class="btn btn-primary flex-shrink-0" 
-        #submitBtn
-        type="submit">
+        <button
+            class="btn btn-primary flex-shrink-0"
+            #submitBtn
+            [disabled]="!originalImage"
+            type="submit"
+        >
             submit
         </button>
     </div>
-
 </form>

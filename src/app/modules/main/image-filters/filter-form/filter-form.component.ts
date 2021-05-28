@@ -4,27 +4,15 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     OnDestroy,
-    ViewChild,
-    ElementRef,
-    OnChanges,
 } from "@angular/core";
 import { MatSelectChange } from "@angular/material/select";
-import { watch } from "rxjs-watcher";
 import {
-    BehaviorSubject,
-    concat,
-    fromEvent,
-    merge,
-    Observable,
-    Subject,
-    Subscription,
+     Subscription,
 } from "rxjs";
-import { concatMap, map, mergeMap, mergeMapTo, reduce,
-     shareReplay, skipUntil, skipWhile, take, takeLast, takeUntil, tap } from "rxjs/operators";
+import { tap } from "rxjs/operators";
 import { imageApiService } from "src/app/core/http/image/image.service";
 import { ImageStateService } from "src/app/core/services/image-state/image-state.service";
 import { ToggleLoadingBarService } from "src/app/core/services/toggle-loading-bar/toggle-loading-bar.service";
-import { ImageI } from "src/app/utils/interfaces/image/image.interface";
 @Component({
     selector: "app-filter-form",
     templateUrl: "./filter-form.component.html",
@@ -40,6 +28,10 @@ export class FilterFormComponent implements OnInit, OnDestroy {
     @Input() originalImage: Blob | null | undefined;
 
     @Input() resultImage: Blob | null | undefined;
+
+    selectedColor: string = "red";
+
+    selectedValue: string = "medium"
 
     // SUBSCRIPTIONS
 
@@ -73,6 +65,14 @@ export class FilterFormComponent implements OnInit, OnDestroy {
         this.imageStateService.SelectedFilter.next(event.value);
     }
 
+    changeSelectedValue(event: MatSelectChange) {
+        this.selectedValue = event.value;
+    }
+
+    changeSelectedColor(event: MatSelectChange) {
+        this.selectedColor = event.value;
+    }
+
     submitImage() {
 
     
@@ -81,7 +81,10 @@ export class FilterFormComponent implements OnInit, OnDestroy {
         this.imageService
                 .fetchCommonFilterImage({
                     file: this.originalImage?? undefined, 
-                    filter: this.selectedFilter?? "negative"
+                    filter: this.selectedFilter?? "negative",
+                    value: this.selectedValue.toUpperCase(),
+                    color: this.selectedColor.toUpperCase()
+
                 })
                 .pipe(
                     tap(
@@ -101,6 +104,14 @@ export class FilterFormComponent implements OnInit, OnDestroy {
                 .subscribe({complete: () => {
                     this.loadingService.setNextValue(false);
                 }})
+
+    }
+
+    isBasicFilter(filter: string) {
+
+        const basicFilterEntries = ["unicolor", "brightness", "saturation"];
+
+        return basicFilterEntries.some( entry => filter === entry);
 
     }
 }
