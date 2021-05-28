@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { environment } from "src/environments/environment";
 import { AboutComponent } from "./modules/main/about/about.component";
 import { DetectorComponent } from "./modules/main/detector/detector.component";
 import { HomeComponent } from "./modules/main/home/home.component";
@@ -35,7 +36,7 @@ const routes: Routes = [
 ];
 // hello
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {useHash: true})],
+    imports: [RouterModule.forRoot(routes, {useHash: environment.production})],
     exports: [RouterModule],
 })
 export class AppRoutingModule {}
