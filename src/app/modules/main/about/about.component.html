@@ -9,11 +9,12 @@
         <mat-divider class="mb-2"></mat-divider>
 
         <p class="fs-6 section-text">
-            This app consist in two parts: Backend and Frontend
+            This app consist in two parts: <strong>Backend</strong> and <strong>Frontend</strong>
         </p>
     </div>
 
-    <section class="d-flex row section-content nowrap">
+    <section class="d-flex row section-content">
+
         <div class="col-md-6 d-flex flex-column">
             <h3 class="fs-4 fw-normal">Frontend</h3>
             <mat-divider></mat-divider>
@@ -23,14 +24,15 @@
             </p>
             <p class="fs-6 section-text">
                 The Frontend has 4 entries: Home, detector, filters and about.
-                It usage it's quite simple, it display information with card and
-                then comunicate with the backend.
+                It usage it's quite simple, filters and detect section display information
+                with card and comunicate with the backend sending and receiving files. The home
+                and about section contain information about the app (how it's made, how it's works).
             </p>
         </div>
         <img
             src="assets/images/angular.png"
             alt="angular image"
-            class="mx-auto col-md-6"
+            class="mx-auto col-md-5 p-0 img-fluid"
         />
     </section>
 
@@ -38,7 +40,7 @@
         <img
             src="assets/images/spring boot.png"
             alt="Spring image"
-            class="mx-auto col-md-6 d-none d-md-flex"
+            class="mx-auto p-0 col-md-6 d-none d-md-flex"
         />
         <div class="col-md-6 d-flex flex-column">
             <h3 class="fs-4 fw-normal">Backend</h3>
@@ -47,18 +49,22 @@
                 The backend is made with spring boot and apache tika
             </p>
             <p class="fs-6 section-text">
-                The Backend handle the data send from the Frontend and apply
-                filters or return the mimetype of the file
+                The Backend handle the data sent from the Frontend and 
+                it processes it depending on the entry point.
+                There are entries for file (detect section) which detects 
+                the mimetype of the file and filters (image section) which apply 
+                filters to the image depending on the entry point and some options
+                selected by the user.
             </p>
         </div>
         <img
             src="assets/images/spring boot.png"
             alt="Spring image"
-            class="mx-auto col-md-6 d-md-none"
+            class="mx-auto p-0 col-md-6 d-md-none"
         />
     </section>
 
-    <section class="d-flex section-content row nowrap">
+   <!--  <section class="d-flex section-content row nowrap">
         <div class="col-md-6 d-flex flex-column">
             <h3 class="fs-4 fw-normal">Backend</h3>
             <mat-divider></mat-divider>
@@ -75,5 +81,5 @@
             alt="Spring image"
             class="mx-auto col-md-6"
         />
-    </section>
+    </section> -->
 </div>
