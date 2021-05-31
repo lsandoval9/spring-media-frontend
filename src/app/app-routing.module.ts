@@ -36,7 +36,7 @@ const routes: Routes = [
 ];
 // hello
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {useHash: environment.production})],
+    imports: [RouterModule.forRoot(routes, {useHash: !environment.production})],
     exports: [RouterModule],
 })
 export class AppRoutingModule {}

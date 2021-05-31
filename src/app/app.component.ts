@@ -17,10 +17,10 @@ export class AppComponent implements OnInit {
     toggleLoader = (): void => {};
 
     /**
-     * 
+     *
      * @param drawer as
      * @param isOpened as
-     * 
+     *
      * toggleDrawer
      */
     toggleDrawer(drawer: MatDrawer, isOpened: boolean): void {
